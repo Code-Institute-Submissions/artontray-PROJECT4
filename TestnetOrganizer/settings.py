@@ -32,6 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["testnet-organizer.herokuapp.com", "localhost"]
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Application definition
 
