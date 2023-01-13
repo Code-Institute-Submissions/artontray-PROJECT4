@@ -18,9 +18,9 @@ class StatistiqueApp(generic.ListView):
     """
     def get(self, request):
         """
-        Get the Testnet Info
+        Get the Testnet Total number and the User total number 
         """
-        model = User
+        
         nb_testnet_total = Testnet.objects.all().count()
         nb_user_total = User.objects.all().count()
   
@@ -34,3 +34,28 @@ class StatistiqueApp(generic.ListView):
                 "nb_user": nb_user_total
             },
         )
+
+
+class ShowDashboard(generic.ListView):
+    """
+    This view is used to display User Dashboard informations
+    """
+    def get(self, request):
+        """
+        Get the Testnet Info
+        """
+        queryset = User.objects.all()
+        username = get_object_or_404(queryset, id=self.request.user.id)
+       
+  
+
+
+        return render(
+            request,
+            "dashboard.html",
+            {
+                "username": username
+                
+            },
+        )
+ 
