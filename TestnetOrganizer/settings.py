@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ["testnet-organizer.herokuapp.com", "localhost"]
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,12 +43,28 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'cripsy_forms',
     'django_summernote',
     'app',
+    'django_extensions',
 ]
+
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+#CRISPY_TEMPLATES_PACK = 'uni_form'
+CRISPY_TEMPLATES_PACK = 'bootstrap4'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -11,8 +11,6 @@ class PostAdmin(SummernoteModelAdmin):
 
 
 
-admin.site.register(UserInfo)
-admin.site.register(CheckList)
 
 
 
@@ -41,3 +39,20 @@ class NotificationsAdmin(admin.ModelAdmin):
     Allows admin to manage user notifications via the admin panel
     """
     list_display = ('notification_owner', 'title', 'created_on')
+
+
+@admin.register(UserInfo)
+class NotificationsAdmin(admin.ModelAdmin):
+    """
+    Allows admin to manage user notifications via the admin panel
+    """
+    list_display = ('user', 'exp', 'created_on')
+
+
+@admin.register(CheckList)
+class NotificationsAdmin(admin.ModelAdmin):
+    """
+    Allows admin to manage user notifications via the admin panel
+    """
+    list_display = ('checklist_owner', 'title', 'created_on')
+
