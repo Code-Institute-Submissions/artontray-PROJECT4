@@ -36,16 +36,22 @@
                     <li class="nav-item mr-2"><a class="nav-link" href="#">Users</a></li>
                     <li class="nav-item mr-2"><a class="nav-link" href="#">Checklist</a></li>
                     {% endif %}
-                    
-                    <li class="nav-item mr-2">
-                        {% if user.is_authenticated %}
-                        <a class="btn btn-primary btn-user btn-block" href="{% url 'account_logout' %}">Logout</a>
-                        {% else %}
-                        <a class="btn btn-primary btn-user btn-block" href="{% url 'account_login' %}">Sign up/Sign
-                            In</a>
-                        {% endif %}
 
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item mr-2">
+                        <a class="btn btn-primary btn-user btn-block" href="{% url 'account_logout' %}">Logout</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item mr-2">
+                        <a class="btn btn-success btn-user btn-block" href="{% url 'account_login' %}">Connect</a>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <a class="btn btn-primary btn-user btn-block" href="{% url 'account_signup' %}">Register</a>
+                    </li>
+                    {% endif %}
+
+
 
                 </ul>
             </div>
@@ -65,11 +71,16 @@
         <div class="row">
             <div class="col-12">
                 <ul class="list-unstyled list-inline align-center">
-                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li>
-                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-twitter fa-2x"></i></a></li>
-                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-instagram fa-2x"></i></a></li>
-                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-google-plus fa-2x"></i></a></li>
-                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-envelope fa-2x"></i></a></li>
+                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-facebook fa-2x"></i></a>
+                    </li>
+                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+                    </li>
+                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
+                    </li>
+                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-google-plus fa-2x"></i></a>
+                    </li>
+                    <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-envelope fa-2x"></i></a>
+                    </li>
                 </ul>
             </div>
         </div>
