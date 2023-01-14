@@ -210,7 +210,16 @@
         <div class="row padding-10-pourcent-left-right">
 
             <div class="col-xl-12 col-md-12">
-                <a href="dashboard.html" class="btn btn-primary btn-block ">ENTER THE APP </a>
+
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="btn btn-primary btn-block ">ENTER THE APP </a>
+                {% else %}
+                <a href="{% url 'account_login' %}" class="btn btn-primary btn-block ">CONNECT TO THE APP</a>
+                {% endif %}
+
+
+                
 
             </div>
         </div>
