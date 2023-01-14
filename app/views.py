@@ -70,9 +70,29 @@ class ShowDashboard(generic.ListView):
         # nb_followers = queryset.followers.count()
 
 
-        
+        nb_notifications_user = Notifications.objects.filter(id=self.request.user.id).count()
 
-       
+        #queryset = UserInfo.objects.all()
+        #username = get_object_or_404(queryset, id=self.request.user.id)
+        user_info = UserInfo.objects.filter(id=self.request.user.id)
+        # queryset = UserInfo.objects.all()
+        #exp = username.exp
+
+        if user_info:
+            exp = user_info[0].exp
+        else:
+            # We fill up the table with none value and 100 exp
+            o = UserInfo.objects.create(
+                user_id=self.request.user.id,
+                bio='Nothing here',
+                exp=100,
+                debank='...',
+                avatar="https://res.cloudinary.com/dqnhlza2r/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1673725603/avatar_empty_gsx6it.webp"
+                )
+            o.save()
+            exp = 100
+            #messages.success(self.request, 'Comment successfully added')    
+
 
 
         return render(
@@ -84,6 +104,8 @@ class ShowDashboard(generic.ListView):
                 "nb_following": nb_following,
                 "nb_followers": nb_followers,
                 "nb_testnet_copied_by_user": nb_testnet_copied_by_user,
+                "nb_notifications_user": nb_notifications_user,
+                "exp": exp,
                 
                 
             },
