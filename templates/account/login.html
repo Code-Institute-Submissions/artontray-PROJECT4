@@ -1,33 +1,64 @@
-{% extends "base.html" %}
+{% extends "../base.html" %}
 
 {% load i18n %}
-{% load account socialaccount %}
+
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
+{% load crispy_forms_tags %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 mt-3 offset-md-2">
-      <h3>{% trans "Sign In" %}</h3>
+<div class="row padding-10-pourcent-left-right">
 
-      <p>{% blocktrans %}Welcome back to the code|star blog. To leave a comment or like a post, please log in. If you
-        have not created an account yet, then <a class="link" href="{{ signup_url }}">sign up</a>
-        first.{% endblocktrans %}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8 mt-3 offset-md-2">
-      <form class="login" method="POST" action="{% url 'account_login' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button class="btn btn-signup right" type="submit">{% trans "Sign In" %}</button>
-      </form>
+  <div class="col-xl-12 col-md-12">
+    <div class="card shadow h-100 mb-4">
+
+      <div class="card-header py-3">
+        <h6 class="h3 font-weight-bold text-primary">Sign In</h6>
+      </div>
+
+      <div class="row padding-10-pourcent-left-right">
+
+        <div class="col-xl-12 col-md-12">
+          <p>{% blocktrans %}Welcome back to Testnet Organizer. To get access to full fonctionnality of this app,
+             please log in. If you
+            have not created an account yet, then <a class="link" href="{{ signup_url }}">sign up</a>
+            first.{% endblocktrans %}</p>
+        
+        </div>
+      </div>
+
+      <div class="row align-center">
+        <div class="col-md-8 mt-3 offset-md-2">
+          <form class="login" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+
+            <div class="row padding-10-pourcent-left-right">
+
+              <div class="col-xl-12 col-md-12">
+                <button type="submit" class="btn btn-primary btn-block ">{% trans "Sign In" %}</button>
+              </div>
+            </div>
+
+
+
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+
 {% endblock %}
