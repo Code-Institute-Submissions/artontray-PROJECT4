@@ -154,7 +154,7 @@ class UserInfo(models.Model):
         """
         ordering = ['-created_on']
 
-    def number_of_followers(self):
+    def number_of_following(self):
         return self.followers.count()
 
 

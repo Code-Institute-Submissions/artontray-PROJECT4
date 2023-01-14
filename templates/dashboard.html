@@ -18,7 +18,7 @@
                         <div class="h4 font-weight-bold text-success text-uppercase mb-1">
                             Testnets
                         </div>
-                        <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">4</div>
+                        <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">{{ nb_testnet_user }}</div>
                     </div>
                     <div class="col-auto">
                         <div class="sidebar-brand-icon rotate-n-15">
@@ -36,14 +36,26 @@
                 <div class="row no-gutters align-items-center ">
                     <div class="col mr-2">
                         <div class="h4 font-weight-bold text-primary text-uppercase mb-1 ">
-                            Followers
+                            Following
                         </div>
-                        <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">3</div>
+                        <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">{{ nb_following }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-sharp fa-solid fa-users fa-4x text-primary"></i>
                     </div>
                 </div>
+                    <div class="row no-gutters align-items-center ">
+                        <div class="col mr-2">
+                            <div class="h4 font-weight-bold text-primary text-uppercase mb-1 ">
+                                Followers
+                            </div>
+                            <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">{{ nb_followers }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-sharp fa-solid fa-users fa-4x text-primary"></i>
+                        </div>
+                    </div>
+                
             </div>
         </div>
     </div>

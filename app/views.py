@@ -46,16 +46,40 @@ class ShowDashboard(generic.ListView):
         """
         queryset = User.objects.all()
         username = get_object_or_404(queryset, id=self.request.user.id)
+        nb_testnet_user = Testnet.objects.filter(id=self.request.user.id).count()
+        
+
+        #user = get_object_or_404(UserInfo, id=self.request.user.id)
+        #user = get_object_or_404(UserInfo, id=3)
+        #user.followers.remove(request.user)
+        nb_following = 0
+        all_users = UserInfo.objects.all()
+        for users in all_users:
+            if users.followers.filter(id=request.user.id).exists():
+                nb_following =+ 1
+
+        
+
+
+        #nb_following = get_object_or_404(queryset, id=self.request.user.id).count()
+        #nb_following = UserInfo.number_of_following(self.request.user)
+        queryset = UserInfo.objects.filter(id=self.request.user.id)
+        # nb_followers = queryset.followers.count()
+
+
+        nb_followers = username.followers.count()
+
        
-  
 
 
         return render(
             request,
             "dashboard.html",
             {
-                "username": username
+                "username": username,
+                "nb_testnet_user": nb_testnet_user,
+                "nb_following": nb_following,
+                "nb_followers": nb_followers,
                 
             },
         )
- 
