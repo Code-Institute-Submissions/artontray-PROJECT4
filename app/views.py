@@ -58,16 +58,19 @@ class ShowDashboard(generic.ListView):
             if users.followers.filter(id=request.user.id).exists():
                 nb_following =+ 1
 
+        nb_followers = username.followers.count()
         
-
+        nb_testnet_total = TestnetUserInfo.objects.filter(id=self.request.user.id).count()
+        nb_testnet_created_by_user = Testnet.objects.filter(id=self.request.user.id).count()
+        nb_testnet_copied_by_user = nb_testnet_total - nb_testnet_created_by_user
 
         #nb_following = get_object_or_404(queryset, id=self.request.user.id).count()
         #nb_following = UserInfo.number_of_following(self.request.user)
-        queryset = UserInfo.objects.filter(id=self.request.user.id)
+        # queryset = UserInfo.objects.filter(id=self.request.user.id)
         # nb_followers = queryset.followers.count()
 
 
-        nb_followers = username.followers.count()
+        
 
        
 
@@ -80,6 +83,8 @@ class ShowDashboard(generic.ListView):
                 "nb_testnet_user": nb_testnet_user,
                 "nb_following": nb_following,
                 "nb_followers": nb_followers,
+                "nb_testnet_copied_by_user": nb_testnet_copied_by_user,
+                
                 
             },
         )

@@ -15,7 +15,7 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="h4 font-weight-bold text-success text-uppercase mb-1">
+                        <div class="h5 font-weight-bold text-success text-uppercase mb-1">
                             Testnets
                         </div>
                         <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">{{ nb_testnet_user }}</div>
@@ -35,26 +35,20 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center ">
                     <div class="col mr-2">
-                        <div class="h4 font-weight-bold text-primary text-uppercase mb-1 ">
+                        <div class="h5 font-weight-bold text-primary text-uppercase mb-1 ">
                             Following
                         </div>
                         <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">{{ nb_following }}</div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fa-sharp fa-solid fa-users fa-4x text-primary"></i>
+                    <div class="col mr-2">
+                        <div class="h5 font-weight-bold text-primary text-uppercase mb-1 ">
+                            Followers
+                        </div>
+                        <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">{{ nb_followers }}</div>
                     </div>
+                    
                 </div>
-                    <div class="row no-gutters align-items-center ">
-                        <div class="col mr-2">
-                            <div class="h4 font-weight-bold text-primary text-uppercase mb-1 ">
-                                Followers
-                            </div>
-                            <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">{{ nb_followers }}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fa-sharp fa-solid fa-users fa-4x text-primary"></i>
-                        </div>
-                    </div>
+                    
                 
             </div>
         </div>
@@ -65,12 +59,12 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="h4 font-weight-bold text-info text-uppercase mb-1">
+                        <div class="h5 font-weight-bold text-info text-uppercase mb-1">
                             Copied Testnets
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h1_extra_big mb-0 mr-3 font-weight-bold text-gray-800">8</div>
+                                <div class="h1_extra_big mb-0 mr-3 font-weight-bold text-gray-800">{{ nb_testnet_copied_by_user }}</div>
                             </div>
                         </div>
                     </div>
@@ -87,13 +81,13 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="h4 font-weight-bold text-warning text-uppercase mb-1">
+                        <div class="h5 font-weight-bold text-info text-uppercase mb-1">
                             Notification(s)
                         </div>
                         <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">18</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fa-solid fa-comment fa-4x text-warning"></i>
+                        <i class="fa-solid fa-comment fa-4x text-info"></i>
                     </div>
                 </div>
                 <div class="container-fluid my-2">
