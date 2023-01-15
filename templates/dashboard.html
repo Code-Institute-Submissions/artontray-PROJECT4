@@ -127,19 +127,19 @@
                         aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
-                <h4 class="small font-weight-bold">FOLLOW 10 USERS
-                    <span class="float-right">40%</span>
+                <h4 class="small font-weight-bold">FOLLOW {{ How_Much_Followers_To_Have }} USERS
+                    <span class="float-right">{{ Pourcentage_accomplished_Followers }} %</span>
                 </h4>
                 <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ Pourcentage_accomplished_Followers }}%"
                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
-                <h4 class="small font-weight-bold">COPY 10 TESTNETS
-                    <span class="float-right">Complete!</span>
+                <h4 class="small font-weight-bold">COPY {{ How_Much_Copied_Testnet_To_Have }} TESTNETS
+                    <span class="float-right">{{ Pourcentage_accomplished_Copied_Testnet }} %</span>
                 </h4>
                 <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ Pourcentage_accomplished_Copied_Testnet }}%"
                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
@@ -158,12 +158,21 @@
                 <div class="col mb-2 ">
                     <p>Debank Adress : {{ debank_adress }}</p>
                     <p>Register : {{ created_on }}</p>
+                    {% if Last_Testnet_name == "Not created yet" %}
+                    <p>My Last Testnet : 
+                        <p class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            {{ Last_Testnet_name }}
+                        </p>
+                    </p>
+                    {% else %}
                     <p>My Last Testnet : 
                         <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-download fa-sm text-white-50"></i>
                             {{ Last_Testnet_name }}
                         </a>
                     </p>
+                    {% endif %}
+                    
                     <i>
                         {{ bio_user }}
                     </i>

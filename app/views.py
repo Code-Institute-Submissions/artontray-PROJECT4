@@ -10,8 +10,10 @@ from django.views.generic.base import TemplateView
 
 
 EXP_FOR_LEVEL1 = 500
+FOLLOWERS_FOR_LEVEL1 = 5
 COEFF_FOR_LEVEL_UP = 1.4
 TESTNET_CREATED_FOR_LEVEL1 = 5
+TESTNET_TO_COPY_FOR_LEVEL1 = 2
 
 class StatistiqueApp(generic.ListView):
     """
@@ -76,9 +78,9 @@ class ShowDashboard(generic.ListView):
         nb_followers = queryset[0].followers.count()
 
         
-        Last_Testnet = Testnet.objects.filter(id=self.request.user.id).order_by('-created_on')[:1]
+        Last_Testnet = Testnet.objects.filter(author=self.request.user.id).first()
         if Last_Testnet:
-            Last_Testnet_name = Last_Testnet[0].testnet_name
+            Last_Testnet_name = Last_Testnet.testnet_name
         else:
             Last_Testnet_name = 'Not created yet'
 
@@ -135,10 +137,27 @@ class ShowDashboard(generic.ListView):
         How_Much_testnet_To_Create = TESTNET_CREATED_FOR_LEVEL1
         if nb_testnet_created_by_user > TESTNET_CREATED_FOR_LEVEL1:
             while nb_testnet_created_by_user > How_Much_testnet_To_Create:
-                How_Much_testnet_To_Create = int(TESTNET_CREATED_FOR_LEVEL1 * COEFF_FOR_LEVEL_UP)      
+                How_Much_testnet_To_Create = int(How_Much_testnet_To_Create * COEFF_FOR_LEVEL_UP)      
 
         Pourcentage_accomplished_Testnet = int((nb_testnet_created_by_user/How_Much_testnet_To_Create)*100)
 
+        # User Followers info
+        
+        How_Much_Followers_To_Have = FOLLOWERS_FOR_LEVEL1
+        if nb_followers > FOLLOWERS_FOR_LEVEL1:
+            while nb_followers > How_Much_Followers_To_Have:
+                How_Much_Followers_To_Have = int(How_Much_Followers_To_Have * COEFF_FOR_LEVEL_UP)      
+
+        Pourcentage_accomplished_Followers = int((nb_followers/How_Much_Followers_To_Have)*100)
+
+
+        # User COpied Testnet info
+        How_Much_Copied_Testnet_To_Have = TESTNET_TO_COPY_FOR_LEVEL1
+        if nb_testnet_copied_by_user > TESTNET_TO_COPY_FOR_LEVEL1:
+            while nb_testnet_copied_by_user > How_Much_Copied_Testnet_To_Have:
+                How_Much_Copied_Testnet_To_Have = int(How_Much_Copied_Testnet_To_Have * COEFF_FOR_LEVEL_UP)      
+
+        Pourcentage_accomplished_Copied_Testnet = int((nb_testnet_copied_by_user/How_Much_Copied_Testnet_To_Have)*100)
 
         return render(
             request,
@@ -160,6 +179,10 @@ class ShowDashboard(generic.ListView):
                 "Pourcentage_accomplished_Testnet": Pourcentage_accomplished_Testnet,
                 "Current_Level_XP": int(Current_Level_XP),
                 "How_Much_testnet_To_Create": How_Much_testnet_To_Create,
+                "Pourcentage_accomplished_Followers": Pourcentage_accomplished_Followers,
+                "How_Much_Followers_To_Have": How_Much_Followers_To_Have,
+                "Pourcentage_accomplished_Copied_Testnet":Pourcentage_accomplished_Copied_Testnet,
+                "How_Much_Copied_Testnet_To_Have":How_Much_Copied_Testnet_To_Have,
                 "created_on": created_on
                 
                 
