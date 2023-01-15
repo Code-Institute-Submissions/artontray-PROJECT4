@@ -111,19 +111,19 @@
                 <h6 class="m-0 font-weight-bold text-primary">MISSIONS</h6>
             </div>
             <div class="card-body">
-                <h4 class="small font-weight-bold">LEVEL 2 
-                    <span class="float-right">{{ exp }} XP</span>
+                <h4 class="small font-weight-bold">LEVEL: {{ Level_user }}
+                    <span class="float-right">{{ exp }} / {{ Current_Level_XP }} </span>
                 </h4>
                 <div class="progress mb-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20"
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{ Pourcentage_accomplished_XP }}%" aria-valuenow="20"
                         aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
-                <h4 class="small font-weight-bold">CREATE 5 TESTNETS
-                    <span class="float-right">20%</span>
+                <h4 class="small font-weight-bold">CREATE {{ How_Much_testnet_To_Create }} TESTNETS
+                    <span class="float-right">{{ Pourcentage_accomplished_Testnet }}%</span>
                 </h4>
                 <div class="progress mb-4">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20"
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ Pourcentage_accomplished_Testnet }}%" aria-valuenow="20"
                         aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
@@ -156,22 +156,20 @@
             </div>
             <div class="row">
                 <div class="col mb-2 ">
-                    <p>Email : john*******l.com</p>
-                    <p>Register : 01/01/2023</p>
+                    <p>Debank Adress : {{ debank_adress }}</p>
+                    <p>Register : {{ created_on }}</p>
                     <p>My Last Testnet : 
                         <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-download fa-sm text-white-50"></i>
-                             Scroll ZKrollup
+                            {{ Last_Testnet_name }}
                         </a>
                     </p>
                     <i>
-                        " I am interested on Testnet since 2020.
-                        My favorite Wallet is Keplr and I like Ethereum.
-                        My biggest airdrop was Aptos last year! :-D " 
+                        {{ bio_user }}
                     </i>
                 </div>
                 <div class="col mb-2">
-                    <img src="assets/images/logo_user.png" class="logo_user rotate-15" alt="logo user">
+                    <img src="{{ avatar }}" class="logo_user" alt="logo user">
                 </div>
             </div>
             <!-- Buttons box for user -->
