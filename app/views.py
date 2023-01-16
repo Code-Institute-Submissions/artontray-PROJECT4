@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.template import loader
 from django.contrib import messages
 from django.views.generic.base import TemplateView
+from django.urls import reverse_lazy
 
 
 
@@ -46,25 +47,27 @@ class ShowDashboard(generic.ListView):
     """
     def get(self, request):
         """
-        Get the Testnet Info
+        Get the User, Testnet, UserInfo informations to display on Dashboard
         """
         queryset = User.objects.all()
         username = get_object_or_404(queryset, id=self.request.user.id)
-        #nb_testnet_user = Testnet.objects.filter(id=self.request.user.id).count()
+
+        
+        # User is following who much other users?
         
 
-        #user = get_object_or_404(UserInfo, id=self.request.user.id)
-        #user = get_object_or_404(UserInfo, id=2)
-        #user.followers.add(request.user)
 
+        def get_Following_user_nb(all_users):
+            nb_following = 0
+            all_users = UserInfo.objects.all()
+            for users in all_users:
+                users.followers.add(1)
+                if users.followers.filter(id=request.user.id).exists():
+                    nb_following += 1
+            return nb_following
 
-        nb_following = 0
-        all_users = UserInfo.objects.all()
-        for users in all_users:
-            #users.followers.add(request.user)
-            if users.followers.filter(id=request.user.id).exists():
-                nb_following =+ 1
-
+        nb_following = get_Following_user_nb(UserInfo.objects.all())
+        
         #nb_followers = username.followers.count()
         created_on = username.date_joined
         nb_testnet_total = TestnetUserInfo.objects.filter(testnet_user=self.request.user.id).count()
@@ -116,7 +119,7 @@ class ShowDashboard(generic.ListView):
             
             
             messages.success(self.request, 'User Info successfully added')    
-            return redirect ("dashboard")
+            
        # Followers of the current user
         queryset = UserInfo.objects.filter(user_id=self.request.user.id)
         nb_followers = queryset[0].followers.count()
