@@ -49,15 +49,22 @@ class ShowDashboard(generic.ListView):
         """
         Get the User, Testnet, UserInfo informations to display on Dashboard
         """
-        queryset = User.objects.all()
-        username = get_object_or_404(queryset, id=self.request.user.id)
 
+        def get_username(id_user):
+            """
+            Return username as an Object
+            """
+            queryset = User.objects.all()
+            username = get_object_or_404(queryset, id=id_user)
+            return username
         
-        # User is following who much other users?
+        username = get_username(self.request.user.id)
         
-
 
         def get_Following_user_nb(all_users):
+            """
+            User is following how much other users?
+            """
             nb_following = 0
             all_users = UserInfo.objects.all()
             for users in all_users:
@@ -68,35 +75,73 @@ class ShowDashboard(generic.ListView):
 
         nb_following = get_Following_user_nb(UserInfo.objects.all())
         
-        #nb_followers = username.followers.count()
-        created_on = username.date_joined
-        nb_testnet_total = TestnetUserInfo.objects.filter(testnet_user=self.request.user.id).count()
-        nb_testnet_created_by_user = Testnet.objects.filter(author=self.request.user.id).count()
-        nb_testnet_copied_by_user = nb_testnet_total - nb_testnet_created_by_user
 
-
-
+        def get_register_date(username):
+            """
+            return date when user created the account
+            """
+            return username.date_joined
 
         
+        created_on = get_register_date(username)
+
+
+        def get_created_testnet_nb(username):
+            """
+            return the amount of testnet created by the user
+            """
+            return Testnet.objects.filter(author=username).count()
+
+        def get_testnet_total(username):
+            """
+            return the amount of testnet total (copied and created)
+            """           
+            return TestnetUserInfo.objects.filter(testnet_user=username).count()
+
+
+        def get_testnet_copied(username):
+            """
+            return the amount of copied testnet from the user
+            """     
+            return get_testnet_total(username) - get_created_testnet_nb(username)
+
+
+
+        def get_Last_Testnet_name(username):
+            """
+            return the Last Testnet Name created by User
+            """    
+            Last_Testnet = Testnet.objects.filter(author=username).first()
+            if Last_Testnet:
+                Last_Testnet_name = Last_Testnet.testnet_name
+            else:
+                Last_Testnet_name = 'Not created yet'
+            return Last_Testnet_name  
 
         
-        Last_Testnet = Testnet.objects.filter(author=self.request.user.id).first()
-        if Last_Testnet:
-            Last_Testnet_name = Last_Testnet.testnet_name
-        else:
-            Last_Testnet_name = 'Not created yet'
+        Last_Testnet_name = get_Last_Testnet_name(username)
 
 
+        def get_notifications_nb(username):
+            """
+            return the number of users notifications
+            """   
+            return Notifications.objects.filter(notification_owner=username).count()
 
-        nb_notifications_user = Notifications.objects.filter(id=self.request.user.id).count()
+        
+        def check_user_info_exist(username):
+            """
+            return True if user info exist on Table UserInfo
+            """   
+            user_info_exist = UserInfo.objects.filter(user_id=username).exists()
+            return user_info_exist
 
         queryset = UserInfo.objects.all()
         
-        user_info_exist = UserInfo.objects.filter(user_id=self.request.user.id).exists()
-        if user_info_exist:
+
+        if check_user_info_exist(username):
             user_info = get_object_or_404(queryset, user_id=self.request.user.id)
-        # queryset = UserInfo.objects.all()
-        #exp = username.exp
+
             exp = user_info.exp
             debank = user_info.debank
             bio = user_info.bio
@@ -141,11 +186,11 @@ class ShowDashboard(generic.ListView):
 
         # User Testnet Info
         How_Much_testnet_To_Create = TESTNET_CREATED_FOR_LEVEL1
-        if nb_testnet_created_by_user > TESTNET_CREATED_FOR_LEVEL1:
-            while nb_testnet_created_by_user > How_Much_testnet_To_Create:
+        if get_created_testnet_nb(username) > TESTNET_CREATED_FOR_LEVEL1:
+            while get_created_testnet_nb(username) > How_Much_testnet_To_Create:
                 How_Much_testnet_To_Create = int(How_Much_testnet_To_Create * COEFF_FOR_LEVEL_UP)      
 
-        Pourcentage_accomplished_Testnet = int((nb_testnet_created_by_user/How_Much_testnet_To_Create)*100)
+        Pourcentage_accomplished_Testnet = int((get_created_testnet_nb(username)/How_Much_testnet_To_Create)*100)
 
         # User Followers info
         
@@ -159,11 +204,11 @@ class ShowDashboard(generic.ListView):
 
         # User COpied Testnet info
         How_Much_Copied_Testnet_To_Have = TESTNET_TO_COPY_FOR_LEVEL1
-        if nb_testnet_copied_by_user > TESTNET_TO_COPY_FOR_LEVEL1:
-            while nb_testnet_copied_by_user > How_Much_Copied_Testnet_To_Have:
+        if get_testnet_copied(username) > TESTNET_TO_COPY_FOR_LEVEL1:
+            while get_testnet_copied(username) > How_Much_Copied_Testnet_To_Have:
                 How_Much_Copied_Testnet_To_Have = int(How_Much_Copied_Testnet_To_Have * COEFF_FOR_LEVEL_UP)      
 
-        Pourcentage_accomplished_Copied_Testnet = int((nb_testnet_copied_by_user/How_Much_Copied_Testnet_To_Have)*100)
+        Pourcentage_accomplished_Copied_Testnet = int((get_testnet_copied(username)/How_Much_Copied_Testnet_To_Have)*100)
 
 
         # User Testnet listing 
@@ -175,11 +220,11 @@ class ShowDashboard(generic.ListView):
             "dashboard.html",
             {
                 "username": username,
-                "nb_testnet_user": nb_testnet_created_by_user,
+                "nb_testnet_user": get_created_testnet_nb(username),
                 "nb_following": nb_following,
                 "nb_followers": nb_followers,
-                "nb_testnet_copied_by_user": nb_testnet_copied_by_user,
-                "nb_notifications_user": nb_notifications_user,
+                "nb_testnet_copied_by_user": get_testnet_copied(username),
+                "nb_notifications_user": get_notifications_nb(username),
                 "exp": exp,
                 "bio_user": bio,
                 "debank_adress": debank,
