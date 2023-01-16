@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import Testnet, TestnetUserInfo
 from .models import Notifications, UserInfo, CheckList
 from django.contrib.auth.models import User
 from django.template import loader
+from django.contrib import messages
 from django.views.generic.base import TemplateView
 
 
@@ -73,9 +74,7 @@ class ShowDashboard(generic.ListView):
 
 
 
-        # Followers of the current user
-        queryset = UserInfo.objects.filter(user_id=self.request.user.id)
-        nb_followers = queryset[0].followers.count()
+        
 
         
         Last_Testnet = Testnet.objects.filter(author=self.request.user.id).first()
@@ -116,9 +115,13 @@ class ShowDashboard(generic.ListView):
             Creation_User_Info.save()
             
             
-            #messages.success(self.request, 'User Info successfully added')    
+            messages.success(self.request, 'User Info successfully added')    
+            return redirect ("dashboard")
+       # Followers of the current user
+        queryset = UserInfo.objects.filter(user_id=self.request.user.id)
+        nb_followers = queryset[0].followers.count()
 
-       
+
         # user Level and Exp
         Level_user = 1
         Current_Level_XP = EXP_FOR_LEVEL1
@@ -159,6 +162,11 @@ class ShowDashboard(generic.ListView):
 
         Pourcentage_accomplished_Copied_Testnet = int((nb_testnet_copied_by_user/How_Much_Copied_Testnet_To_Have)*100)
 
+
+        # User Testnet listing 
+        testnet_user = Testnet.objects.filter(author=self.request.user.id)
+        paginate_by = 4
+
         return render(
             request,
             "dashboard.html",
@@ -183,6 +191,7 @@ class ShowDashboard(generic.ListView):
                 "How_Much_Followers_To_Have": How_Much_Followers_To_Have,
                 "Pourcentage_accomplished_Copied_Testnet":Pourcentage_accomplished_Copied_Testnet,
                 "How_Much_Copied_Testnet_To_Have":How_Much_Copied_Testnet_To_Have,
+                "testnet_user":testnet_user,
                 "created_on": created_on
                 
                 

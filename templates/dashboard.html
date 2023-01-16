@@ -5,8 +5,16 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="mb-0 text-xl font-weight-bold text-primary">Dashboard</h1>
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 </div>
 <!-- Content Row Number 1-->
+
 <div class="row">
     <!-- 4 Boxes with informations about the user interaction with the app -->
     <!-- Box 1 -->
@@ -112,7 +120,7 @@
             </div>
             <div class="card-body">
                 <h4 class="small font-weight-bold">LEVEL: {{ Level_user }}
-                    <span class="float-right">{{ exp }} / {{ Current_Level_XP }} </span>
+                    <span class="float-right">{{ exp }} / {{ Current_Level_XP }} EXP </span>
                 </h4>
                 <div class="progress mb-4">
                     <div class="progress-bar bg-info" role="progressbar" style="width: {{ Pourcentage_accomplished_XP }}%" aria-valuenow="20"
@@ -226,35 +234,71 @@
         </div>
     </div>
 </div>
-<!-- End Content Row Number 2-->
-<!-- Listing of the all testnet created by user-->
-<div class="container-fluid bg-light border-all-around-radius my-2">
-    <div class="row my-2">
-        <div class="col-lg-6 col-sm-12 col-md-6 py-3">
-            <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
-                <i class="fa-solid fa-arrow-right"></i>
-                Taiko Phase 1
-            </h6>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-            <a href="#" class=" btn btn-info btn-user btn-block">
-                <i class="fa-solid fa-eye"></i>
-                Show
-            </a>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-            <a href="#" class=" btn btn-success btn-user btn-block">
-                <i class="fa-regular fa-copy"></i> 
-                Duplicate
-            </a>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-            <a href="#" class=" btn btn-primary btn-user btn-block">
-                <i class="fa-solid  fa-pen-to-square"></i>
-                Edit
-            </a>
+
+{%  if is_paginated  %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="pagination justify-content-center my-4">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page=1">First</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    <span class="current text-dark">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                    {% if page_obj.has_next %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
     </div>
 </div>
+{%  endif  %}
+<!-- End Content Row Number 2-->
+<!-- Listing of the all testnet created by user-->
+
+
+{% for testnet in testnet_user %}
+
+    <div class="container-fluid bg-light border-all-around-radius my-2">
+        <div class="row my-2">
+            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
+                <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    {{ testnet.testnet_name }}
+                </h6>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="#" class=" btn btn-info btn-user btn-block">
+                    <i class="fa-solid fa-eye"></i>
+                    Show
+                </a>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="#" class=" btn btn-success btn-user btn-block">
+                    <i class="fa-regular fa-copy"></i> 
+                    Duplicate
+                </a>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="#" class=" btn btn-primary btn-user btn-block">
+                    <i class="fa-solid  fa-pen-to-square"></i>
+                    Edit
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
 <!-- End Listing of the all testnet created by user-->
+<br>
+<br>
+<hr>
+<br>
+<br>
+
 {%endblock%}
