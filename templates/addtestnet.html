@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0 text-xl font-weight-bold text-primary">Add testnet</h1>
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</div>
+<!-- Content Row Number 1-->
+
+
+<!-- Content Row Number 2-->
+
+
+<!-- End Content Row Number 2-->
+<!-- Listing of the all testnet created by user-->
+<h1>{{ test }}</h1>
+<form action="/addtestnet/" method="post">
+    {% csrf_token %}
+    <label for="your_name">Your name: </label>
+    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+    <input type="submit" value="OK">
+</form>
+<!-- End Listing of the all testnet created by user-->
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+{%endblock%}

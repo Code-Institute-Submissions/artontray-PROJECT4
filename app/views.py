@@ -8,7 +8,7 @@ from django.template import loader
 from django.contrib import messages
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
-
+from .forms import NameForm
 
 
 EXP_FOR_LEVEL1 = 500
@@ -40,6 +40,35 @@ class StatistiqueApp(generic.ListView):
             },
         )
 
+
+
+
+
+def AddTestnet(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            #return HttpResponseRedirect('/dashboard/')
+            return render(
+            request,
+            "index.html",
+            {
+                "nb_testnet": form.cleaned_data['your_name'],
+                "nb_user": 999
+            },
+        )
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
+
+    return render(request, 'addtestnet.html', {'form': form})
 
 class ShowDashboard(generic.ListView):
     """
