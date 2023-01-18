@@ -17,7 +17,7 @@ class Testnet(models.Model):
     testnet_name = models.CharField(max_length=60, unique=True, blank=False, null=False)
     slug = AutoSlugField(populate_from='testnet_name', unique=True)
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="testnets")
+        User, on_delete=models.CASCADE, related_name="testnet_author")
     network_name = models.CharField(max_length=25)
     network_status = models.CharField(max_length=25)
     description = models.TextField()
@@ -49,11 +49,16 @@ class Testnet(models.Model):
         """
         ordering = ['-created_on']
 
-    def get_absolute_url(self):
-        """
-        Get url after editing a testnet
-        """
-        return reverse('testnet_details', kwargs={'slug': self.slug})
+
+    @property
+    def nb_testnet(self):
+        if not hasattr(self, "_nb_testnet"):
+            self._nb_testnet = Testnet.objects.all().filter(author=self.user.id).count()
+
+        return self._nb_testnet
+
+
+
 
     def __str__(self):
         return f"{self.testnet_name}"
@@ -171,9 +176,7 @@ class UserInfo(models.Model):
         return self._nb_followers
 
 
-    @cached_property
-    def nb_follower(self):
-        return 0 # TODO FIXME
+
 
 
 

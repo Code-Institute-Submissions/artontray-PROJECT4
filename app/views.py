@@ -78,8 +78,8 @@ class ShowDashboard(generic.DetailView):
     """
     model = User
     template_name = "dashboard.html"
-    slug_field = 'object_user'
-    slug_url_kwarg = 'object_user'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
     #object_user = self.kwargs['object_user']
     
     def get_object(self, queryset=None):
@@ -96,7 +96,7 @@ class ShowDashboard(generic.DetailView):
         object_user = self.request.user
         nb_following = self.object.user_info.nb_following
         nb_followers = self.object.user_info.nb_followers
-
+        #nb_testnet = self.object.testnet_author.nb_testnet
 
 
         def get_created_testnet_nb(object_user):
@@ -230,7 +230,7 @@ class ShowDashboard(generic.DetailView):
 
         context.update ({
                 "object_user": object_user,
-                "nb_testnet_user": get_created_testnet_nb(object_user),
+                "nb_testnet_user": 0,
                 "nb_following": nb_following,
                 "nb_followers": nb_followers,
                 "nb_testnet_copied_by_user": get_testnet_copied(object_user),

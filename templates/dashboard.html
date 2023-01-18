@@ -159,24 +159,24 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary align-center">
-                    {{ username }}
+                    {{ object.username }}
                 </h6>
             </div>
             <div class="row">
                 <div class="col mb-2 ">
-                    <p>Debank Adress : {{ debank_adress }}</p>
+                    <p>Debank Adress : {{ object.user_info.debank }}</p>
                     <p>Register : {{ object.date_joined|date  }}</p>
                     {% if Last_Testnet_name == "Not created yet" %}
                     <p>My Last Testnet : 
                         <p class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            {{ Last_Testnet_name }}
+                            {{ object.testnet_user_info.testnet_name.first }}
                         </p>
                     </p>
                     {% else %}
                     <p>My Last Testnet : 
                         <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-download fa-sm text-white-50"></i>
-                            {{ Last_Testnet_name }}
+                            {{ object.testnet_user_info.last.testnet_name }}
                         </a>
                     </p>
                     {% endif %}

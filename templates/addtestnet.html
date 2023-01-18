@@ -39,54 +39,24 @@
 
 
                 <div class="form-row">
-                  {% include 'inc/formfield.html' with field=form.testnet_name %}
-                  {% include 'inc/formfield.html' with field=form.network_name nb_cols=12 %}
+                  {% include 'inc/formfield.html' with field=form.testnet_name cols='form-group col-md-6' icone='fa-solid fa-file-signature text-primary'%}
+                  {% include 'inc/formfield.html' with field=form.network_name cols='form-group col-md-6' icone='fa-solid fa-network-wired text-primary'%}
+                  
                 </div>
+                <div class="form-group">
+                  {% include 'inc/formfield.html' with field=form.description icone='fa-solid fa-clipboard-question text-primary'%}
+                </div>
+                <div class="form-row">
+                  {% include 'inc/formfield.html' with field=form.category cols='form-group col-md-6' icone='fa-solid fa-folder-open text-primary'%}
+                  {% include 'inc/formfield.html' with field=form.network_status cols='form-group col-md-6' icone='fa-solid fa-cube text-primary'%}
+                  
 
+                </div>
+                <div class="form-row">
 
-
+                </div>
                 {% comment %}
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputTestnetName" class="h4 text-primary"><i
-                      class="fa-solid fa-file-signature text-primary"></i> Testnet Name</label>
-                  <input type="text" class="form-control" id="inputTestnetName" name="inputTestnetName" placeholder="Testnet Name">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputNetworkName" class="h4 text-primary"><i
-                      class="fa-solid fa-network-wired text-primary"></i> Network</label>
-                  <input type="text" class="form-control" id="inputNetworkName"
-                    placeholder="Network Name : Goerli, Mumbai, Polygon Mainnet etc...">
-                </div>
-              </div>
-              <div class="form-group ">
-                <label for="inputDescriptionTestnet" class="h4 text-primary"><i
-                    class="fa-solid fa-clipboard-question text-primary"></i> Description</label>
-                <textarea class="form-control" id="inputDescriptionTestnet"
-                  placeholder="Describe this Testnet ...."></textarea>
-              </div>
-
-
-
-
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputCategoryTestnet" class="h4 text-primary"><i
-                      class="fa-solid fa-folder-open text-primary"></i> Category</label>
-                  <input type="text" class="form-control" id="inputCategoryTestnet"
-                    placeholder="Defi, Bridge, L2, NFT etc...">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputStatusTestnet" class="h4 text-primary"><i class="fa-solid fa-cube"></i> Network
-                    Status</label>
-                  <input type="text" class="form-control" id="inputStatusTestnet"
-                    placeholder="Testnet, Devnet, Mainnet etc...">
-                </div>
-              </div>
-
-
-
-
+             
 
 
               <div class="form-row">

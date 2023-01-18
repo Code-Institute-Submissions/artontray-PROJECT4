@@ -1,8 +1,11 @@
-<div class="form-group col-md-{{ nb_cols|default:6 }}">
+<div class="form-group {{ cols|default:'' }}">
 
-
+  <label for="{{ label_tag }}" class="h4 text-primary">
+    <i class="{{ icone }}"></i> 
     {{ field.label_tag }}
+  </label>
     {{ field }}
+    {{ field.placeholder }}
     
     {{ field.errors }}
     
