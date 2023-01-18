@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
 from cloudinary.models import CloudinaryField
+from django.utils.functional import cached_property
 
 
 STATUS = ((0, "User"), (1, "Admin"))
@@ -13,7 +14,7 @@ class Testnet(models.Model):
     """
     Model for Testnet Table
     """
-    testnet_name = models.CharField(max_length=60, unique=True)
+    testnet_name = models.CharField(max_length=60, unique=True, blank=False, null=False)
     slug = AutoSlugField(populate_from='testnet_name', unique=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="testnets")
@@ -135,27 +136,45 @@ class UserInfo(models.Model):
     """
     Model for User General Info Table
     """
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="user_id")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_info")
     bio = models.TextField()
     exp = models.IntegerField(default=100)
-    created_on = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=0)
     debank = models.CharField(max_length=255)
-    created_on = models.DateTimeField(auto_now=True)
     avatar = CloudinaryField('image', default='placeholder')
-    followers = models.ManyToManyField(
-        User, related_name='followers', blank=True)
+    following = models.ManyToManyField(
+        User, related_name='following', blank=True)
 
 
     class Meta:
         """
         To display the user Info by created_on in descending order
         """
-        ordering = ['-created_on']
+        ordering = ['-user__date_joined']
 
-    def number_of_followers(self):
-        return self.followers.count()
+    @property
+    def created_on(self):
+        return self.user.date_joined
+
+    @property
+    def nb_following(self):
+        if not hasattr(self, "_nb_following"):
+            self._nb_following = self.following.count()
+
+        return self._nb_following
+
+    @property
+    def nb_followers(self):
+        if not hasattr(self, "_nb_followers"):
+            self._nb_followers = UserInfo.objects.all().filter(following=self.user.id).count()
+
+        return self._nb_followers
+
+
+    @cached_property
+    def nb_follower(self):
+        return 0 # TODO FIXME
+
 
 
     def __str__(self):

@@ -8,7 +8,7 @@ from django.template import loader
 from django.contrib import messages
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
-from .forms import NameForm
+from .forms import AddNewTestnet
 
 
 EXP_FOR_LEVEL1 = 500
@@ -45,102 +45,86 @@ class StatistiqueApp(generic.ListView):
 
 
 def AddTestnet(request):
-    # if this is a POST request we need to process the form data
+
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
+
+        form = AddNewTestnet(request.POST)
+
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
+
             #return HttpResponseRedirect('/dashboard/')
             return render(
             request,
             "index.html",
             {
-                "nb_testnet": form.cleaned_data['your_name'],
+                "nb_testnet": form.cleaned_data['inputTestnetName'],
                 "nb_user": 999
             },
         )
 
-    # if a GET (or any other method) we'll create a blank form
+
     else:
-        form = NameForm()
+        form = AddNewTestnet()
 
     return render(request, 'addtestnet.html', {'form': form})
 
-class ShowDashboard(generic.ListView):
+
+
+
+
+class ShowDashboard(generic.DetailView):
     """
     This view is used to display User Dashboard informations
     """
-    def get(self, request):
-        """
-        Get the User, Testnet, UserInfo informations to display on Dashboard
-        """
+    model = User
+    template_name = "dashboard.html"
+    slug_field = 'object_user'
+    slug_url_kwarg = 'object_user'
+    #object_user = self.kwargs['object_user']
+    
+    def get_object(self, queryset=None):
+        if self.slug_url_kwarg in self.kwargs:
+            return super().get_object(queryset)
+        else:
+            return self.request.user
+            
+                
 
-        def get_username(id_user):
-            """
-            Return username as an Object
-            """
-            queryset = User.objects.all()
-            username = get_object_or_404(queryset, id=id_user)
-            return username
-        
-        username = get_username(self.request.user.id)
-        
+    def get_context_data(self, **context):
 
-        def get_Following_user_nb(all_users):
-            """
-            User is following how much other users?
-            """
-            nb_following = 0
-            all_users = UserInfo.objects.all()
-            for users in all_users:
-                users.followers.add(1)
-                if users.followers.filter(id=request.user.id).exists():
-                    nb_following += 1
-            return nb_following
-
-        nb_following = get_Following_user_nb(UserInfo.objects.all())
-        
-
-        def get_register_date(username):
-            """
-            return date when user created the account
-            """
-            return username.date_joined
-
-        
-        created_on = get_register_date(username)
+        request = self.request
+        object_user = self.request.user
+        nb_following = self.object.user_info.nb_following
+        nb_followers = self.object.user_info.nb_followers
 
 
-        def get_created_testnet_nb(username):
+
+        def get_created_testnet_nb(object_user):
             """
             return the amount of testnet created by the user
             """
-            return Testnet.objects.filter(author=username).count()
+            return Testnet.objects.filter(author=object_user).count()
 
-        def get_testnet_total(username):
+        def get_testnet_total(object_user):
             """
             return the amount of testnet total (copied and created)
             """           
-            return TestnetUserInfo.objects.filter(testnet_user=username).count()
+            return TestnetUserInfo.objects.filter(testnet_user=object_user).count()
 
 
-        def get_testnet_copied(username):
+        def get_testnet_copied(object_user):
             """
             return the amount of copied testnet from the user
             """     
-            return get_testnet_total(username) - get_created_testnet_nb(username)
+            return get_testnet_total(object_user) - get_created_testnet_nb(object_user)
 
 
 
-        def get_Last_Testnet_name(username):
+        def get_Last_Testnet_name(object_user):
             """
             return the Last Testnet Name created by User
             """    
-            Last_Testnet = Testnet.objects.filter(author=username).first()
+            Last_Testnet = Testnet.objects.filter(author=object_user).first()
             if Last_Testnet:
                 Last_Testnet_name = Last_Testnet.testnet_name
             else:
@@ -148,27 +132,27 @@ class ShowDashboard(generic.ListView):
             return Last_Testnet_name  
 
         
-        Last_Testnet_name = get_Last_Testnet_name(username)
+        Last_Testnet_name = get_Last_Testnet_name(object_user)
 
 
-        def get_notifications_nb(username):
+        def get_notifications_nb(object_user):
             """
             return the number of users notifications
             """   
-            return Notifications.objects.filter(notification_owner=username).count()
+            return Notifications.objects.filter(notification_owner=object_user).count()
 
         
-        def check_user_info_exist(username):
+        def check_user_info_exist(object_user):
             """
             return True if user info exist on Table UserInfo
             """   
-            user_info_exist = UserInfo.objects.filter(user_id=username).exists()
+            user_info_exist = UserInfo.objects.filter(user_id=object_user).exists()
             return user_info_exist
 
         queryset = UserInfo.objects.all()
         
 
-        if check_user_info_exist(username):
+        if check_user_info_exist(object_user):
             user_info = get_object_or_404(queryset, user_id=self.request.user.id)
 
             exp = user_info.exp
@@ -196,7 +180,7 @@ class ShowDashboard(generic.ListView):
             
        # Followers of the current user
         queryset = UserInfo.objects.filter(user_id=self.request.user.id)
-        nb_followers = queryset[0].followers.count()
+        #nb_followers = queryset[0].followers.count()
 
 
         # user Level and Exp
@@ -215,11 +199,11 @@ class ShowDashboard(generic.ListView):
 
         # User Testnet Info
         How_Much_testnet_To_Create = TESTNET_CREATED_FOR_LEVEL1
-        if get_created_testnet_nb(username) > TESTNET_CREATED_FOR_LEVEL1:
-            while get_created_testnet_nb(username) > How_Much_testnet_To_Create:
+        if get_created_testnet_nb(object_user) > TESTNET_CREATED_FOR_LEVEL1:
+            while get_created_testnet_nb(object_user) > How_Much_testnet_To_Create:
                 How_Much_testnet_To_Create = int(How_Much_testnet_To_Create * COEFF_FOR_LEVEL_UP)      
 
-        Pourcentage_accomplished_Testnet = int((get_created_testnet_nb(username)/How_Much_testnet_To_Create)*100)
+        Pourcentage_accomplished_Testnet = int((get_created_testnet_nb(object_user)/How_Much_testnet_To_Create)*100)
 
         # User Followers info
         
@@ -233,27 +217,24 @@ class ShowDashboard(generic.ListView):
 
         # User COpied Testnet info
         How_Much_Copied_Testnet_To_Have = TESTNET_TO_COPY_FOR_LEVEL1
-        if get_testnet_copied(username) > TESTNET_TO_COPY_FOR_LEVEL1:
-            while get_testnet_copied(username) > How_Much_Copied_Testnet_To_Have:
+        if get_testnet_copied(object_user) > TESTNET_TO_COPY_FOR_LEVEL1:
+            while get_testnet_copied(object_user) > How_Much_Copied_Testnet_To_Have:
                 How_Much_Copied_Testnet_To_Have = int(How_Much_Copied_Testnet_To_Have * COEFF_FOR_LEVEL_UP)      
 
-        Pourcentage_accomplished_Copied_Testnet = int((get_testnet_copied(username)/How_Much_Copied_Testnet_To_Have)*100)
+        Pourcentage_accomplished_Copied_Testnet = int((get_testnet_copied(object_user)/How_Much_Copied_Testnet_To_Have)*100)
 
 
         # User Testnet listing 
         testnet_user = Testnet.objects.filter(author=self.request.user.id)
         paginate_by = 4
 
-        return render(
-            request,
-            "dashboard.html",
-            {
-                "username": username,
-                "nb_testnet_user": get_created_testnet_nb(username),
+        context.update ({
+                "object_user": object_user,
+                "nb_testnet_user": get_created_testnet_nb(object_user),
                 "nb_following": nb_following,
                 "nb_followers": nb_followers,
-                "nb_testnet_copied_by_user": get_testnet_copied(username),
-                "nb_notifications_user": get_notifications_nb(username),
+                "nb_testnet_copied_by_user": get_testnet_copied(object_user),
+                "nb_notifications_user": get_notifications_nb(object_user),
                 "exp": exp,
                 "bio_user": bio,
                 "debank_adress": debank,
@@ -269,9 +250,11 @@ class ShowDashboard(generic.ListView):
                 "Pourcentage_accomplished_Copied_Testnet":Pourcentage_accomplished_Copied_Testnet,
                 "How_Much_Copied_Testnet_To_Have":How_Much_Copied_Testnet_To_Have,
                 "testnet_user":testnet_user,
-                "created_on": created_on
+                "created_on": self.object.date_joined
                 
-                
-                
-            },
+            }
         )
+        return context
+
+
+       
