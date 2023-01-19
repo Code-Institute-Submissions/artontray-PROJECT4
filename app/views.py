@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
-from .models import Testnet, TestnetUserInfo
+from .models import Testnet
 from .models import Notifications, UserInfo, CheckList
 from django.contrib.auth.models import User
 from django.template import loader
@@ -48,25 +48,25 @@ def AddTestnet(request):
 
     if request.method == 'POST':
 
-        form = AddNewTestnet(request.POST)
-
-        if form.is_valid():
+        form_testnet = AddNewTestnet(request.POST)
+    
+        if form_testnet.is_valid():
 
             #return HttpResponseRedirect('/dashboard/')
             return render(
             request,
             "index.html",
             {
-                "nb_testnet": form['testnet_name'],
+                "nb_testnet": form_testnet['testnet_name'],
                 "nb_user": 999
             },
         )
 
 
     else:
-        form = AddNewTestnet()
+        form_testnet = AddNewTestnet()
 
-    return render(request, 'addtestnet.html', {'form': form})
+    return render(request, 'addtestnet.html', {'form_testnet': form_testnet})
 
 
 
@@ -109,7 +109,7 @@ class ShowDashboard(generic.DetailView):
             """
             return the amount of testnet total (copied and created)
             """           
-            return TestnetUserInfo.objects.filter(testnet_user=object_user).count()
+            return 0
 
 
         def get_testnet_copied(object_user):

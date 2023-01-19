@@ -4,20 +4,20 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="mb-0 text-xl font-weight-bold text-primary">Add testnet</h1>
-    {% if messages %}
-<ul class="messages">
+  <h1 class="mb-0 text-xl font-weight-bold text-primary">Add testnet</h1>
+  {% if messages %}
+  <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ messages }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+    <li{% if message.tags %} class="h5 text-{{ message.tags }}" {% endif %}>{{ messages }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
 </div>
 
 
-  <!-- Begin Page Content -->
-  <div class="container-fluid">
-    <form action="/addtestnet/" method="post">
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <form action="/addtestnet/" method="post">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="mb-0 text-xl font-weight-bold text-secondary">Add a New Testnet</h1>
@@ -33,136 +33,58 @@
             <h6 class="h3 font-weight-bold text-primary">Testnet Info(s)</h6>
           </div>
           <div class="card-body">
-            
-                {% csrf_token %}
-                
 
-
-                <div class="form-row">
-                  {% include 'inc/formfield.html' with field=form.testnet_name cols='form-group col-md-6' icone='fa-solid fa-file-signature text-primary'%}
-                  {% include 'inc/formfield.html' with field=form.network_name cols='form-group col-md-6' icone='fa-solid fa-network-wired text-primary'%}
-                  
-                </div>
-                <div class="form-group">
-                  {% include 'inc/formfield.html' with field=form.description icone='fa-solid fa-clipboard-question text-primary'%}
-                </div>
-                <div class="form-row">
-                  {% include 'inc/formfield.html' with field=form.category cols='form-group col-md-6' icone='fa-solid fa-folder-open text-primary'%}
-                  {% include 'inc/formfield.html' with field=form.network_status cols='form-group col-md-6' icone='fa-solid fa-cube text-primary'%}
-                  
-
-                </div>
-                <div class="form-row">
-
-                </div>
-                {% comment %}
-             
-
-
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputTwitterTestnet" class="h4 text-primary"><i
-                      class="fa-brands fa-twitter text-primary"></i> Twitter account </label>
-                  <input type="text" class="form-control" id="inputTwitterTestnet"
-                    placeholder="Example @Testnet_1_official">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputFacebookTestnet" class="h4 text-primary"><i
-                      class="fa-brands fa-facebook text-primary"></i> Facebook Account</label>
-                  <input type="text" class="form-control" id="inputFacebookTestnet"
-                    placeholder="Provide facebook link of the project....">
-                </div>
-              </div>
+            {% csrf_token %}
 
 
 
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.testnet_name cols='form-group col-md-6' icone='fa-solid fa-file-signature text-primary' %}
+              {% include 'inc/formfield.html' with field=form_testnet.network_name cols='form-group col-md-6' icone='fa-solid fa-network-wired text-primary' %}
+
+            </div>
+            <div class="form-group">
+              {% include 'inc/formfield.html' with field=form_testnet.description icone='fa-solid fa-clipboard-question' color='text-warning' %}
+            </div>
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.category cols='form-group col-md-6' icone='fa-solid fa-folder-open text-primary' %}
+              {% include 'inc/formfield.html' with field=form_testnet.network_status cols='form-group col-md-6' icone='fa-solid fa-cube text-primary' %}
 
 
+            </div>
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.twitter cols='form-group col-md-6' icone='fa-brands fa-twitter text-primary' %}
+              {% include 'inc/formfield.html' with field=form_testnet.facebook cols='form-group col-md-6' icone='fa-brands fa-facebook text-primary' %}
 
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputWebsiteTestnet" class="h4 text-primary"><i
-                      class="fa-brands fa-sistrix text-primary"></i> Website URL</label>
-                  <input type="text" class="form-control" id="inputWebsiteTestnet"
-                    placeholder="Provide the official website....">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputGithubTestnet" class="h4 text-primary"><i
-                      class="fa-brands fa-github text-primary"></i>
-                    Github </label>
-                  <input type="text" class="form-control" id="inputGithubTestnet" placeholder="Provide Github link....">
-                </div>
-              </div>
+            </div>
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.website cols='form-group col-md-6' icone='fa-brands fa-sistrix text-primary' %}
+              {% include 'inc/formfield.html' with field=form_testnet.github cols='form-group col-md-6' icone='fa-brands fa-github text-primary' %}
 
+            </div>
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.discord cols='form-group col-md-6' icone='fa-brands fa-discord text-primary' %}
+              {% include 'inc/formfield.html' with field=form_testnet.telegram cols='form-group col-md-6' icone='fa-brands fa-telegram text-primary' %}
 
+            </div>
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.instagram cols='form-group col-md-6' icone='fa-brands fa-instagram' %}
+              {% include 'inc/formfield.html' with field=form_testnet.youtube cols='form-group col-md-6' icone='fa-brands fa-youtube' %}
 
-
-
-
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputDiscordTestnet" class="h4 text-primary"><i
-                      class="fa-brands fa-discord text-primary"></i> Discord </label>
-                  <input type="text" class="form-control" id="inputDiscordTestnet"
-                    placeholder="Provide Discord link....">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputTelegramTestnet" class="h4 text-primary"><i
-                      class="fa-brands fa-telegram text-primary"></i> Telegram </label>
-                  <input type="text" class="form-control" id="inputTelegramTestnet"
-                    placeholder="Provide Telegram link....">
-                </div>
-              </div>
-
-
-
-
-
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputInstagramTestnet" class="h4 text-primary"><i class="fa-brands fa-instagram"></i>
-                    Instagram </label>
-                  <input type="text" class="form-control" id="inputInstagramTestnet"
-                    placeholder="Provide Instagram link....">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputYoutubeTestnet" class="h4 text-primary"><i class="fa-brands fa-youtube"></i> Youtube
-                  </label>
-                  <input type="text" class="form-control" id="inputYoutubeTestnet"
-                    placeholder="Provide Youtube link....">
-                </div>
-              </div>
-
-
-
-
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputWhitepaperTestnet" class="h4 text-primary"><i class="fa-solid fa-file"></i>
-                    Whitepaper
-                  </label>
-                  <input type="text" class="form-control" id="inputWhitepaperTestnet"
-                    placeholder="Provide Whitepaper link....">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputBrowserTestnet" class="h4 text-primary"><i
-                      class="fa-brands fa-internet-explorer"></i>
-                    Browser </label>
-                  <input type="text" class="form-control" id="inputBrowserTestnet"
-                    placeholder="Brave, Firefox, IE etc...">
-                </div>
-              </div>
-
-
-
-
-
-
+            </div>
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.whitepaper cols='form-group col-md-6' icone='fa-solid fa-file' %}
+              {% include 'inc/formfield.html' with field=form_testnet.browser cols='form-group col-md-6' icone='fa-brands fa-internet-explorer' %}
+              
+            </div>
+           
           </div>
         </div>
       </div>
 
 
+
+      
       <div class="col-xl-6 col-md-12 py-3">
         <div class="card shadow h-100 mb-4">
 
@@ -170,23 +92,35 @@
             <h6 class="h3 font-weight-bold text-success">Your Info(s)</h6>
           </div>
           <div class="card-body ">
-
-
             <div class="form-group">
-              <label for="inputEmailUser" class="h4 text-success"><i class="fa-solid fa-at text-success"></i>
-                Email</label>
-              <input type="email" class="form-control" id="inputEmailUser" placeholder="Provide your email adress">
+              {% include 'inc/formfield.html' with field=form_testnet.email_user icone='fa-solid fa-at text-success' %}
             </div>
             <div class="form-group">
-              <label for="inputTwitterUser" class="h4 text-success"><i class="fa-brands fa-twitter text-success"></i>
-                Twitter </label>
-              <input type="text" class="form-control" id="inputTwitterUser" placeholder="example @John_doe_official">
+              {% include 'inc/formfield.html' with field=form_testnet.twitter_user icone='fa-brands fa-twitter text-success' %}
             </div>
+            <div class="form-group">
+              {% include 'inc/formfield.html' with field=form_testnet.discord_user icone='fa-brands fa-discord text-success' %}
+            </div>
+            <div class="form-group">
+              {% include 'inc/formfield.html' with field=form_testnet.github_user icone='fa-brands fa-github text-success' %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+            {% comment %}
+
+
             <div class="form-group">
               <label for="inputDiscordUser" class="h4 text-success"><i class="fa-brands fa-discord text-success"></i>
                 Discord </label>
               <input type="text" class="form-control" id="inputDiscordUser" placeholder="example :  Johndoe#4521">
             </div>
+
+
             <div class="form-group">
               <label for="inputGithubUser" class="h4 text-success"><i class="fa-brands fa-github text-success"></i>
                 Github</label>
@@ -558,14 +492,14 @@
 
       <div class="col-xl-12 col-md-12">
         <button type="submit" class="btn btn-primary btn-block ">ADD THIS TESTNET</button>
-        
+
       </div>
     </div>
 
 
 
   </form>
-  </div>
+</div>
 
 
 

@@ -1,11 +1,10 @@
 <div class="form-group {{ cols|default:'' }}">
 
-  <label for="{{ label_tag }}" class="h4 text-primary">
+  <label for="{{ label_tag }}" class="h4 {{ color }}">
     <i class="{{ icone }}"></i> 
     {{ field.label_tag }}
   </label>
     {{ field }}
-    {{ field.placeholder }}
     
     {{ field.errors }}
     
