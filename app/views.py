@@ -57,7 +57,7 @@ def AddTestnet(request):
             request,
             "index.html",
             {
-                "nb_testnet": form.cleaned_data['inputTestnetName'],
+                "nb_testnet": form['testnet_name'],
                 "nb_user": 999
             },
         )
@@ -96,7 +96,7 @@ class ShowDashboard(generic.DetailView):
         object_user = self.request.user
         nb_following = self.object.user_info.nb_following
         nb_followers = self.object.user_info.nb_followers
-        #nb_testnet = self.object.testnet_author.nb_testnet
+        nb_testnet = self.object.user_info.nb_testnet
 
 
         def get_created_testnet_nb(object_user):
@@ -230,7 +230,7 @@ class ShowDashboard(generic.DetailView):
 
         context.update ({
                 "object_user": object_user,
-                "nb_testnet_user": 0,
+                "nb_testnet_user": nb_testnet,
                 "nb_following": nb_following,
                 "nb_followers": nb_followers,
                 "nb_testnet_copied_by_user": get_testnet_copied(object_user),

@@ -50,12 +50,7 @@ class Testnet(models.Model):
         ordering = ['-created_on']
 
 
-    @property
-    def nb_testnet(self):
-        if not hasattr(self, "_nb_testnet"):
-            self._nb_testnet = Testnet.objects.all().filter(author=self.user.id).count()
 
-        return self._nb_testnet
 
 
 
@@ -176,8 +171,19 @@ class UserInfo(models.Model):
         return self._nb_followers
 
 
+    @property
+    def nb_testnet(self):
+        if not hasattr(self, "_nb_testnet"):
+            self._nb_testnet = Testnet.objects.all().filter(author=self.user.id).count()
 
+        return self._nb_testnet
 
+    @property
+    def nb_copied_testnet(self):
+        if not hasattr(self, "_nb_copied_testnet"):
+            self._nb_copied_testnet = TestnetUserInfo.objects.all().filter(testnet_user=self.user.id).count()
+
+        return self._nb_copied_testnet - self._nb_testnet
 
 
     def __str__(self):
