@@ -8,6 +8,9 @@ class AddNewTestnet(forms.ModelForm):
         model = Testnet
         #fields = "__all__"
         exclude = ['author']
+        widgets = {
+          'description': forms.Textarea(attrs={'rows':2, 'cols':45}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(AddNewTestnet, self).__init__(*args, **kwargs)
@@ -28,8 +31,9 @@ class AddNewTestnet(forms.ModelForm):
         self.fields['whitepaper'].widget.attrs['placeholder'] = 'Provide whitepaper link....'
         self.fields['browser'].widget.attrs['placeholder'] = 'Provide browserlink....'
         self.fields['discord_user'].widget.attrs['placeholder'] = 'example : username#4565'
-        self.fields['github_user'].widget.attrs['placeholder'] = 'Provide your github link'
-
-
+        self.fields['github_user'].widget.attrs['placeholder'] = 'example :  https://github.com/John-Doe'
+        self.fields['email_user'].widget.attrs['placeholder'] = 'Provide Your email'
+        self.fields['twitter_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
+        self.fields['telegram_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
         
 
