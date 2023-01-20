@@ -75,16 +75,16 @@
             <div class="form-row">
               {% include 'inc/formfield.html' with field=form_testnet.whitepaper cols='form-group col-md-6' icone='fa-solid fa-file'  %}
               {% include 'inc/formfield.html' with field=form_testnet.browser cols='form-group col-md-6' icone='fa-brands fa-internet-explorer' %}
-              
+
             </div>
-           
+
           </div>
         </div>
       </div>
 
 
 
-      
+
       <div class="col-xl-6 col-md-12 py-3">
         <div class="card shadow h-100 mb-4">
 
@@ -142,25 +142,6 @@
 
 
     </div>
-            
-
-            
-            
-
-
-
-
-
-
-
-
-          </div>
-        </div>
-      </div>
-
-
-
-    </div>
 
 
 
@@ -187,61 +168,40 @@
 
 
 
-    {% comment %}
 
-    <!-- Content Row -->
+
+
+
+
+
+
+
     <div class="row padding-10-pourcent-left-right">
-
       <div class="col-xl-6 col-md-12 py-3">
         <div class="card shadow h-100 mb-4">
-
           <div class="card-header py-3">
             <h6 class="h3 font-weight-bold text-info">Wallet 1 </h6>
           </div>
           <div class="card-body">
-
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputWallet1Name" class="h4 text-info"><i class="fa-solid fa-wallet"></i> Wallet Name
-                </label>
-                <input type="text" class="form-control" id="inputWallet1Name"
-                  placeholder="Metamask, Keplr, Martian....">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputWallet1Type" class="h4 text-info"><i class="fa-solid fa-desktop"></i> Wallet
-                  type</label>
-                <input type="text" class="form-control" id="inputWallet1Type"
-                  placeholder="Extension, Desktop, web wallet...">
-              </div>
+
+              {% include 'inc/formfield.html' with field=form_testnet.wallet1_name icone='fa-solid fa-wallet' color='text-info' cols='col-md-6' %}
+
+
+              {% include 'inc/formfield.html' with field=form_testnet.wallet1_type icone='fa-solid fa-desktop' color='text-info' cols='col-md-6' %}
+
             </div>
-            <div class="form-group ">
-              <label for="inputWallet1Adress" class="h4 text-info">
-                <i class="fa-regular fa-address-book"></i> Adress</label>
-              <input type="text" class="form-control" id="inputWallet1Adress" placeholder="0x4125.........61ae">
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet1_adress icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
-
-
-
-
-            <div class="form-group ">
-              <label for="inputWallet1Key" class="h4 text-danger">
-                <i class="fas fa-exclamation-triangle text-danger"></i> Private Key </label>
-              <input type="text" class="form-control" id="inputWallet1Key"
-                placeholder="Keep your private key safe, we recommand not to copy here">
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet1_priv_key icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
             </div>
-            <div class="form-group ">
-              <label for="inputWallet1Seed" class="h4 text-danger">
-                <i class="fas fa-exclamation-triangle text-danger"></i> Seed Phrase </label>
-              <input type="text" class="form-control" id="inputWallet1Seed"
-                placeholder="Keep your Seed phrase safe, we recommand not to copy here">
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet1_seed icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
             </div>
-
-
-            <div class="form-group ">
-              <label for="inputWallet1Clue" class="h4 text-info">
-                <i class="fa-solid fa-puzzle-piece"></i> Key Clue</label>
-              <textarea class="form-control"
-                id="inputWallet1Clue">Write a clue that only you can understand...</textarea>
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet1_clue icone='fa-solid fa-puzzle-piece' color='text-info' cols='col-md-12'%}
             </div>
             <p class="mb-0 small">Note: <i>If you decide to save your private key or seed
                 phrase here, we advise you not writing the entire key. You
@@ -251,24 +211,10 @@
             </p>
             <br>
 
-
-
-
-
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputWallet1Password" class="h4 text-info"><i class="fa-solid fa-wallet text-info"></i>
-                  Password Wallet </label>
-                <input type="password" class="form-control" id="inputWallet1Password"
-                  placeholder="Password to connect to wallet...">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputWallet1SessionName" class="h4 text-info"><i class="fa-solid fa-display text-info"></i>
-                  Browser session</label>
-                <input type="text" class="form-control" id="inputWallet1SessionName"
-                  placeholder="Browser session name...">
-              </div>
+              {% include 'inc/formfield.html' with field=form_testnet.wallet1_password icone='fa-solid fa-wallet' color='text-info' cols='col-md-6'%}
 
+              {% include 'inc/formfield.html' with field=form_testnet.wallet1_session icone='fa-solid fa-display' color='text-info' cols='col-md-6'%}
             </div>
             <p class="mb-0 small">Note: <i>Brave can create different session for you to connect
                 different wallet in the same session. We advise you to use this tool to keep tracks of
@@ -276,16 +222,19 @@
             </p>
             <br>
 
-
-
-
-
-            <div class="form-group ">
-              <label for="inputWallet1Link" class="h4 text-info">
-                <i class="fa-regular fa-address-book"></i> Link for downloading or Access</label>
-              <input type="text" class="form-control" id="inputWallet1Link"
-                placeholder="Link to download or provide a link to access">
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet1_link icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -296,20 +245,7 @@
       </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      <!-- Content Row -->
 
 
 
@@ -320,49 +256,23 @@
             <h6 class="h3 font-weight-bold text-secondary"> Wallet 2 (Optional) </h6>
           </div>
           <div class="card-body">
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet2_name icone='fa-solid fa-wallet' color='text-secondary' cols='col-md-6'%}
+              {% include 'inc/formfield.html' with field=form_testnet.wallet2_type icone='fa-solid fa-desktop' color='text-secondary' cols='col-md-6'%}
+            </div>
+
 
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputWallet2Name" class="h4 text-secondary"><i class="fa-solid fa-wallet"></i> Wallet Name
-                </label>
-                <input type="text" class="form-control" id="inputWallet2Name"
-                  placeholder="Metamask, Keplr, Martian....">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputWallet2Type" class="h4 text-secondary"><i class="fa-solid fa-desktop"></i> Wallet
-                  type</label>
-                <input type="text" class="form-control" id="inputWallet2Type"
-                  placeholder="Extension, Desktop, web wallet...">
-              </div>
+              {% include 'inc/formfield.html' with field=form_testnet.wallet2_adress icone='fa-regular fa-address-book' color='text-secondary' cols='col-md-12'%}
             </div>
-            <div class="form-group ">
-              <label for="inputWallet2Adress" class="h4 text-secondary">
-                <i class="fa-regular fa-address-book"></i> Adress</label>
-              <input type="text" class="form-control" id="inputWallet2Adress" placeholder="0x4125.........61ae">
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet2_priv_key icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
             </div>
-
-
-
-
-            <div class="form-group ">
-              <label for="inputWallet2Key" class="h4 text-danger">
-                <i class="fas fa-exclamation-triangle text-danger"></i> Private Key </label>
-              <input type="text" class="form-control" id="inputWallet2Key"
-                placeholder="Keep your private key safe, we recommand not to copy here">
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet2_seed icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
             </div>
-            <div class="form-group ">
-              <label for="inputWallet2Seed" class="h4 text-danger">
-                <i class="fas fa-exclamation-triangle text-danger"></i> Seed Phrase </label>
-              <input type="text" class="form-control" id="inputWallet2Seed"
-                placeholder="Keep your Seed phrase safe, we recommand not to copy here">
-            </div>
-
-
-            <div class="form-group ">
-              <label for="inputWallet2Clue" class="h4 text-secondary">
-                <i class="fa-solid fa-puzzle-piece"></i> Key Clue</label>
-              <textarea class="form-control"
-                id="inputWallet2Clue">Write a clue that only you can understand...</textarea>
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet2_clue icone='fa-solid fa-puzzle-piece' color='text-secondary' cols='col-md-12'%}
             </div>
             <p class="mb-0 small">Note: <i>If you decide to save your private key or seed
                 phrase here, we advise you not writing the entire key. You
@@ -372,24 +282,10 @@
             </p>
             <br>
 
-
-
-
-
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputWallet2Password" class="h4 text-secondary"><i
-                    class="fa-solid fa-wallet text-secondary"></i> Password Wallet </label>
-                <input type="password" class="form-control" id="inputWallet2Password"
-                  placeholder="Password to connect to wallet...">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputWallet2SessionName" class="h4 text-secondary"><i
-                    class="fa-solid fa-display text-secondary"></i> Browser session</label>
-                <input type="text" class="form-control" id="inputWallet2SessionName"
-                  placeholder="Browser session name...">
-              </div>
+              {% include 'inc/formfield.html' with field=form_testnet.wallet2_password icone='fa-solid fa-wallet' color='text-secondary' cols='col-md-6'%}
 
+              {% include 'inc/formfield.html' with field=form_testnet.wallet2_session icone='fa-solid fa-display' color='text-secondary' cols='col-md-6'%}
             </div>
             <p class="mb-0 small">Note: <i>Brave can create different session for you to connect
                 different wallet in the same session. We advise you to use this tool to keep tracks of
@@ -397,22 +293,18 @@
             </p>
             <br>
 
-
-
-
-
-            <div class="form-group ">
-              <label for="inputWallet2Link" class="h4 text-secondary">
-                <i class="fa-regular fa-address-book"></i> Link for downloading or Access</label>
-              <input type="text" class="form-control" id="inputWallet2Link"
-                placeholder="Link to download or provide a link to access">
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.wallet2_link icone='fa-regular fa-address-book' color='text-secondary' cols='col-md-12'%}
             </div>
+
+
+
           </div>
         </div>
       </div>
-
-
     </div>
+
+
 
 
 
@@ -434,14 +326,14 @@
         <div class="card shadow h-100 mb-4">
 
           <div class="card-header py-3">
-            <h6 class="h3 font-weight-bold text-info">Tasks description of the Testnet</h6>
+            <h6 class="h3 font-weight-bold text-primary">Tasks description of the Testnet</h6>
           </div>
           <div class="card-body">
-            <div class="form-group ">
-              <label for="inputTaskDescription" class="h4 text-info">
-                <i class="fa-regular fa-address-book"></i> description</label>
-              <textarea class="form-control" id="inputTaskDescription" placeholder="Describe "></textarea>
+
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.tasks_description icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
+
           </div>
         </div>
       </div>
@@ -451,14 +343,14 @@
         <div class="card shadow h-100 mb-4">
 
           <div class="card-header py-3">
-            <h6 class="h3 font-weight-bold text-info">Keep tracks of your data</h6>
+            <h6 class="h3 font-weight-bold text-primary">Keep tracks of your data</h6>
           </div>
           <div class="card-body">
-            <div class="form-group ">
-              <label for="inputTrackDescription" class="h4 text-info">
-                <i class="fa-regular fa-address-book"></i> write your result tx etc...</label>
-              <textarea class="form-control" id="inputTrackDescription" placeholder="Describe "></textarea>
+
+            <div class="form-row">
+              {% include 'inc/formfield.html' with field=form_testnet.tasks_results icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
+
           </div>
         </div>
       </div>
@@ -468,7 +360,7 @@
 
     </div>
 
-    {% endcomment %}
+
 
     <div class="row padding-10-pourcent-left-right">
 

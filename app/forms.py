@@ -10,14 +10,24 @@ class AddNewTestnet(forms.ModelForm):
         exclude = ['author']
         widgets = {
           'description': forms.Textarea(attrs={'rows':2, 'cols':45}),
+          'description': forms.TextInput(attrs={'placeholder': 'quick description'})
         }
+        
+        labels = {
+            'testnet_name': 'Name',
+        }
+
+
+
 
     def __init__(self, *args, **kwargs):
         super(AddNewTestnet, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
         self.fields['testnet_name'].widget.attrs['placeholder'] = 'Testnet Name'
         self.fields['network_name'].widget.attrs['placeholder'] = 'Goerli, Mumbai, Polygon Mainnet etc...'
-        self.fields['description'].widget.attrs['placeholder'] = 'quick description'
+        #self.fields['description'].widget.attrs['placeholder'] = ''
         self.fields['category'].widget.attrs['placeholder'] = 'Defi, Bridge, L2, NFT etc...'
         self.fields['network_status'].widget.attrs['placeholder'] = 'Testnet, Devnet, Mainnet etc...'
         self.fields['twitter'].widget.attrs['placeholder'] = 'Example @Testnet_1_official'
@@ -35,5 +45,6 @@ class AddNewTestnet(forms.ModelForm):
         self.fields['email_user'].widget.attrs['placeholder'] = 'Provide Your email'
         self.fields['twitter_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
         self.fields['telegram_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
-        
-
+        self.fields['wallet1_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
+        self.fields['wallet1_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
+        self.fields['wallet1_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
