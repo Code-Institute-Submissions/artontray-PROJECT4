@@ -6,8 +6,9 @@ class AddNewTestnet(forms.ModelForm):
 
     class Meta:
         model = Testnet
-        #fields = "__all__"
-        exclude = ['author']
+        fields = "__all__"
+        #exclude = ['author']
+
         widgets = {
           'description': forms.Textarea(attrs={'rows':2, 'cols':45}),
           'description': forms.TextInput(attrs={'placeholder': 'quick description'})
@@ -25,6 +26,7 @@ class AddNewTestnet(forms.ModelForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
+        
         self.fields['testnet_name'].widget.attrs['placeholder'] = 'Testnet Name'
         self.fields['network_name'].widget.attrs['placeholder'] = 'Goerli, Mumbai, Polygon Mainnet etc...'
         #self.fields['description'].widget.attrs['placeholder'] = ''

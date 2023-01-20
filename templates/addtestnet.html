@@ -39,42 +39,42 @@
 
 
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.testnet_name cols='form-group col-md-6' icone='fa-solid fa-file-signature' %}
-              {% include 'inc/formfield.html' with field=form_testnet.network_name cols='form-group col-md-6' icone='fa-solid fa-network-wired' %}
+              {% include 'inc/formfield.html' with field=form.testnet_name cols='form-group col-md-6' icone='fa-solid fa-file-signature' %}
+              {% include 'inc/formfield.html' with field=form.network_name cols='form-group col-md-6' icone='fa-solid fa-network-wired' %}
 
             </div>
             <div class="form-group">
-              {% include 'inc/formfield.html' with field=form_testnet.description icone='fa-solid fa-clipboard-question' %}
+              {% include 'inc/formfield.html' with field=form.description icone='fa-solid fa-clipboard-question' %}
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.category cols='form-group col-md-6' icone='fa-solid fa-folder-open' %}
-              {% include 'inc/formfield.html' with field=form_testnet.network_status cols='form-group col-md-6' icone='fa-solid fa-cube' %}
+              {% include 'inc/formfield.html' with field=form.category cols='form-group col-md-6' icone='fa-solid fa-folder-open' %}
+              {% include 'inc/formfield.html' with field=form.network_status cols='form-group col-md-6' icone='fa-solid fa-cube' %}
 
 
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.twitter cols='form-group col-md-6' icone='fa-brands fa-twitter' %}
-              {% include 'inc/formfield.html' with field=form_testnet.facebook cols='form-group col-md-6' icone='fa-brands fa-facebook' %}
+              {% include 'inc/formfield.html' with field=form.twitter cols='form-group col-md-6' icone='fa-brands fa-twitter' %}
+              {% include 'inc/formfield.html' with field=form.facebook cols='form-group col-md-6' icone='fa-brands fa-facebook' %}
 
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.website cols='form-group col-md-6' icone='fa-brands fa-sistrix' %}
-              {% include 'inc/formfield.html' with field=form_testnet.github cols='form-group col-md-6' icone='fa-brands fa-github' %}
+              {% include 'inc/formfield.html' with field=form.website cols='form-group col-md-6' icone='fa-brands fa-sistrix' %}
+              {% include 'inc/formfield.html' with field=form.github cols='form-group col-md-6' icone='fa-brands fa-github' %}
 
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.discord cols='form-group col-md-6' icone='fa-brands fa-discord' %}
-              {% include 'inc/formfield.html' with field=form_testnet.telegram cols='form-group col-md-6' icone='fa-brands fa-telegram' %}
+              {% include 'inc/formfield.html' with field=form.discord cols='form-group col-md-6' icone='fa-brands fa-discord' %}
+              {% include 'inc/formfield.html' with field=form.telegram cols='form-group col-md-6' icone='fa-brands fa-telegram' %}
 
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.instagram cols='form-group col-md-6' icone='fa-brands fa-instagram' %}
-              {% include 'inc/formfield.html' with field=form_testnet.youtube cols='form-group col-md-6' icone='fa-brands fa-youtube' %}
+              {% include 'inc/formfield.html' with field=form.instagram cols='form-group col-md-6' icone='fa-brands fa-instagram' %}
+              {% include 'inc/formfield.html' with field=form.youtube cols='form-group col-md-6' icone='fa-brands fa-youtube' %}
 
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.whitepaper cols='form-group col-md-6' icone='fa-solid fa-file'  %}
-              {% include 'inc/formfield.html' with field=form_testnet.browser cols='form-group col-md-6' icone='fa-brands fa-internet-explorer' %}
+              {% include 'inc/formfield.html' with field=form.whitepaper cols='form-group col-md-6' icone='fa-solid fa-file'  %}
+              {% include 'inc/formfield.html' with field=form.browser cols='form-group col-md-6' icone='fa-brands fa-internet-explorer' %}
 
             </div>
 
@@ -93,19 +93,19 @@
           </div>
           <div class="card-body ">
             <div class="form-group">
-              {% include 'inc/formfield.html' with field=form_testnet.email_user icone='fa-solid fa-at' color='text-success'%}
+              {% include 'inc/formfield.html' with field=form.email_user icone='fa-solid fa-at' color='text-success'%}
             </div>
             <div class="form-group">
-              {% include 'inc/formfield.html' with field=form_testnet.twitter_user icone='fa-brands fa-twitter' color='text-success' %}
+              {% include 'inc/formfield.html' with field=form.twitter_user icone='fa-brands fa-twitter' color='text-success' %}
             </div>
             <div class="form-group">
-              {% include 'inc/formfield.html' with field=form_testnet.discord_user icone='fa-brands fa-discord' color='text-success' %}
+              {% include 'inc/formfield.html' with field=form.discord_user icone='fa-brands fa-discord' color='text-success' %}
             </div>
             <div class="form-group">
-              {% include 'inc/formfield.html' with field=form_testnet.github_user icone='fa-brands fa-github' color='text-success' %}
+              {% include 'inc/formfield.html' with field=form.github_user icone='fa-brands fa-github' color='text-success' %}
             </div>
             <div class="form-group">
-              {% include 'inc/formfield.html' with field=form_testnet.telegram_user icone='fa-brands fa-telegram' color='text-success' %}
+              {% include 'inc/formfield.html' with field=form.telegram_user icone='fa-brands fa-telegram' color='text-success' %}
             </div>
 
             <div class="row">
@@ -185,23 +185,23 @@
           <div class="card-body">
             <div class="form-row">
 
-              {% include 'inc/formfield.html' with field=form_testnet.wallet1_name icone='fa-solid fa-wallet' color='text-info' cols='col-md-6' %}
+              {% include 'inc/formfield.html' with field=form.wallet1_name icone='fa-solid fa-wallet' color='text-info' cols='col-md-6' %}
 
 
-              {% include 'inc/formfield.html' with field=form_testnet.wallet1_type icone='fa-solid fa-desktop' color='text-info' cols='col-md-6' %}
+              {% include 'inc/formfield.html' with field=form.wallet1_type icone='fa-solid fa-desktop' color='text-info' cols='col-md-6' %}
 
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet1_adress icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet1_adress icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet1_priv_key icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet1_priv_key icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet1_seed icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet1_seed icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet1_clue icone='fa-solid fa-puzzle-piece' color='text-info' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet1_clue icone='fa-solid fa-puzzle-piece' color='text-info' cols='col-md-12'%}
             </div>
             <p class="mb-0 small">Note: <i>If you decide to save your private key or seed
                 phrase here, we advise you not writing the entire key. You
@@ -212,9 +212,9 @@
             <br>
 
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet1_password icone='fa-solid fa-wallet' color='text-info' cols='col-md-6'%}
+              {% include 'inc/formfield.html' with field=form.wallet1_password icone='fa-solid fa-wallet' color='text-info' cols='col-md-6'%}
 
-              {% include 'inc/formfield.html' with field=form_testnet.wallet1_session icone='fa-solid fa-display' color='text-info' cols='col-md-6'%}
+              {% include 'inc/formfield.html' with field=form.wallet1_session icone='fa-solid fa-display' color='text-info' cols='col-md-6'%}
             </div>
             <p class="mb-0 small">Note: <i>Brave can create different session for you to connect
                 different wallet in the same session. We advise you to use this tool to keep tracks of
@@ -223,7 +223,7 @@
             <br>
 
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet1_link icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet1_link icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
 
 
@@ -257,22 +257,22 @@
           </div>
           <div class="card-body">
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet2_name icone='fa-solid fa-wallet' color='text-secondary' cols='col-md-6'%}
-              {% include 'inc/formfield.html' with field=form_testnet.wallet2_type icone='fa-solid fa-desktop' color='text-secondary' cols='col-md-6'%}
+              {% include 'inc/formfield.html' with field=form.wallet2_name icone='fa-solid fa-wallet' color='text-secondary' cols='col-md-6'%}
+              {% include 'inc/formfield.html' with field=form.wallet2_type icone='fa-solid fa-desktop' color='text-secondary' cols='col-md-6'%}
             </div>
 
 
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet2_adress icone='fa-regular fa-address-book' color='text-secondary' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet2_adress icone='fa-regular fa-address-book' color='text-secondary' cols='col-md-12'%}
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet2_priv_key icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet2_priv_key icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet2_seed icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet2_seed icone='fas fa-exclamation-triangle' color='text-danger' cols='col-md-12'%}
             </div>
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet2_clue icone='fa-solid fa-puzzle-piece' color='text-secondary' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet2_clue icone='fa-solid fa-puzzle-piece' color='text-secondary' cols='col-md-12'%}
             </div>
             <p class="mb-0 small">Note: <i>If you decide to save your private key or seed
                 phrase here, we advise you not writing the entire key. You
@@ -283,9 +283,9 @@
             <br>
 
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet2_password icone='fa-solid fa-wallet' color='text-secondary' cols='col-md-6'%}
+              {% include 'inc/formfield.html' with field=form.wallet2_password icone='fa-solid fa-wallet' color='text-secondary' cols='col-md-6'%}
 
-              {% include 'inc/formfield.html' with field=form_testnet.wallet2_session icone='fa-solid fa-display' color='text-secondary' cols='col-md-6'%}
+              {% include 'inc/formfield.html' with field=form.wallet2_session icone='fa-solid fa-display' color='text-secondary' cols='col-md-6'%}
             </div>
             <p class="mb-0 small">Note: <i>Brave can create different session for you to connect
                 different wallet in the same session. We advise you to use this tool to keep tracks of
@@ -294,7 +294,7 @@
             <br>
 
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.wallet2_link icone='fa-regular fa-address-book' color='text-secondary' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.wallet2_link icone='fa-regular fa-address-book' color='text-secondary' cols='col-md-12'%}
             </div>
 
 
@@ -331,7 +331,7 @@
           <div class="card-body">
 
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.tasks_description icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.tasks_description icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
 
           </div>
@@ -348,7 +348,7 @@
           <div class="card-body">
 
             <div class="form-row">
-              {% include 'inc/formfield.html' with field=form_testnet.tasks_results icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
+              {% include 'inc/formfield.html' with field=form.tasks_results icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
 
           </div>

@@ -92,7 +92,7 @@
                         <div class="h5 font-weight-bold text-info text-uppercase mb-1">
                             Notification(s)
                         </div>
-                        <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">{{ nb_notifications_user }}</div>
+                        <div class="h1_extra_big mb-0 font-weight-bold text-gray-800">{{ object.user_info.nb_notifications }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-comment fa-4x text-info"></i>
@@ -119,35 +119,35 @@
                 <h6 class="m-0 font-weight-bold text-primary">MISSIONS</h6>
             </div>
             <div class="card-body">
-                <h4 class="small font-weight-bold">LEVEL: {{ Level_user }}
-                    <span class="float-right">{{ exp }} / {{ Current_Level_XP }} EXP </span>
+                <h4 class="small font-weight-bold">LEVEL: {{ object.user_info.get_level_user }}
+                    <span class="float-right">{{ object.user_info.exp }} / {{ object.user_info.current_level_xp_max }} EXP </span>
                 </h4>
                 <div class="progress mb-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: {{ Pourcentage_accomplished_XP }}%" aria-valuenow="20"
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{ object.user_info.pourc_accomplished_exp }}%" aria-valuenow="20"
                         aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
-                <h4 class="small font-weight-bold">CREATE {{ How_Much_testnet_To_Create }} TESTNETS
-                    <span class="float-right">{{ Pourcentage_accomplished_Testnet }}%</span>
+                <h4 class="small font-weight-bold">CREATE {{ object.user_info.current_nb_testnet_to_do  }} TESTNETS
+                    <span class="float-right">{{ object.user_info.pourc_accomplished_testnet }}%</span>
                 </h4>
                 <div class="progress mb-4">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ Pourcentage_accomplished_Testnet }}%" aria-valuenow="20"
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ object.user_info.pourc_accomplished_testnet }}%" aria-valuenow="20"
                         aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
-                <h4 class="small font-weight-bold">FOLLOW {{ How_Much_Followers_To_Have }} USERS
-                    <span class="float-right">{{ Pourcentage_accomplished_Followers }} %</span>
+                <h4 class="small font-weight-bold">FOLLOWED BY {{ object.user_info.current_follow_max }} USERS
+                    <span class="float-right">{{ object.user_info.pourc_accomplished_followers }} %</span>
                 </h4>
                 <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ Pourcentage_accomplished_Followers }}%"
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ object.user_info.pourc_accomplished_followers }}%"
                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
-                <h4 class="small font-weight-bold">COPY {{ How_Much_Copied_Testnet_To_Have }} TESTNETS
-                    <span class="float-right">{{ Pourcentage_accomplished_Copied_Testnet }} %</span>
+                <h4 class="small font-weight-bold">COPY {{ object.user_info.current_copied_testnet_max }} TESTNETS
+                    <span class="float-right">{{ object.user_info.pourc_accomplished_copied_testnet }} %</span>
                 </h4>
                 <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ Pourcentage_accomplished_Copied_Testnet }}%"
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ object.user_info.pourc_accomplished_copied_testnet }}%"
                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
@@ -166,27 +166,27 @@
                 <div class="col mb-2 ">
                     <p>Debank Adress : {{ object.user_info.debank }}</p>
                     <p>Register : {{ object.date_joined|date  }}</p>
-                    {% if Last_Testnet_name == "Not created yet" %}
+                    {% if object.user_info.last_testnet == "Not created yet" %}
                     <p>My Last Testnet : 
                         <p class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            {{ object.testnet_user_info.testnet_name.first }}
+                            "Not created yet"
                         </p>
                     </p>
                     {% else %}
                     <p>My Last Testnet : 
                         <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-download fa-sm text-white-50"></i>
-                            {{ object.testnet_user_info.last.testnet_name }}
+                            {{ object.user_info.last_testnet }}
                         </a>
                     </p>
                     {% endif %}
                     
                     <i>
-                        {{ bio_user }}
+                        {{ object.user_info.bio }}
                     </i>
                 </div>
                 <div class="col mb-2">
-                    <img src="{{ avatar }}" class="logo_user" alt="logo user">
+                    <img src="{{ object.user_info.avatar }}" class="logo_user" alt="logo user">
                 </div>
             </div>
             <!-- Buttons box for user -->
@@ -235,29 +235,7 @@
     </div>
 </div>
 
-{%  if is_paginated  %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="pagination justify-content-center my-4">
-                <span class="step-links">
-                    {% if page_obj.has_previous %}
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page=1">First</a>
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                    {% endif %}
-                    <span class="current text-dark">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                    </span>
-                    {% if page_obj.has_next %}
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.next_page_number }}">Next</a>
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-                    {% endif %}
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-{%  endif  %}
+
 <!-- End Content Row Number 2-->
 <!-- Listing of the all testnet created by user-->
 
@@ -294,6 +272,29 @@
     </div>
 
 {% endfor %}
+{%  if is_paginated  %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="pagination justify-content-center my-4">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page=1">First</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    <span class="current text-dark">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                    {% if page_obj.has_next %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{%  endif  %}
 <!-- End Listing of the all testnet created by user-->
 <br>
 <br>

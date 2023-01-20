@@ -9,6 +9,12 @@ from django.utils.functional import cached_property
 STATUS = ((0, "User"), (1, "Admin"))
 READ = ((0, "Unread"), (1, "Read"))
 
+EXP_PER_ACTION = 100
+FOLLOWERS_FOR_LEVEL1 = 5
+COEFF_FOR_LEVEL_UP = 1.4
+TESTNET_CREATED_FOR_LEVEL1 = 5
+TESTNET_TO_COPY_FOR_LEVEL1 = 5
+EXP_FOR_LEVEL1 = (FOLLOWERS_FOR_LEVEL1+TESTNET_CREATED_FOR_LEVEL1+TESTNET_TO_COPY_FOR_LEVEL1)*EXP_PER_ACTION
 
 class Testnet(models.Model):
     """
@@ -160,11 +166,89 @@ class UserInfo(models.Model):
     def nb_copied_testnet(self):
         if not hasattr(self, "_nb_copied_testnet"):
             self._nb_copied_testnet = Testnet.objects.all().exclude(author=self.user.id).filter(testnet_user=self.user.id).count()
-            
-                
 
         return self._nb_copied_testnet
 
+    @property
+    def nb_notifications(self):
+        if not hasattr(self, "_nb_notifications"):
+            self._nb_notifications = Notifications.objects.all().filter(notification_owner=self.user.id).count()
+
+        return self._nb_notifications
+
+    @property
+    def last_testnet(self):
+        if not hasattr(self, "_last_testnet"):
+            self._last_testnet = Testnet.objects.all().filter(author=self.user).first()
+            if self._last_testnet:
+                self._last_testnet = self._last_testnet.testnet_name
+            else:
+                self._last_testnet = 'Not created yet'
+        return self._last_testnet
+
+    @property
+    def get_level_user(self):
+        Level_user = 1
+        Current_Level_XP = EXP_FOR_LEVEL1
+        exp = self.exp
+        if exp > EXP_FOR_LEVEL1:
+            Current_Level_XP = EXP_FOR_LEVEL1 * COEFF_FOR_LEVEL_UP
+            while exp > Current_Level_XP:
+                Level_user += 1
+                Current_Level_XP = Current_Level_XP * COEFF_FOR_LEVEL_UP
+
+        if not hasattr(self, "_get_level_user"):
+            self._get_level_user = Level_user
+
+        return self._get_level_user
+
+    @property
+    def current_nb_testnet_to_do(self):
+        if not hasattr(self, "_current_nb_testnet_to_do"):
+            self._current_nb_testnet_to_do = int(TESTNET_CREATED_FOR_LEVEL1+(COEFF_FOR_LEVEL_UP**self.get_level_user))
+
+        return self._current_nb_testnet_to_do 
+       
+
+    @property
+    def current_level_xp_max(self):
+        if not hasattr(self, "_current_level_xp_max"):
+            self._current_level_xp_max = int(EXP_FOR_LEVEL1*(COEFF_FOR_LEVEL_UP**self.get_level_user))
+
+        return self._current_level_xp_max
+
+    @property
+    def pourc_accomplished_exp(self):
+        return (self.exp/self.current_level_xp_max)*100    
+
+    @property
+    def pourc_accomplished_testnet(self):
+        result = int((self.nb_testnet/self.current_nb_testnet_to_do)*100) 
+        if result >= 100:
+            return 100
+        return result
+
+    @property
+    def current_follow_max(self):
+        return int(FOLLOWERS_FOR_LEVEL1+(COEFF_FOR_LEVEL_UP**self.get_level_user))
+
+    @property
+    def pourc_accomplished_followers(self):
+        result = int((self.nb_followers/self.current_follow_max)*100)
+        if result >= 100:
+            return 100
+        return result
+
+    @property
+    def current_copied_testnet_max(self):
+        return int(TESTNET_TO_COPY_FOR_LEVEL1+(COEFF_FOR_LEVEL_UP**self.get_level_user))
+
+    @property
+    def pourc_accomplished_copied_testnet(self):
+        result = int((self.nb_copied_testnet/self.current_copied_testnet_max)*100) 
+        if result >= 100:
+            return 100
+        return result
 
     def __str__(self):
         return f"{self.user}"
