@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import AddNewTestnet
+from functools import reduce
 
 
 
@@ -67,6 +68,62 @@ def AddTestnet(request):
 
 
 
+ 
+
+
+
+
+
+
+
+class ShowTestnet(generic.DetailView):
+    """
+    This view is used to display User Testnet 
+    """
+    model = Testnet
+
+    template_name = "showtestnet.html"
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+    def get_object(self, queryset=None):
+        if self.slug_url_kwarg in self.kwargs:
+            return super().get_object(queryset)
+        else:
+            return self.request.user
+
+
+
+class ShowTestnetall(generic.DetailView):
+    """
+    This view is used to display All User Testnet 
+    """
+    model = User
+
+    template_name = "showtestnetall.html"
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    def get_object(self, queryset=None):
+        if self.slug_url_kwarg in self.kwargs:
+            return super().get_object(queryset)
+        else:
+            return self.request.user
+
+    def get_context_data(self, **context):
+        # User Testnet listing only the 5 lastest
+        testnet_user = Testnet.objects.filter(author=self.request.user)
+        paginate_by = 4
+
+        context.update ({
+                "testnet_user": testnet_user,
+
+
+
+
+                
+            }
+        )
+        return context
+
 
 
 class ShowDashboard(generic.DetailView):
@@ -102,8 +159,8 @@ class ShowDashboard(generic.DetailView):
 
 
 
-        # User Testnet listing 
-        testnet_user = Testnet.objects.filter(author=self.request.user.id)
+        # User Testnet listing only the 5 lastest
+        testnet_user = Testnet.objects.filter(author=self.request.user.id)[:5]
         paginate_by = 4
 
         context.update ({

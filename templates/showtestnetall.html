@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0 text-xl font-weight-bold text-primary">Show All Testnet : {{ request.user.username }} </h1>
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</div>
+<!-- Content Row Number 1-->
+
+<form id="searchform" action="#" method="get" accept-charset="utf-8">
+    <button class="searchbutton" type="submit">
+         <i class="fa fa-search"></i>
+    </button>
+    <input class="searchfield" id="searchbox" name="searching" type="text" placeholder="Search">
+</form>
+
+<!-- End Content Row Number 2-->
+<!-- Listing of the all testnet created by user-->
+
+
+{% for testnet in testnet_user %}
+
+    <div class="container-fluid bg-light border-all-around-radius my-2">
+        <div class="row my-2">
+            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
+                <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    {{ testnet.testnet_name }}
+                </h6>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="{% url 'showtestnet' testnet.slug %}" class=" btn btn-info btn-user btn-block">
+                    <i class="fa-solid fa-eye"></i>
+                    Show
+                </a>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="#" class=" btn btn-success btn-user btn-block">
+                    <i class="fa-regular fa-copy"></i> 
+                    {{ result }}
+                </a>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="#" class=" btn btn-primary btn-user btn-block">
+                    <i class="fa-solid  fa-pen-to-square"></i>
+                    Edit
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+
+
+{%  comment  %}
+
+{%  if is_paginated  %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="pagination justify-content-center my-4">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page=1">First</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    <span class="current text-dark">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                    {% if page_obj.has_next %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{%  endif  %}
+{%  endcomment  %}
+<!-- End Listing of the all testnet created by user-->
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+{%endblock%}

@@ -79,7 +79,17 @@ class Testnet(models.Model):
         ordering = ['-created_on']
 
 
+    #@property
+   # def is_owner_current_user(self):
 
+       # def sample_view(request):
+       #     current_user = request.user
+
+       # if not hasattr(self, "_is_owner_current_user"):
+          #  self._is_owner_current_user = Testnet.objects.all().filter(slug=self.slug).filter(author=request.user)
+            
+
+       # return self._is_owner_current_user
 
 
 
@@ -249,6 +259,9 @@ class UserInfo(models.Model):
         if result >= 100:
             return 100
         return result
+
+
+
 
     def __str__(self):
         return f"{self.user}"
