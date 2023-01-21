@@ -102,7 +102,7 @@
                     <div class="row my-2">
 
                         <div class="col-lg-12 col-sm-12 col-md-12 py-3">
-                            <a class=" btn btn-primary btn-user btn-block" href="notifications.html">Show</a>
+                            <a class=" btn btn-primary btn-user btn-block" href="{% url 'show_notifications' request.user.username %}">Show</a>
                         </div>
                     </div>
                 </div>
@@ -186,7 +186,8 @@
                     </i>
                 </div>
                 <div class="col mb-2">
-                    <img src="{{ object.user_info.avatar }}" class="logo_user" alt="logo user">
+                    <img src="{{ object.user_info.avatar.url }}" class="logo_user" alt="logo user">
+                    
                 </div>
             </div>
             <!-- Buttons box for user -->

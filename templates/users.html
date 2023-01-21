@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0 text-xl font-weight-bold text-primary">Users</h1>
+</div>
+<!-- Content Row Number 1-->
+
+
+
+<div class="container-fluid">
+    <!-- End Content Row Number 2-->
+    <!-- Listing of the all testnet created by user-->
+    <div class="row">
+
+        <div class="col-xl-6 col-md-6 mb-6">
+
+
+            <form class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ">
+                <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                        aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="row">
+    {% for user in show_all_users %}
+
+    <!-- User Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2">
+            <div class="row ">
+                <div class="col-xl-12 col-md-12 mb-6 ">
+                    <i class="fa-regular fa-star fa-3x padding-20px-left text-warning"></i>
+                    <div class="h4 font-weight-bold text-uppercase text-primary align-center">
+                        {{ user }}</div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-xl-12 col-md-12 mb-6 ">
+                    <div class="mb-1 align-center">
+                        <img src="{{ user.avatar.url }}" class="logo_user_miniature rotate-15" alt="logo user">
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid  my-2">
+                <div class="row my-2">
+                    <div class="d-xs-block col-lg-6 col-md-6 py-3">
+                        <h6 class=" font-weight-bold text-primary align-center">Testnet(s)</h6>
+                    </div>
+                    <div class="d-xs-block col-lg-6 col-md-6 py-3">
+                        <h6 class=" font-weight-bold text-primary align-center"> {{ user.nb_testnet }}</h6>
+                    </div>
+
+                </div>
+                <div class="row my-2">
+                    <div class="d-xs-block col-lg-6 col-md-6 py-3">
+                        <h6 class=" font-weight-bold text-primary align-center">Follower(s)</h6>
+                    </div>
+                    <div class="d-xs-block col-lg-6 col-md-6 py-3">
+                        <h6 class=" font-weight-bold text-primary align-center"> {{ user.nb_followers }}</h6>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row ">
+                <div class="card-body">
+                    <h4 class="h5 font-weight-bold">LEVEL {{ user.get_level_user }}<span class="float-right">{{ user.exp }} / {{ user.current_level_xp_max }} XP</span>
+                    </h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: {{ user.pourc_accomplished_exp }}%" aria-valuenow="20"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="container-fluid my-2">
+                    <div class="row my-2">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <a class=" btn btn-primary btn-user btn-block" href="{% url 'dashboard' user %}">Show</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+</div>
+
+
+{%  comment  %}
+
+{%  if is_paginated  %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="pagination justify-content-center my-4">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page=1">First</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1"
+                        href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    <span class="current text-dark">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                    {% if page_obj.has_next %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1"
+                        href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1"
+                        href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{%  endif  %}
+{%  endcomment  %}
+<!-- End Listing of the all testnet created by user-->
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+{%endblock%}

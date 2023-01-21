@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0 text-xl font-weight-bold text-primary">Notification(s) </h1>
+    {% if request.user == object and user.is_authenticated %}
+    <h1>OWNER</h1> 
+    {% else %}
+    <h1> PAS OWNER</h1> 
+    {% endif %}
+</div>
+<!-- Content Row Number 1-->
+
+<!-- End Content Row Number 2-->
+<!-- Listing of the all testnet created by user-->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0 text-xl font-weight-bold text-primary">Unread(s) </h1>
+</div>
+
+{% for notification in notifications_user_unread %}
+
+    <div class="container-fluid bg-light border-all-around-radius my-2">
+        <div class="row my-2">
+            <div class="col-lg-3 col-sm-12 col-md-3 py-3">
+
+                    {{ notification.title }}
+                
+            </div>
+            <div class="col-lg-7 col-sm-12 col-md-7 py-3">
+
+                    {{ notification.message }}
+          
+            </div>
+
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+
+                <form method="POST" action="#">
+                <a href="/notification/{{ notification.id }}/read" class=" btn btn-success btn-user btn-block">
+                    <i class="fa-solid fa-check"></i>
+                    OK
+                </a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0 text-xl font-weight-bold text-primary">read(s) </h1>
+</div>
+
+{% for notification in notifications_user_read %}
+
+    <div class="container-fluid bg-green border-all-around-radius success my-2">
+        <div class="row my-2">
+            <div class="col-lg-4 col-sm-12 col-md-4 py-3">
+
+                {{ notification.title }}
+            
+        </div>
+        <div class="col-lg-8 col-sm-12 col-md-8 py-3">
+
+                {{ notification.message }}
+      
+        </div>
+
+
+        </div>
+    </div>
+
+{% endfor %}
+
+
+{%  comment  %}
+
+{%  if is_paginated  %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="pagination justify-content-center my-4">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page=1">First</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    <span class="current text-dark">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                    {% if page_obj.has_next %}
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{%  endif  %}
+{%  endcomment  %}
+<!-- End Listing of the all testnet created by user-->
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+{%endblock%}

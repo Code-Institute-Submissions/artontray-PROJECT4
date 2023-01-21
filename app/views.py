@@ -93,6 +93,37 @@ class ShowTestnet(generic.DetailView):
 
 
 
+class ShowNotifications(generic.DetailView):
+    """
+    This view is used to display All User Notifications
+    """
+    model = User
+
+    template_name = "shownotifications.html"
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    def get_object(self, queryset=None):
+        if self.slug_url_kwarg in self.kwargs:
+            return super().get_object(queryset)
+        else:
+            return self.request.user
+
+    def get_context_data(self, **context):
+        # User Testnet listing only the 5 lastest
+        notifications_user_unread = Notifications.objects.filter(notification_owner=self.request.user, read=0)
+        notifications_user_read = Notifications.objects.filter(notification_owner=self.request.user, read=1)
+        paginate_by = 4
+
+        context.update ({
+                "notifications_user_unread": notifications_user_unread,
+                "notifications_user_read": notifications_user_read,
+
+
+            }
+        )
+        return context
+
+
 class ShowTestnetall(generic.DetailView):
     """
     This view is used to display All User Testnet 
@@ -124,6 +155,39 @@ class ShowTestnetall(generic.DetailView):
         )
         return context
 
+class ShowUsers(generic.DetailView):
+    """
+    This view is used to display User Dashboard informations
+    """
+    model = User
+    template_name = "users.html"
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    #object_user = self.kwargs['object_user']
+    
+    def get_object(self, queryset=None):
+        if self.slug_url_kwarg in self.kwargs:
+            return super().get_object(queryset)
+        else:
+            return self.request.user
+
+    def get_context_data(self, **context):
+
+        request = self.request
+        object_user = self.request.user
+        
+        show_all_users = UserInfo.objects.all()
+
+        context.update ({
+                "show_all_users": show_all_users,
+
+
+
+
+                
+            }
+        )
+        return context
 
 
 class ShowDashboard(generic.DetailView):
@@ -148,19 +212,41 @@ class ShowDashboard(generic.DetailView):
 
         request = self.request
         object_user = self.request.user
-        nb_following = self.object.user_info.nb_following
-        nb_followers = self.object.user_info.nb_followers
-        nb_testnet = self.object.user_info.nb_testnet
 
 
- 
+
+        def check_user_info_exist(object_user):
+            """
+            return True if user info exist on Table UserInfo
+            """   
+            user_info_exist = UserInfo.objects.filter(user_id=object_user.id).exists()
+            return user_info_exist
+
+        queryset = UserInfo.objects.all()
+        
+
+        if not check_user_info_exist(object_user):
+            # Creating user info table with basic value
+            # We fill up the table with none value and 100 exp
+            exp = 100
+            debank = '...'
+            bio = 'I just signed up to Testnet Organizer....'
+            avatar = "https://res.cloudinary.com/dqnhlza2r/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1673725603/avatar_empty_gsx6it.webp"
+            Creation_User_Info = UserInfo.objects.create(
+                user_id=self.request.user.id,
+                bio=bio,
+                exp=exp,
+                debank=debank,
+                avatar=avatar
+                )
+            Creation_User_Info.save()
 
 
 
 
 
         # User Testnet listing only the 5 lastest
-        testnet_user = Testnet.objects.filter(author=self.request.user.id)[:5]
+        testnet_user = Testnet.objects.filter(author=object_user.id)[:5]
         paginate_by = 4
 
         context.update ({

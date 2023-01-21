@@ -20,7 +20,7 @@ class TestnetAdmin(SummernoteModelAdmin):
     Allows admin to manage Testnet via the admin panel
     """
     list_filter = ('testnet_name', 'created_on')
-    list_display = ('author', 'testnet_user', 'slug', 'category', 'created_on')
+    list_display = ('id', 'author', 'testnet_user', 'slug', 'category', 'created_on')
     search_fields = ('testnet_name', 'description')
     summernote_fields = ('description', 'tasks_description')
 

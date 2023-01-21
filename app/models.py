@@ -168,7 +168,7 @@ class UserInfo(models.Model):
     @property
     def nb_testnet(self):
         if not hasattr(self, "_nb_testnet"):
-            self._nb_testnet = Testnet.objects.all().filter(author=self.user.id).count()
+            self._nb_testnet = Testnet.objects.all().filter(author=self.user.id,testnet_user=self.user.id ).count()
 
         return self._nb_testnet
 
