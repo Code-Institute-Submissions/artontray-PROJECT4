@@ -10,6 +10,16 @@
     {% else %}
     <h1> PAS OWNER</h1> 
     {% endif %}
+
+
+    {% if messages %}
+        <ul class="messages">
+
+            <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ messages }}</li>
+
+        </ul>
+    {% endif %}
+
 </div>
 <!-- Content Row Number 1-->
 
@@ -37,7 +47,7 @@
             <div class="col-lg-2 col-sm-12 col-md-2 py-3">
 
                 <form method="POST" action="#">
-                <a href="/notification/{{ notification.id }}/read" class=" btn btn-success btn-user btn-block">
+                <a href="/notification/{{ notification.id }}/update" class=" btn btn-success btn-user btn-block">
                     <i class="fa-solid fa-check"></i>
                     OK
                 </a>

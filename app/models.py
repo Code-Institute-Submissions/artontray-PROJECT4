@@ -26,6 +26,7 @@ class Testnet(models.Model):
         User, on_delete=models.CASCADE, related_name="testnet_author")
     testnet_user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="testnet_user")    
+    slug_original = models.CharField(max_length=60, blank=False, null=False)
     network_name = models.CharField(max_length=25)
     network_status = models.CharField(max_length=25)
     description = models.TextField()
@@ -182,7 +183,7 @@ class UserInfo(models.Model):
     @property
     def nb_notifications(self):
         if not hasattr(self, "_nb_notifications"):
-            self._nb_notifications = Notifications.objects.all().filter(notification_owner=self.user.id).count()
+            self._nb_notifications = Notifications.objects.all().filter(notification_owner=self.user.id, read=0).count()
 
         return self._nb_notifications
 

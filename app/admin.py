@@ -20,7 +20,7 @@ class TestnetAdmin(SummernoteModelAdmin):
     Allows admin to manage Testnet via the admin panel
     """
     list_filter = ('testnet_name', 'created_on')
-    list_display = ('id', 'author', 'testnet_user', 'slug', 'category', 'created_on')
+    list_display = ('id', 'author', 'testnet_user', 'slug','slug_original', 'category', 'created_on')
     search_fields = ('testnet_name', 'description')
     summernote_fields = ('description', 'tasks_description')
 
@@ -31,7 +31,7 @@ class NotificationsAdmin(admin.ModelAdmin):
     """
     Allows admin to manage user notifications via the admin panel
     """
-    list_display = ('notification_owner', 'title', 'created_on')
+    list_display = ('id', 'notification_owner', 'title', 'created_on', 'read' )
 
 
 @admin.register(UserInfo)

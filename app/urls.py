@@ -11,5 +11,6 @@ urlpatterns = [
     path('showtestnet/<slug:slug>', views.ShowTestnet.as_view(), name='showtestnet'),
     path('showtestnetall/<slug:username>', views.ShowTestnetall.as_view(), name='showtestnetall'),
 
+    path('notification/<int:id>/update', views.UpdateNotifications.as_view(), name='updatenotification'),
     path('addtestnet/', views.AddTestnet, name='addtestnet'),
 ]

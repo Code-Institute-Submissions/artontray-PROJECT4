@@ -71,8 +71,18 @@ def AddTestnet(request):
  
 
 
+class UpdateNotifications(generic.DetailView):
 
-
+    def get(self, request, id, *args, **kwargs):
+        queryset = Notifications.objects.filter(notification_owner=request.user.id)
+        notif = get_object_or_404(queryset, id=id)
+        if notif.read == 0:
+            notif.read = 1
+            notif.save()
+            message = "Your Notifications has been removed to archive successfully"
+        
+        return HttpResponseRedirect(reverse('show_notifications', args=[request.user.username]))
+        
 
 
 
