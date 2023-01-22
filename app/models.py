@@ -20,7 +20,7 @@ class Testnet(models.Model):
     """
     Model for Testnet Table
     """
-    testnet_name = models.CharField(max_length=60, unique=True, blank=False, null=False)
+    testnet_name = models.CharField(max_length=60, unique=True, blank=False, null=False, db_index=True)
     slug = AutoSlugField(populate_from='testnet_name', unique=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="testnet_author")
@@ -29,7 +29,7 @@ class Testnet(models.Model):
     slug_original = models.CharField(max_length=60, blank=False, null=False)
     network_name = models.CharField(max_length=25)
     network_status = models.CharField(max_length=25)
-    description = models.TextField()
+    description = models.TextField(db_index=True)
     category = models.CharField(max_length=25)
     twitter = models.CharField(max_length=25, blank=True)
     facebook = models.CharField(max_length=25, blank=True)
@@ -62,7 +62,7 @@ class Testnet(models.Model):
     wallet2_clue = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now=True)
     updated_on = models.DateTimeField(auto_now=True)
-    copied_nb = models.IntegerField(default=0)
+    copied_nb = models.IntegerField(default=0, blank=True)
     twitter_user = models.CharField(max_length=21, blank=True)
     email_user = models.EmailField(blank=True)
     website_user = models.CharField(max_length=255, blank=True)

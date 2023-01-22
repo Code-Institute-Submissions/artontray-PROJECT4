@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from .models import Testnet
 from .models import Notifications, UserInfo, CheckList
@@ -9,14 +10,10 @@ from django.contrib import messages
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import AddNewTestnet
+from .forms import TestnetForm
 from functools import reduce
-
-
-
-
 
 class StatistiqueApp(generic.ListView):
     """
@@ -43,29 +40,52 @@ class StatistiqueApp(generic.ListView):
 
 
 
-
-
-
-def AddTestnet(request):
-
-    if request.method == 'POST':
-
-        form = AddNewTestnet(request.POST)
-    
-        if form.is_valid():
-        #request.cleaned_data
-        #form.author = request.user
-        #form.testnet_user = request.user
-            form.save()
-            return HttpResponseRedirect('/dashboard/')
-           
-
-
-    else:
-        form = AddNewTestnet()
+def EditProfileUser(request):
 
     return render(request, 'addtestnet.html', {'form': form})
 
+
+class FormTestnetMixin:
+    model = Testnet
+    success_url = '/dashboard/'
+    form_class = TestnetForm
+    success_msg = "Le testnet a bien été enregistré \o/"
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+    
+    def form_valid(self, form):
+        messages.add_message(self.request, messages.SUCCESS, self.success_msg)
+        return super().form_valid(form)
+
+
+class AddTestnet(FormTestnetMixin, generic.CreateView):
+    success_msg = "Le testnet a bien été créé \o/"
+
+class UpdateTestnet(FormTestnetMixin,LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+
+
+    def test_func(self):
+        testnet = self.get_object()
+
+            
+        return testnet.testnet_user.username == self.request.user.username
+
+    success_msg = "Le testnet a bien été modifié \o/"
+
+# Autre façon de faire, en fonction, mais ça gère moins de chose:
+# def add_testnet(request):
+#     if request.method == 'POST':
+#         form = AddNewTestnet(data=request.POST, user=request.user)
+#         if form.is_valid():
+#             form.save()
+#             messages.add_message(request, messages.SUCCESS, "Le testnet a bien été créé \o/")
+#             return HttpResponseRedirect('/dashboard/')
+#     else:
+#         form = AddNewTestnet(user=request.user)
+#     return render(request, 'addtestnet.html', {'form': form})
 
 
 class AddFavoriteUser(generic.DetailView):
@@ -88,8 +108,8 @@ class UpdateNotifications(generic.DetailView):
         if notif.read == 0:
             notif.read = 1
             notif.save()
-            message = "Your Notifications has been removed to archive successfully"
-        
+            #message = "Your Notifications has been removed to archive successfully"
+            messages.success(request, "Your Notifications has been removed to archive successfully")
         return HttpResponseRedirect(reverse('show_notifications', args=[request.user.username]))
         
 
@@ -143,33 +163,40 @@ class ShowNotifications(generic.DetailView):
         return context
 
 
-class ShowTestnetall(generic.DetailView):
+class ShowTestnetall(generic.ListView):
     """
     This view is used to display All User Testnet 
     """
-    model = User
-
+    model = Testnet
     template_name = "showtestnetall.html"
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
-    def get_object(self, queryset=None):
-        if self.slug_url_kwarg in self.kwargs:
-            return super().get_object(queryset)
-        else:
-            return self.request.user
+    paginate_by = 3
+
+    def get(self, request, *args, **kwargs):
+        self.testnet_user = self.get_user()
+        return super().get(request, *args, **kwargs)
+    
+    def get_user(self):
+        if "username" in self.kwargs:
+            return get_object_or_404(User, username=self.kwargs["username"])
+        return self.request.user
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(testnet_user=self.testnet_user)
+        search = self.request.GET.get("searching", None)
+        if search:
+            qs = qs.filter(
+                Q(testnet_name__icontains=search) 
+                | Q(description__icontains=search)
+            )
+        return qs
 
     def get_context_data(self, **context):
         # User Testnet listing only the 5 lastest
-        testnet_user = Testnet.objects.filter(author=self.request.user)
-        paginate_by = 4
-
-        context.update ({
-                "testnet_user": testnet_user,
-
-
-
-
-                
+        context = super().get_context_data(**context)
+        context.update({
+                "testnet_user": self.testnet_user,
+                "searching": self.request.GET.get("searching", None),
             }
         )
         return context
@@ -180,6 +207,7 @@ class ShowUsers(generic.DetailView):
     """
     model = User
     template_name = "users.html"
+    paginate_by = 6
     slug_field = 'username'
     slug_url_kwarg = 'username'
     #object_user = self.kwargs['object_user']

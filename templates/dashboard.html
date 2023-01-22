@@ -6,12 +6,12 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="mb-0 text-xl font-weight-bold text-primary">Dashboard</h1>
     {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ messages }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </div>
 <!-- Content Row Number 1-->
 
@@ -286,7 +286,7 @@
                 </a>
             </div>
             <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-                <a href="#" class=" btn btn-primary btn-user btn-block">
+                <a href="{% url 'update_testnet' slug=testnet.slug_original %}" class=" btn btn-primary btn-user btn-block">
                     <i class="fa-solid  fa-pen-to-square"></i>
                     Edit
                 </a>

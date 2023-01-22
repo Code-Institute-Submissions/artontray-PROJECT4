@@ -1,13 +1,17 @@
 from django import forms
 from .models import Testnet
+from django.template.defaultfilters import slugify
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.shortcuts import reverse, redirect
 
-class AddNewTestnet(forms.ModelForm):
+class TestnetForm(forms.ModelForm):
     #inputTestnetName = forms.CharField(label='Testnet name', max_length=60)
 
     class Meta:
         model = Testnet
         fields = "__all__"
-        #exclude = ['author']
+        exclude = ['author', 'testnet_user', 'slug_original']
 
         widgets = {
           'description': forms.Textarea(attrs={'rows':2, 'cols':45}),
@@ -22,11 +26,17 @@ class AddNewTestnet(forms.ModelForm):
 
 
     def __init__(self, *args, **kwargs):
-        super(AddNewTestnet, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
+        self.user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+        
+        if not self.instance.pk:
+            self.instance.author = self.user
+            self.instance.testnet_user = self.user
 
         
+        
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'        
         self.fields['testnet_name'].widget.attrs['placeholder'] = 'Testnet Name'
         self.fields['network_name'].widget.attrs['placeholder'] = 'Goerli, Mumbai, Polygon Mainnet etc...'
         #self.fields['description'].widget.attrs['placeholder'] = ''
@@ -50,3 +60,24 @@ class AddNewTestnet(forms.ModelForm):
         self.fields['wallet1_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
         self.fields['wallet1_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
         self.fields['wallet1_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
+        if self.instance.pk:
+            self.fields['testnet_name'].disabled = True
+
+    def clean(self):
+        super().clean()
+
+        if self.instance.pk:
+            return self.cleaned_data
+        base_slug = slugify(self.cleaned_data["testnet_name"])
+        suffix = 0
+        while True:
+            if not suffix:
+                slug_original = base_slug
+            else:
+                slug_original = "%s-%d" % (base_slug, suffix)
+            if not self._meta.model.objects.filter(slug_original=slug_original).exists():
+                break
+            suffix += 1
+        self.cleaned_data["slug_original"] = slug_original
+        self.instance.slug_original = slug_original
+        return self.cleaned_data
