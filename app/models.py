@@ -152,6 +152,10 @@ class UserInfo(models.Model):
         return self.user.date_joined
 
     @property
+    def get_object_user(self):
+        return self.user
+
+    @property
     def nb_following(self):
         if not hasattr(self, "_nb_following"):
             self._nb_following = self.following.count()
@@ -169,9 +173,16 @@ class UserInfo(models.Model):
     @property
     def nb_testnet(self):
         if not hasattr(self, "_nb_testnet"):
-            self._nb_testnet = Testnet.objects.all().filter(author=self.user.id,testnet_user=self.user.id ).count()
+            self._nb_testnet = Testnet.objects.all().filter(author=self.user.id,testnet_user=self.user.id).count()
 
         return self._nb_testnet
+
+    @property
+    def show_testnet_user(self):
+        if not hasattr(self, "_show_testnet_user"):
+            self._show_testnet_user = Testnet.objects.all().filter(testnet_user=self.user.id)[:5]
+
+        return self._show_testnet_user    
 
     @property
     def nb_copied_testnet(self):

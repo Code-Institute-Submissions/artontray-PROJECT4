@@ -193,6 +193,7 @@
             <!-- Buttons box for user -->
             <div class="container-fluid my-2">
                 <!-- Button Administration dashboard -->
+                {% if object.user_info.get_object_user == request.user %}
                 <div class="row my-2">
                     <div class="col-lg-12 col-sm-12 col-md-12 py-3 ">
                         <a href="#" class=" btn btn-secondary btn-user btn-block">
@@ -231,6 +232,22 @@
                         </a>
                     </div>
                 </div>
+                {% else %}
+                <div class="row my-2">
+                    <div class="col-lg-12 col-sm-12 col-md-12 py-3">
+                        <a class=" btn btn-success btn-user btn-block padding-20px-left" href="{% url 'add_favorite_user' object.user_info.get_object_user.id %}">
+                            <span>
+                                <i class="fa-solid fa-people-arrows fa-2x"></i>
+                            </span>
+                            <span class="h6">
+                                Follow this User
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+
+                
             </div>
         </div>
     </div>
@@ -241,18 +258,23 @@
 <!-- Listing of the all testnet created by user-->
 
 
-{% for testnet in testnet_user %}
+{% for testnet in object.user_info.show_testnet_user %}
 
     <div class="container-fluid bg-light border-all-around-radius my-2">
         <div class="row my-2">
             <div class="col-lg-6 col-sm-12 col-md-6 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                     <i class="fa-solid fa-arrow-right"></i>
-                    {{ testnet.testnet_name }}
+                    {% if testnet.author == object.user_info.get_object_user  %}
+                        {{ testnet.slug_original }} <h2>ORIGINAL</h2>{{ testnet.author }}
+                    {% else %}
+                        {{ testnet.slug_original }} <h2>COPY</h2>{{ testnet.author }}
+                    {% endif %}
+                    
                 </h6>
             </div>
             <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-                <a href="{% url 'showtestnet' testnet.slug %}" class=" btn btn-info btn-user btn-block">
+                <a href="{% url 'showtestnet' testnet.slug_original %}" class=" btn btn-info btn-user btn-block">
                     <i class="fa-solid fa-eye"></i>
                     Show
                 </a>

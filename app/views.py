@@ -68,7 +68,16 @@ def AddTestnet(request):
 
 
 
- 
+class AddFavoriteUser(generic.DetailView):
+    def get(self, request, id, *args, **kwargs):
+        current_user = UserInfo.objects.get(user=request.user.id)
+        user_to_follow = User.objects.get(id=id)
+        current_user.following.add(user_to_follow)
+        current_user.save()
+
+        message = "You are now Following this user"
+        
+        return HttpResponseRedirect(reverse('dashboard', args=[request.user.username]))
 
 
 class UpdateNotifications(generic.DetailView):
@@ -215,15 +224,13 @@ class ShowDashboard(generic.DetailView):
             return super().get_object(queryset)
         else:
             return self.request.user
-            
-                
+
+    
 
     def get_context_data(self, **context):
 
         request = self.request
         object_user = self.request.user
-
-
 
         def check_user_info_exist(object_user):
             """
@@ -231,10 +238,6 @@ class ShowDashboard(generic.DetailView):
             """   
             user_info_exist = UserInfo.objects.filter(user_id=object_user.id).exists()
             return user_info_exist
-
-        queryset = UserInfo.objects.all()
-        
-
         if not check_user_info_exist(object_user):
             # Creating user info table with basic value
             # We fill up the table with none value and 100 exp
@@ -251,21 +254,12 @@ class ShowDashboard(generic.DetailView):
                 )
             Creation_User_Info.save()
 
-
-
-
-
         # User Testnet listing only the 5 lastest
         testnet_user = Testnet.objects.filter(author=object_user.id)[:5]
         paginate_by = 4
 
         context.update ({
                 "testnet_user": testnet_user,
-
-
-
-
-                
             }
         )
         return context
