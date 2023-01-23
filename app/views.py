@@ -44,11 +44,17 @@ class StatistiqueApp(generic.ListView):
 
 
 def add_exp_user(user):
-    user_info = UserInfo.objects.all().get(user=user)
+    user_info = UserInfo.objects.get(user=user)
     user_info.exp += settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP
     user_info.save()
 
-
+def add_notification_user(user, message, title):
+    creation_notification = Notifications.objects.create(
+                notification_owner=user,
+                message=message,
+                title=title
+                )
+    creation_notification.save()
 
 
 class FormTestnetMixin:
@@ -67,6 +73,7 @@ class FormTestnetMixin:
         messages.add_message(self.request, messages.SUCCESS, self.success_msg)
         if self.action=='AddTestnet':
             add_exp_user(self.request.user)
+            add_notification_user(self.request.user, "You had a new testnet successfully" , "New testnet created")
         
 
         return super().form_valid(form)
@@ -105,8 +112,9 @@ class AddFavoriteUser(generic.DetailView):
         user_to_follow = User.objects.get(id=id)
         current_user.following.add(user_to_follow)
         current_user.save()
-
-        message = "You are now Following this user"
+        add_exp_user(user_to_follow)
+        add_notification_user(user_to_follow, "%s is following you!" % (self.request.user) , "New follower +1")
+        add_notification_user(self.request.user, "You are now following %s" % (user_to_follow) , "Following a new user +1")
         
         return HttpResponseRedirect(reverse('dashboard', args=[request.user.username]))
 
