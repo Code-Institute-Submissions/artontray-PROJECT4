@@ -240,10 +240,10 @@ class ShowUsers(generic.DetailView):
         request = self.request
         object_user = self.request.user
         
-        show_all_users = UserInfo.objects.all()
+        show_best_users = UserInfo.objects.all().order_by('-exp')[:10]
 
         context.update ({
-                "show_all_users": show_all_users,
+                "show_best_users": show_best_users,
 
 
 
@@ -289,7 +289,7 @@ class ShowDashboard(generic.DetailView):
             exp = 100
             debank = '...'
             bio = 'I just signed up to Testnet Organizer....'
-            avatar = "https://res.cloudinary.com/dqnhlza2r/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1673725603/avatar_empty_gsx6it.webp"
+            avatar = "https://res.cloudinary.com/dqnhlza2r/image/upload/v1674505891/png-transparent-youtube-user-computer-icons-information-youtube-hand-silhouette-avatar_ely5ye.png"
             Creation_User_Info = UserInfo.objects.create(
                 user_id=self.request.user.id,
                 bio=bio,

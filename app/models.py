@@ -143,6 +143,16 @@ class UserInfo(models.Model):
         ordering = ['-user__date_joined']
 
     @property
+    def is_followed_by_user(self, request):
+        if not hasattr(self, "_is_followed_by_user"):
+            user = UserInfo.objects.get(user=self.user)
+            self._is_followed_by_user = user.following.filter(id=request.user.id).exists()
+            
+    def user_follows(self):
+        return self.user.following
+            
+
+    @property
     def created_on(self):
         return self.user.date_joined
 
