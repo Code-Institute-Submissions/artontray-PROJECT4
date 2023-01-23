@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import reverse, redirect
 
+
+
 class TestnetForm(forms.ModelForm):
     #inputTestnetName = forms.CharField(label='Testnet name', max_length=60)
 

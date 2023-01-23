@@ -5,20 +5,10 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="mb-0 text-xl font-weight-bold text-primary">Notification(s) </h1>
-    {% if request.user == object and user.is_authenticated %}
-    <h1>OWNER</h1> 
-    {% else %}
-    <h1> PAS OWNER</h1> 
-    {% endif %}
 
 
-    {% if messages %}
-        <ul class="messages">
 
-            <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ messages }}</li>
 
-        </ul>
-    {% endif %}
 
 </div>
 <!-- Content Row Number 1-->
@@ -26,62 +16,63 @@
 <!-- End Content Row Number 2-->
 <!-- Listing of the all testnet created by user-->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="mb-0 text-xl font-weight-bold text-primary">Unread(s) </h1>
+    <h1 class="mb-0 text-xl font-weight-bold text-success">Unread(s) </h1>
 </div>
 
 {% for notification in notifications_user_unread %}
-
     <div class="container-fluid bg-light border-all-around-radius my-2">
         <div class="row my-2">
             <div class="col-lg-3 col-sm-12 col-md-3 py-3">
-
                     {{ notification.title }}
-                
             </div>
             <div class="col-lg-7 col-sm-12 col-md-7 py-3">
-
                     {{ notification.message }}
-          
             </div>
-
             <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-
                 <form method="POST" action="#">
                 <a href="/notification/{{ notification.id }}/update" class=" btn btn-success btn-user btn-block">
                     <i class="fa-solid fa-check"></i>
                     OK
                 </a>
                 </form>
-
             </div>
         </div>
     </div>
-
+{% empty %}
+    <div class="container-fluid bg-light border-all-around-radius my-2">
+        <div class="row my-2">
+            <div class="col-lg-12 col-sm-12 col-md-12 py-3">
+                <p></p><i class="fa-solid fa-comment-slash fa-2x"></i>There is nothing to show...</p>
+            </div>
+        </div>
+    </div>
 {% endfor %}
-
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="mb-0 text-xl font-weight-bold text-primary">read(s) </h1>
 </div>
 
 {% for notification in notifications_user_read %}
-
     <div class="container-fluid bg-green border-all-around-radius success my-2">
         <div class="row my-2">
-            <div class="col-lg-4 col-sm-12 col-md-4 py-3">
-
-                {{ notification.title }}
-            
-        </div>
-        <div class="col-lg-8 col-sm-12 col-md-8 py-3">
-
-                {{ notification.message }}
-      
-        </div>
-
-
+            <div class="col-lg-3 col-sm-12 col-md-3 py-3">
+                <p class="h5 text-primary">{{ notification.title }}</p>
+            </div>
+            <div class="col-lg-7 col-sm-12 col-md-7 py-3">
+                <p class="h5 text-primary">{{ notification.message }}</p>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <p class="h5 text-primary">{{ notification.created_on|date }}</p>
+            </div>
         </div>
     </div>
-
+{% empty %}
+    <div class="container-fluid bg-light border-all-around-radius my-2">
+        <div class="row my-2">
+            <div class="col-lg-12 col-sm-12 col-md-12 py-3">
+                <p></p><i class="fa-solid fa-comment-slash fa-2x"></i>There is nothing to show...</p>
+            </div>
+        </div>
+    </div>
 {% endfor %}
 
 

@@ -69,8 +69,7 @@ class UpdateTestnet(FormTestnetMixin,LoginRequiredMixin, UserPassesTestMixin, ge
 
     def test_func(self):
         testnet = self.get_object()
-
-            
+        """avoiding updating others testnet"""
         return testnet.testnet_user.username == self.request.user.username
 
     success_msg = "Le testnet a bien été modifié \o/"
@@ -100,7 +99,7 @@ class AddFavoriteUser(generic.DetailView):
         return HttpResponseRedirect(reverse('dashboard', args=[request.user.username]))
 
 
-class UpdateNotifications(generic.DetailView):
+class UpdateNotifications(LoginRequiredMixin, View):
 
     def get(self, request, id, *args, **kwargs):
         queryset = Notifications.objects.filter(notification_owner=request.user.id)
@@ -108,8 +107,6 @@ class UpdateNotifications(generic.DetailView):
         if notif.read == 0:
             notif.read = 1
             notif.save()
-            #message = "Your Notifications has been removed to archive successfully"
-            messages.success(request, "Your Notifications has been removed to archive successfully")
         return HttpResponseRedirect(reverse('show_notifications', args=[request.user.username]))
         
 
@@ -149,8 +146,8 @@ class ShowNotifications(generic.DetailView):
 
     def get_context_data(self, **context):
         # User Testnet listing only the 5 lastest
-        notifications_user_unread = Notifications.objects.filter(notification_owner=self.request.user, read=0)
-        notifications_user_read = Notifications.objects.filter(notification_owner=self.request.user, read=1)
+        notifications_user_unread = Notifications.objects.filter(notification_owner=self.request.user, read=0)[:5]
+        notifications_user_read = Notifications.objects.filter(notification_owner=self.request.user, read=1)[:25]
         paginate_by = 4
 
         context.update ({
