@@ -4,7 +4,7 @@ from django.template.defaultfilters import slugify
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import reverse, redirect
-
+from django.conf import settings
 
 
 class TestnetForm(forms.ModelForm):

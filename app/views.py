@@ -14,6 +14,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import TestnetForm
 from functools import reduce
+from django.conf import settings
+
+
+
 
 class StatistiqueApp(generic.ListView):
     """
@@ -58,6 +62,8 @@ class FormTestnetMixin:
     
     def form_valid(self, form):
         messages.add_message(self.request, messages.SUCCESS, self.success_msg)
+        user_info = UserInfo.objects.all().get(user_info=self.request.user)
+        user_info.exp += EXP_PER_ACTION*COEFF_FOR_LEVEL_UP
         return super().form_valid(form)
 
 

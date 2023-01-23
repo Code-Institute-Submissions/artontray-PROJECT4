@@ -4,17 +4,12 @@ from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
 from cloudinary.models import CloudinaryField
 from django.utils.functional import cached_property
-
+from django.conf import settings
 
 STATUS = ((0, "User"), (1, "Admin"))
 READ = ((0, "Unread"), (1, "Read"))
 
-EXP_PER_ACTION = 100
-FOLLOWERS_FOR_LEVEL1 = 5
-COEFF_FOR_LEVEL_UP = 1.4
-TESTNET_CREATED_FOR_LEVEL1 = 5
-TESTNET_TO_COPY_FOR_LEVEL1 = 5
-EXP_FOR_LEVEL1 = (FOLLOWERS_FOR_LEVEL1+TESTNET_CREATED_FOR_LEVEL1+TESTNET_TO_COPY_FOR_LEVEL1)*EXP_PER_ACTION
+
 
 class Testnet(models.Model):
     """
@@ -211,13 +206,13 @@ class UserInfo(models.Model):
     @property
     def get_level_user(self):
         Level_user = 1
-        Current_Level_XP = EXP_FOR_LEVEL1
+        Current_Level_XP = settings.EXP_FOR_LEVEL1
         exp = self.exp
-        if exp > EXP_FOR_LEVEL1:
-            Current_Level_XP = EXP_FOR_LEVEL1 * COEFF_FOR_LEVEL_UP
+        if exp > settings.EXP_FOR_LEVEL1:
+            Current_Level_XP = settings.EXP_FOR_LEVEL1 * settings.COEFF_FOR_LEVEL_UP
             while exp > Current_Level_XP:
                 Level_user += 1
-                Current_Level_XP = Current_Level_XP * COEFF_FOR_LEVEL_UP
+                Current_Level_XP = Current_Level_XP * settings.COEFF_FOR_LEVEL_UP
 
         if not hasattr(self, "_get_level_user"):
             self._get_level_user = Level_user
@@ -227,7 +222,7 @@ class UserInfo(models.Model):
     @property
     def current_nb_testnet_to_do(self):
         if not hasattr(self, "_current_nb_testnet_to_do"):
-            self._current_nb_testnet_to_do = int(TESTNET_CREATED_FOR_LEVEL1+(COEFF_FOR_LEVEL_UP**self.get_level_user))
+            self._current_nb_testnet_to_do = int(settings.TESTNET_CREATED_FOR_LEVEL1+(settings.COEFF_FOR_LEVEL_UP**self.get_level_user))
 
         return self._current_nb_testnet_to_do 
        
@@ -235,7 +230,7 @@ class UserInfo(models.Model):
     @property
     def current_level_xp_max(self):
         if not hasattr(self, "_current_level_xp_max"):
-            self._current_level_xp_max = int(EXP_FOR_LEVEL1*(COEFF_FOR_LEVEL_UP**self.get_level_user))
+            self._current_level_xp_max = int(settings.EXP_FOR_LEVEL1*(settings.COEFF_FOR_LEVEL_UP**self.get_level_user))
 
         return self._current_level_xp_max
 
@@ -252,7 +247,7 @@ class UserInfo(models.Model):
 
     @property
     def current_follow_max(self):
-        return int(FOLLOWERS_FOR_LEVEL1+(COEFF_FOR_LEVEL_UP**self.get_level_user))
+        return int(settings.FOLLOWERS_FOR_LEVEL1+(settings.COEFF_FOR_LEVEL_UP**self.get_level_user))
 
     @property
     def pourc_accomplished_followers(self):
@@ -263,7 +258,7 @@ class UserInfo(models.Model):
 
     @property
     def current_copied_testnet_max(self):
-        return int(TESTNET_TO_COPY_FOR_LEVEL1+(COEFF_FOR_LEVEL_UP**self.get_level_user))
+        return int(settings.TESTNET_TO_COPY_FOR_LEVEL1+(settings.COEFF_FOR_LEVEL_UP**self.get_level_user))
 
     @property
     def pourc_accomplished_copied_testnet(self):
