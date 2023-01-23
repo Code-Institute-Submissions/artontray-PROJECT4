@@ -62,8 +62,9 @@ class FormTestnetMixin:
     
     def form_valid(self, form):
         messages.add_message(self.request, messages.SUCCESS, self.success_msg)
-        user_info = UserInfo.objects.all().get(user_info=self.request.user)
-        user_info.exp += EXP_PER_ACTION*COEFF_FOR_LEVEL_UP
+        user_info = UserInfo.objects.all().get(user=self.request.user)
+        user_info.exp += settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP
+        user_info.save()
         return super().form_valid(form)
 
 
