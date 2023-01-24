@@ -119,6 +119,19 @@ class AddFavoriteUser(generic.DetailView):
         return HttpResponseRedirect(reverse('dashboard', args=[request.user.username]))
 
 
+
+class DeleteFavoriteUser(generic.DeleteView):
+    def get(self, request, id, *args, **kwargs):
+        current_user = UserInfo.objects.get(user=request.user.id)
+        user_to_unfollow = User.objects.get(id=id)
+        current_user.following.remove(user_to_unfollow)
+        current_user.save()
+        add_notification_user(user_to_unfollow, "%s is not following you anymore" % (self.request.user) , "Follower -1")
+        add_notification_user(self.request.user, "You are not following %s anymore" % (user_to_unfollow) , "UnFollow a user -1")
+        
+        return HttpResponseRedirect(reverse('dashboard', args=[request.user.username]))
+
+
 class UpdateNotifications(LoginRequiredMixin, View):
 
     def get(self, request, id, *args, **kwargs):
