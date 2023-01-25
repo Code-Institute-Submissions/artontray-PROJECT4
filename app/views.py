@@ -43,9 +43,29 @@ class StatistiqueApp(generic.ListView):
         )
 
 
-def add_exp_user(user):
+
+def manage_exp_user(user, action):
+    exp = settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP   
     user_info = UserInfo.objects.get(user=user)
-    user_info.exp += settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP
+
+    if action == "add":
+        user_info.exp += exp
+
+    elif action == "subtract":
+        user_info.exp -= exp
+    else:
+        pass
+    user_info.save()
+
+def add_exp_user(user):
+    exp = settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP
+    user_info = UserInfo.objects.get(user=user)
+    user_info.exp += exp
+    user_info.save()
+
+def sub_exp_user(user):
+    user_info = UserInfo.objects.get(user=user)
+    user_info.exp -= settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP
     user_info.save()
 
 def add_notification_user(user, message, title):
@@ -72,7 +92,7 @@ class FormTestnetMixin:
     def form_valid(self, form):
         messages.add_message(self.request, messages.SUCCESS, self.success_msg)
         if self.action=='AddTestnet':
-            add_exp_user(self.request.user)
+            manage_exp_user(self.request.user, "add")
             add_notification_user(self.request.user, "You had a new testnet successfully" , "New testnet created")
         
 
@@ -112,11 +132,12 @@ class AddFavoriteUser(generic.DetailView):
         user_to_follow = User.objects.get(id=id)
         current_user.following.add(user_to_follow)
         current_user.save()
-        add_exp_user(user_to_follow)
+        #add_exp_user(user_to_follow)
+        manage_exp_user(user_to_follow, "add")
         add_notification_user(user_to_follow, "%s is following you!" % (self.request.user) , "New follower +1")
         add_notification_user(self.request.user, "You are now following %s" % (user_to_follow) , "Following a new user +1")
         
-        return HttpResponseRedirect(reverse('dashboard', args=[request.user.username]))
+        return HttpResponseRedirect(reverse('showusers'))
 
 
 
@@ -124,12 +145,14 @@ class DeleteFavoriteUser(generic.DeleteView):
     def get(self, request, id, *args, **kwargs):
         current_user = UserInfo.objects.get(user=request.user.id)
         user_to_unfollow = User.objects.get(id=id)
+        manage_exp_user(user_to_unfollow, "subtract")
         current_user.following.remove(user_to_unfollow)
         current_user.save()
+        
         add_notification_user(user_to_unfollow, "%s is not following you anymore" % (self.request.user) , "Follower -1")
         add_notification_user(self.request.user, "You are not following %s anymore" % (user_to_unfollow) , "UnFollow a user -1")
         
-        return HttpResponseRedirect(reverse('dashboard', args=[request.user.username]))
+        return HttpResponseRedirect(reverse('showusers'))
 
 
 class UpdateNotifications(LoginRequiredMixin, View):

@@ -26,6 +26,13 @@
 
 }
 
+.logo_user_display_all{
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+
+}
+
 /*----------------------------------------Colors-----*/
 :root {
     --color-primary: #E0F1FF;
