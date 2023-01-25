@@ -235,18 +235,35 @@
                     </div>
                 </div>
                 {% else %}
-                <div class="row my-2">
-                    <div class="col-lg-12 col-sm-12 col-md-12 py-3">
-                        <a class="btn btn-success btn-user btn-block padding-20px-left" href="{% url 'add_favorite_user' object.user_info.get_object_user.id %}">
-                            <span>
-                                <i class="fa-solid fa-people-arrows fa-2x"></i>
-                            </span>
-                            <span class="h6">
-                                Follow this User
-                            </span>
-                        </a>
+
+                    {% if object in request.user.user_info.following.all %}
+                    <div class="row my-2">
+                        <div class="col-lg-12 col-sm-12 col-md-12 py-3">
+                            <a class="btn btn-warning btn-user btn-block padding-20px-left" href="{% url 'delete_favorite_user' object.user_info.get_object_user.id %}">
+                                <span>
+                                    <i class="fa-solid fa-people-arrows fa-2x"></i>
+                                </span>
+                                <span class="h6">
+                                    Unfollow this User
+                                </span>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                    {% else %}
+                    <div class="row my-2">
+                        <div class="col-lg-12 col-sm-12 col-md-12 py-3">
+                            <a class="btn btn-success btn-user btn-block padding-20px-left" href="{% url 'add_favorite_user' object.user_info.get_object_user.id %}">
+                                <span>
+                                    <i class="fa-solid fa-people-arrows fa-2x"></i>
+                                </span>
+                                <span class="h6">
+                                    Follow this User
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                
                 {% endif %}
 
                 

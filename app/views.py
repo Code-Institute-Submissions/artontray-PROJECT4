@@ -57,16 +57,7 @@ def manage_exp_user(user, action):
         pass
     user_info.save()
 
-def add_exp_user(user):
-    exp = settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP
-    user_info = UserInfo.objects.get(user=user)
-    user_info.exp += exp
-    user_info.save()
 
-def sub_exp_user(user):
-    user_info = UserInfo.objects.get(user=user)
-    user_info.exp -= settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP
-    user_info.save()
 
 def add_notification_user(user, message, title):
     creation_notification = Notifications.objects.create(
@@ -132,7 +123,6 @@ class AddFavoriteUser(generic.DetailView):
         user_to_follow = User.objects.get(id=id)
         current_user.following.add(user_to_follow)
         current_user.save()
-        #add_exp_user(user_to_follow)
         manage_exp_user(user_to_follow, "add")
         add_notification_user(user_to_follow, "%s is following you!" % (self.request.user) , "New follower +1")
         add_notification_user(self.request.user, "You are now following %s" % (user_to_follow) , "Following a new user +1")

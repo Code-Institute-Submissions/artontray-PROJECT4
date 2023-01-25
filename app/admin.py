@@ -14,6 +14,7 @@ class PostAdmin(SummernoteModelAdmin):
 
 
 
+
 @admin.register(Testnet)
 class TestnetAdmin(SummernoteModelAdmin):
     """

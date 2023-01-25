@@ -50,7 +50,9 @@
                 <div class="col-xl-12 col-md-12 mb-6 ">
 
                     {% if current_user.user == user %}
-                    <span><i class="fa-solid fa-child-reaching text-success fa-3x"></i></span>
+                    <button type="button" class="btn" data-toggle="modal" data-target="#">
+                        <span><i class="fa-solid fa-star fa-3x  text-success"></i></span>
+                    </button>
                     <div class="h4 font-weight-bold text-uppercase text-success align-center">
                         {{ current_user.user.username}}
                     </div>
