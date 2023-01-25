@@ -15,23 +15,56 @@
     <!-- Listing of the all testnet created by user-->
     <div class="row">
 
-        <div class="col-xl-6 col-md-6 mb-6">
+        <form id="searchform" action="#" method="get" accept-charset="utf-8">
+            
+            <span>
+                <input class="searchfield" id="searchbox" minlength=3 name="searching_user" type="text"
+                    placeholder="Search" value="{% if searching_user %}{{ searching_user }}{% endif %}">
+            </span>
+            <span>
+                <button class="searchbutton" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+            {% if searching_user %}
+            <span>
+
+                <a class=" btn btn-primary" href="{% url 'showusers' %}">Show All</a>
+
+            </span>
+            {% endif %}
 
 
-            <form class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ">
-                <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                        aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
 
+        </form>
     </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid">
     <div class="row">
         <div class="d-sm-flex align-items-right justify-content-between mb-4">
             <i class="fa-regular fa-trophy-star fa-2x"></i>
@@ -41,39 +74,48 @@
     <div class="row">
 
 
-    {% for current_user in show_best_users %}
 
-    <!-- User Card -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card shadow h-100 py-2">
-            <div class="row ">
-                <div class="col-xl-12 col-md-12 mb-6 ">
 
-                    {% if current_user.user == user %}
-                    <button type="button" class="btn" data-toggle="modal" data-target="#">
-                        <span><i class="fa-solid fa-star fa-3x  text-success"></i></span>
-                    </button>
-                    <div class="h4 font-weight-bold text-uppercase text-success align-center">
-                        {{ current_user.user.username}}
-                    </div>
-                    
-                    {% else %}
+
+
+
+
+
+        {% for current_user in show_users %}
+
+        <!-- User Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100 py-2">
+                <div class="row ">
+                    <div class="col-xl-12 col-md-12 mb-6 ">
+
+                        {% if current_user.user == user %}
+                        <button type="button" class="btn" data-toggle="modal" data-target="#">
+                            <span><i class="fa-solid fa-star fa-3x  text-success"></i></span>
+                        </button>
+                        <div class="h4 font-weight-bold text-uppercase text-success align-center">
+                            {{ current_user.user.username}}
+                        </div>
+
+                        {% else %}
                         {% if current_user.user in user.user_info.following.all %}
-                    
 
 
 
 
 
-                    <button type="button" class="btn" data-toggle="modal" data-target="#UnFollowThisUser{{ current_user.user.id }}">
-                        <span><i class="fa-solid fa-star fa-3x  text-primary"></i></span>
+
+                        <button type="button" class="btn" data-toggle="modal"
+                            data-target="#UnFollowThisUser{{ current_user.user.id }}">
+                            <span><i class="fa-solid fa-star fa-3x  text-primary"></i></span>
                         </button>
                         <div class="modal" id="UnFollowThisUser{{ current_user.user.id }}" tabindex="-1"
                             aria-labelledby="UnFollowThisUserLabel{{ current_user.user.id }}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title h3 text-secondary" id="UnFollowThisUserLabel{{ current_user.user.id }}">
+                                        <h5 class="modal-title h3 text-secondary"
+                                            id="UnFollowThisUserLabel{{ current_user.user.id }}">
                                             <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
 
                                         </h5>
@@ -81,13 +123,15 @@
                                     <form method="get" action="{% url 'delete_favorite_user' current_user.user.id %}">
                                         {% csrf_token %}
                                         <div class="modal-body">
-                                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do you want to Unfollow {{ current_user.user.username }} ? </p>
+                                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do
+                                                you want to Unfollow {{ current_user.user.username }} ? </p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-success btn-user">
                                                 YES
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                                aria-label="Close">
                                                 NO
                                             </button>
                                         </div>
@@ -102,123 +146,134 @@
                         {% else %}
 
 
-                            <button type="button" class="btn" data-toggle="modal" data-target="#FollowThisUser{{ current_user.user.id }}">
+                        <button type="button" class="btn" data-toggle="modal"
+                            data-target="#FollowThisUser{{ current_user.user.id }}">
                             <span><i class="fa-regular fa-star fa-3x text-primary"></i></span>
-                            </button>
-                            <div class="modal" id="FollowThisUser{{ current_user.user.id }}" tabindex="-1"
-                                aria-labelledby="FollowThisUserLabel{{ current_user.user.id }}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title h3 text-secondary" id="FollowThisUserLabel{{ current_user.user.id }}">
-                                                <i class="fa-sharp fa-solid fa-circle-exclamation fa-4x"></i>
+                        </button>
+                        <div class="modal" id="FollowThisUser{{ current_user.user.id }}" tabindex="-1"
+                            aria-labelledby="FollowThisUserLabel{{ current_user.user.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title h3 text-secondary"
+                                            id="FollowThisUserLabel{{ current_user.user.id }}">
+                                            <i class="fa-sharp fa-solid fa-circle-exclamation fa-4x"></i>
 
-                                            </h5>
-                                        </div>
-                                        <form method="get" action="{% url 'add_favorite_user' current_user.user.id %}">
-                                            {% csrf_token %}
-                                            <div class="modal-body">
-                                                <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do you want to start following {{ current_user.user.username }} ? </p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-success btn-user">
-                                                    YES
-                                                </button>
-                                                <button type="button" class="btn btn-danger btn-user" data-dismiss="modal" aria-label="Close">
-                                                    NO
-                                                </button>
-                                            </div>
-                                        </form>
+                                        </h5>
                                     </div>
+                                    <form method="get" action="{% url 'add_favorite_user' current_user.user.id %}">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do
+                                                you want to start following {{ current_user.user.username }} ? </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success btn-user">
+                                                YES
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                                aria-label="Close">
+                                                NO
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                        
+                        </div>
 
-                            
+
+
                         {% endif %}
                         <div class="h4 font-weight-bold text-uppercase text-primary align-center">
                             {{ current_user.user.username}}
                         </div>
-                        
-                    {% endif %}
+
+                        {% endif %}
 
 
-                    
 
-                </div>       
-            </div>
-            <div class="row ">
-                <div class="col-xl-12 col-md-12 mb-6 ">
-                    <div class="mb-1 align-center">
-                        <img src="{{ current_user.avatar.url }}" class="logo_user_display_all rotate-15" alt="logo user">
+
                     </div>
                 </div>
-            </div>
-            <div class="container-fluid  my-2">
-                <div class="row my-2">
-                    <div class="d-xs-block col-lg-6 col-md-6 py-3">
-                        <h6 class=" font-weight-bold text-primary align-center">Testnet(s)</h6>
-                    </div>
-                    <div class="d-xs-block col-lg-6 col-md-6 py-3">
-                        <h6 class=" font-weight-bold text-primary align-center"> {{ current_user.nb_testnet }}</h6>
-                    </div>
-
-                </div>
-                <div class="row my-2">
-                    <div class="d-xs-block col-lg-6 col-md-6 py-3">
-                        <h6 class=" font-weight-bold text-primary align-center">Follower(s)</h6>
-                    </div>
-                    <div class="d-xs-block col-lg-6 col-md-6 py-3">
-                        <h6 class=" font-weight-bold text-primary align-center"> {{ current_user.nb_followers }}</h6>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="row ">
-                <div class="card-body">
-                    <h4 class="h5 font-weight-bold">LEVEL {{ current_user.get_level_user }}<span class="float-right">{{ current_user.exp }} / {{ current_user.current_level_xp_max }} XP</span>
-                    </h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: {{ user.pourc_accomplished_exp }}%" aria-valuenow="20"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="row ">
+                    <div class="col-xl-12 col-md-12 mb-6 ">
+                        <div class="mb-1 align-center">
+                            <img src="{{ current_user.avatar.url }}" class="logo_user_display_all rotate-15"
+                                alt="logo user">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row ">
-                <div class="container-fluid my-2">
+                <div class="container-fluid  my-2">
                     <div class="row my-2">
-                        <div class="col-lg-12 col-sm-12 col-md-12">
+                        <div class="d-xs-block col-lg-6 col-md-6 py-3">
+                            <h6 class=" font-weight-bold text-primary align-center">Testnet(s)</h6>
+                        </div>
+                        <div class="d-xs-block col-lg-6 col-md-6 py-3">
+                            <h6 class=" font-weight-bold text-primary align-center"> {{ current_user.nb_testnet }}</h6>
+                        </div>
 
-                            {% if current_user.user == user %}
-                            <p class="btn btn-success btn-user btn-block" href="{% url 'dashboard' current_user %}">It's YOU</p>
-                            {% else %}
-                            <a class=" btn btn-primary btn-user btn-block" href="{% url 'dashboard' current_user %}">Show</a>
-                            {% endif %}
+                    </div>
+                    <div class="row my-2">
+                        <div class="d-xs-block col-lg-6 col-md-6 py-3">
+                            <h6 class=" font-weight-bold text-primary align-center">Follower(s)</h6>
+                        </div>
+                        <div class="d-xs-block col-lg-6 col-md-6 py-3">
+                            <h6 class=" font-weight-bold text-primary align-center"> {{ current_user.nb_followers }}
+                            </h6>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row ">
+                    <div class="card-body">
+                        <h4 class="h5 font-weight-bold">LEVEL {{ current_user.get_level_user }}<span
+                                class="float-right">{{ current_user.exp }} / {{ current_user.current_level_xp_max }}
+                                XP</span>
+                        </h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-info" role="progressbar"
+                                style="width: {{ user.pourc_accomplished_exp }}%" aria-valuenow="20" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="container-fluid my-2">
+                        <div class="row my-2">
+                            <div class="col-lg-12 col-sm-12 col-md-12">
+
+                                {% if current_user.user == user %}
+                                <p class="btn btn-success btn-user btn-block" href="{% url 'dashboard' current_user %}">
+                                    It's YOU</p>
+                                {% else %}
+                                <a class=" btn btn-primary btn-user btn-block"
+                                    href="{% url 'dashboard' current_user %}">Show</a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    {% empty %}
-    <div class="container-fluid bg-light border-all-around-radius my-2">
-        <div class="row my-2">
-            <div class="col-lg-12 col-sm-12 col-md-12 py-3">
-                <p><i class="fa-solid fa-users-slash fa-2x"></i>No users on the app....</p>
+        {% empty %}
+        <div class="container-fluid bg-light border-all-around-radius my-2">
+            <div class="row my-2">
+                <div class="col-lg-12 col-sm-12 col-md-12 py-3">
+                    <p><i class="fa-solid fa-users-slash fa-2x"></i>No users on the app....</p>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 </div>
 
 
-{%  comment  %}
+
 
 {%  if is_paginated  %}
 <div class="container">
@@ -246,6 +301,7 @@
     </div>
 </div>
 {%  endif  %}
+{%  comment  %}
 {%  endcomment  %}
 <!-- End Listing of the all testnet created by user-->
 <br>

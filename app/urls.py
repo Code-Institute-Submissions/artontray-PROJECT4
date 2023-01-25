@@ -7,6 +7,7 @@ urlpatterns = [
     path('dashboard/', views.ShowDashboard.as_view(), name='dashboard'),
     path('dashboard/<slug:username>', views.ShowDashboard.as_view(), name='dashboard'),
     path('users/', views.ShowUsers.as_view(), name='showusers'),
+    #path('search/<slug:searching_user>', views.SearchingUser.as_view(), name='searching_users'),
     path('notifications/<slug:username>', views.ShowNotifications.as_view(), name='show_notifications'),
     path('showtestnet/<slug:slug>', views.ShowTestnet.as_view(), name='showtestnet'),
     path('showtestnetall/<slug:username>', views.ShowTestnetall.as_view(), name='showtestnetall'),

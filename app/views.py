@@ -206,6 +206,9 @@ class ShowNotifications(generic.DetailView):
         return context
 
 
+
+
+
 class ShowTestnetall(generic.ListView):
     """
     This view is used to display All User Testnet 
@@ -261,16 +264,25 @@ class ShowUsers(generic.DetailView):
         else:
             return self.request.user
 
+
+
     def get_context_data(self, **context):
 
         request = self.request
         object_user = self.request.user
-        
-        show_best_users = UserInfo.objects.all().order_by('-exp')[:10]
+        search = self.request.GET.get("searching_user", None)
+        if search:
+            #show_users = User.objects.all().filter(username__icontains=search)
+            show_users = UserInfo.objects.all().filter(user__username__icontains = search)
+            #first_query.union(second_query)
+
+        else:
+            show_users = UserInfo.objects.all().order_by('-exp')[:10]
+        #show_users = UserInfo.objects.all().order_by('-exp')[:10]
 
         context.update ({
-                "show_best_users": show_best_users,
-
+                "show_users": show_users,
+                "searching_user": search,
 
 
 
