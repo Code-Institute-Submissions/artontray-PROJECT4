@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0 text-xl font-weight-bold text-primary">Show All Testnet : {{ testnet_username }} </h1>
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</div>
+<!-- Content Row Number 1-->
+
+<form id="searchform" action="#" method="get" accept-charset="utf-8">
+
+    
+
+    <span>
+        <input class="searchfield" id="searchbox" minlength=1 name="searching" type="text"
+         placeholder="Search" value="{% if searching %}{{ searching }}{% endif %}">
+    </span>
+    <span>
+        <button class="searchbutton" type="submit">
+            <i class="fa fa-search"></i>
+        </button>
+    </span>
+    <span>
+        <label for="alltestnet">All Testnet</label>
+        <input type="checkbox" id="alltestnet" name="alltestnet" {{ alltestnet|yesno:"checked," }}>
+    </span>
+    {% if searching %}
+    <span>
+
+        <a class=" btn btn-primary" href="{% url 'showtestnetall' testnet_username %}">Show All</a>
+
+    </span>
+    {% endif %}
+</form>
+
+<!-- End Content Row Number 2-->
+<!-- Listing of the all testnet created by user-->
+
+
+{% for testnet in object_list %}
+
+    <div class="container-fluid bg-light border-all-around-radius my-2">
+        <div class="row my-2">
+            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
+                <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
+                    <a href="{% url 'showtestnet' testnet.slug %}" >
+                    <i class="fa-solid fa-arrow-right"></i>
+                    {{ testnet.testnet_name }}
+                    </a>
+                </h6>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="{% url 'dashboard' testnet.author %}" class=" btn btn-info btn-user btn-block">
+                    <i class="fa-solid fa-user-large"></i>
+                    {{ testnet.author }}
+                </a>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="#" class=" btn btn-success btn-user btn-block">
+                    <i class="fa-regular fa-copy"></i> 
+                    {{ result }}
+                </a>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="{% url 'update_testnet' slug=testnet.slug %}" class=" btn btn-primary btn-user btn-block">
+                    <i class="fa-solid  fa-pen-to-square"></i>
+                    Edit
+                </a>
+            </div>
+        </div>
+    </div>
+{% empty %}
+<div class="container-fluid bg-light border-all-around-radius my-2">
+    <div class="row my-2">
+        <div class="col-lg-12 col-sm-12 col-md-12 py-3">
+            <p><i class="fa-solid fa-users-slash fa-2x"></i>There is no available testnet with this name....</p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% if searching %}
+    {% include "app/inc/pagination.html" with extra_url_args="searching="|add:searching %}
+{% else %}
+    {% include "app/inc/pagination.html" %}
+{% endif %}
+<!-- End Listing of the all testnet created by user-->
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+{%endblock%}

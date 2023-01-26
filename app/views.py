@@ -127,7 +127,7 @@ class AddFavoriteUser(generic.DetailView):
         add_notification_user(user_to_follow, "%s is following you!" % (self.request.user) , "New follower +1")
         add_notification_user(self.request.user, "You are now following %s" % (user_to_follow) , "Following a new user +1")
         
-        return HttpResponseRedirect(reverse('showusers'))
+        return HttpResponseRedirect(reverse('dashboard', args=[user_to_follow]))
 
 
 
@@ -142,7 +142,7 @@ class DeleteFavoriteUser(generic.DeleteView):
         add_notification_user(user_to_unfollow, "%s is not following you anymore" % (self.request.user) , "Follower -1")
         add_notification_user(self.request.user, "You are not following %s anymore" % (user_to_unfollow) , "UnFollow a user -1")
         
-        return HttpResponseRedirect(reverse('showusers'))
+        return HttpResponseRedirect(reverse('dashboard', args=[user_to_unfollow]))
 
 
 class UpdateNotifications(LoginRequiredMixin, View):
@@ -208,7 +208,6 @@ class ShowNotifications(generic.DetailView):
 
 
 
-
 class ShowTestnetall(generic.ListView):
     """
     This view is used to display All User Testnet 
@@ -227,20 +226,26 @@ class ShowTestnetall(generic.ListView):
         return self.request.user
 
     def get_queryset(self):
-        qs = super().get_queryset()
-        qs = qs.filter(testnet_user=self.testnet_user)
+        qs = super().get_queryset()  
+        
         search = self.request.GET.get("searching", None)
+        
         if search:
+            qs = qs.all()
             qs = qs.filter(
                 Q(testnet_name__icontains=search) 
                 | Q(description__icontains=search)
             )
+        else:
+            qs = qs.filter(testnet_user=self.testnet_user)
+
         return qs
 
     def get_context_data(self, **context):
         # User Testnet listing only the 5 lastest
         context = super().get_context_data(**context)
         context.update({
+                "testnet_username": self.kwargs["username"],
                 "testnet_user": self.testnet_user,
                 "searching": self.request.GET.get("searching", None),
             }

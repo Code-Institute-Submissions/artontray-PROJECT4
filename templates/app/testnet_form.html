@@ -4,7 +4,7 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="mb-0 text-xl font-weight-bold text-primary">Add a New Testnet</h1>
+  <h1 class="mb-0 text-xl font-weight-bold text-primary">{{ form.instance.pk|yesno:"EDIT,CREATE" }} TESTNET</h1>
   {% if messages %}
   <ul class="messages">
     {% for message in messages %}
@@ -362,10 +362,17 @@
 
     <div class="row padding-10-pourcent-left-right">
 
-      <div class="col-xl-12 col-md-12">
-        <button type="submit" class="btn btn-primary btn-block ">{{ form.instance.pk|yesno:"CHANGE,CREATE" }} THIS TESTNET</button>
+      <div class="col-xl-6 col-md-6">
+
+        
+          <a class=" btn btn-secondary btn-user btn-block" href="{% url 'dashboard' %}">CANCEL</a>
+      
+      </div>
+      <div class="col-xl-6 col-md-6">
+        <button type="submit" class="btn btn-success btn-block ">{{ form.instance.pk|yesno:"EDIT,CREATE" }} THIS TESTNET</button>
 
       </div>
+      
     </div>
 
 
