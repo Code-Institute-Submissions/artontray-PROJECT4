@@ -62,8 +62,8 @@ class TestnetForm(forms.ModelForm):
         self.fields['wallet1_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
         self.fields['wallet1_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
         self.fields['wallet1_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
-        if self.instance.pk:
-            self.fields['testnet_name'].disabled = True
+        #if self.instance.pk:
+            #self.fields['testnet_name'].disabled = True
 
     def clean(self):
         super().clean()

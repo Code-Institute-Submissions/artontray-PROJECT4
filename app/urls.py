@@ -16,5 +16,6 @@ urlpatterns = [
     path('deletefavorite/<int:id>', views.DeleteFavoriteUser.as_view(), name='delete_favorite_user'),
     path('notification/<int:id>/update', views.UpdateNotifications.as_view(), name='updatenotification'),
     path('addtestnet/', views.AddTestnet.as_view(), name='addtestnet'),
+    path('copytestnet/<slug:slug>', views.CopyTestnet.as_view(), name='copy_testnet'),
     path('edittestnet/<slug:slug>', views.UpdateTestnet.as_view(), name='update_testnet'),
 ]

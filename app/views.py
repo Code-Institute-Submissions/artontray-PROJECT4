@@ -15,6 +15,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .forms import TestnetForm
 from functools import reduce
 from django.conf import settings
+from django.template.defaultfilters import slugify
 
 
 
@@ -66,6 +67,45 @@ def add_notification_user(user, message, title):
                 title=title
                 )
     creation_notification.save()
+
+
+class CopyTestnet(generic.CreateView):
+    model = Testnet
+    success_url = '/dashboard/'
+    form_class = TestnetForm
+    success_msg = "Le testnet a bien été enregistré \o/"
+    action = "none"
+
+    def get(self, request, slug, *args, **kwargs):
+        current_user = UserInfo.objects.get(user=request.user.id)
+        author_testnet = Testnet.objects.get(slug=slug)
+        testnet_to_copy = Testnet.objects.get(testnet_user=author_testnet.author, author=author_testnet.author, slug=slug)
+        t = Testnet.objects.get(pk=testnet_to_copy.id)
+
+        base_slug = slugify(t.testnet_name)
+        suffix = 0
+        while True:
+            if not suffix:
+                slug = base_slug
+            else:
+                slug = "%s-%d" % (base_slug, suffix)
+            if not Testnet.objects.filter(slug=slug).exists():
+                break
+            suffix += 1
+        breakpoint
+        t.testnet_name = slug
+        t.slug = slug
+        t.testnet_user = request.user
+        t.pk = None
+        t.save()
+
+       # current_user.save()
+        manage_exp_user(testnet_to_copy.author, "add")
+        add_notification_user(testnet_to_copy.author, "%s has copied a Testnet from you!" % (request.user) , "New Copied Testnet +1")
+        add_notification_user(request.user, "You have copied a Testnet from  %s" % (testnet_to_copy.author) , "Testnet copied +1")
+        
+        return HttpResponseRedirect(reverse('update_testnet', args=[slug]))
+
 
 
 class FormTestnetMixin:

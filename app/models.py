@@ -206,12 +206,25 @@ class UserInfo(models.Model):
     @property
     def last_testnet(self):
         if not hasattr(self, "_last_testnet"):
-            self._last_testnet = Testnet.objects.all().filter(author=self.user).first()
+            self._last_testnet = Testnet.objects.all().filter(author=self.user,testnet_user=self.user).first()
             if self._last_testnet:
                 self._last_testnet = self._last_testnet.testnet_name
             else:
                 self._last_testnet = 'Not created yet'
         return self._last_testnet
+
+    @property
+    def last_testnet_slug(self):
+        if not hasattr(self, "_last_testnet_slug"):
+            self._last_testnet_slug = Testnet.objects.all().filter(author=self.user,testnet_user=self.user).first()
+            if self._last_testnet_slug:
+                self._last_testnet_slug = self._last_testnet_slug.slug
+            else:
+                self._last_testnet_slug = ''
+        return self._last_testnet_slug
+
+
+
 
     @property
     def get_level_user(self):
