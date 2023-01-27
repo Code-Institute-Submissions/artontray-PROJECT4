@@ -64,7 +64,6 @@ class Testnet(models.Model):
     github_user = models.CharField(max_length=25, blank=True)
     discord_user = models.CharField(max_length=25, blank=True)
     telegram_user = models.CharField(max_length=25, blank=True)
-    browser_user = models.CharField(max_length=25, blank=True)
     tasks_results = models.TextField(blank=True)
 
 

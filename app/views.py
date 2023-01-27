@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
-from django.db.models import Q
+from django.db.models import F, Q
 from django.http import HttpResponseRedirect
 from .models import Testnet
 from .models import Notifications, UserInfo, CheckList
@@ -71,10 +71,6 @@ def add_notification_user(user, message, title):
 
 class CopyTestnet(generic.CreateView):
     model = Testnet
-    success_url = '/dashboard/'
-    form_class = TestnetForm
-    success_msg = "Le testnet a bien été enregistré \o/"
-    action = "none"
 
     def get(self, request, slug, *args, **kwargs):
         current_user = UserInfo.objects.get(user=request.user.id)
@@ -271,7 +267,9 @@ class ShowTestnetall(generic.ListView):
         search = self.request.GET.get("searching", None)
         
         if search:
-            qs = qs.all()
+            #qs = qs.all()
+            #qs = qs.filter(author=F('testnet_user')).all()
+            qs = qs.filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user))
             qs = qs.filter(
                 Q(testnet_name__icontains=search) 
                 | Q(description__icontains=search)

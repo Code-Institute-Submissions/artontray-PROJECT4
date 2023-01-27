@@ -212,5 +212,9 @@ footer{
     margin:20px auto;
 }
 
+/*----------------------------------------Links-----*/
 
+.no-decoration:link{
+    text-decoration: none;
+}
 

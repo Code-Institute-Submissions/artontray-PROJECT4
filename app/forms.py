@@ -64,6 +64,13 @@ class TestnetForm(forms.ModelForm):
         self.fields['wallet1_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
         #if self.instance.pk:
             #self.fields['testnet_name'].disabled = True
+        if not self.instance.author == self.user:
+            self.fields['wallet1_name'].disabled = True
+            for input_name in self.fields:
+                if input_name == 'tasks_results':
+                    pass
+                else:
+                    self.fields[input_name].disabled = True
 
     def clean(self):
         super().clean()
