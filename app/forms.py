@@ -22,6 +22,7 @@ class TestnetForm(forms.ModelForm):
         
         labels = {
             'testnet_name': 'Name',
+            'discord_user': 'Discord',
         }
 
 
@@ -53,7 +54,7 @@ class TestnetForm(forms.ModelForm):
         self.fields['instagram'].widget.attrs['placeholder'] = 'Provide instagram link....'
         self.fields['youtube'].widget.attrs['placeholder'] = 'Provide youtube link....'
         self.fields['whitepaper'].widget.attrs['placeholder'] = 'Provide whitepaper link....'
-        self.fields['browser'].widget.attrs['placeholder'] = 'Provide browserlink....'
+        self.fields['browser'].widget.attrs['placeholder'] = 'Brave, Firefox, Opera etc...'
         self.fields['discord_user'].widget.attrs['placeholder'] = 'example : username#4565'
         self.fields['github_user'].widget.attrs['placeholder'] = 'example :  https://github.com/John-Doe'
         self.fields['email_user'].widget.attrs['placeholder'] = 'Provide Your email'
@@ -62,12 +63,55 @@ class TestnetForm(forms.ModelForm):
         self.fields['wallet1_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
         self.fields['wallet1_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
         self.fields['wallet1_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
+        self.fields['wallet1_priv_key'].widget.attrs['placeholder'] = 'only if test wallet'
+        self.fields['wallet1_seed'].widget.attrs['placeholder'] = 'only if test wallet'
+        self.fields['wallet1_clue'].widget.attrs['placeholder'] = 'Be smart and give some details that ONLY YOU can understand'
+        self.fields['wallet1_password'].widget.attrs['placeholder'] = 'Wallet password'
+        self.fields['wallet1_session'].widget.attrs['placeholder'] = 'Browser session'
+        self.fields['wallet1_link'].widget.attrs['placeholder'] = 'link to download this wallet'
+        self.fields['wallet2_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
+        self.fields['wallet2_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
+        self.fields['wallet2_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
+        self.fields['wallet2_priv_key'].widget.attrs['placeholder'] = 'only if test wallet'
+        self.fields['wallet2_seed'].widget.attrs['placeholder'] = 'only if test wallet'
+        self.fields['wallet2_clue'].widget.attrs['placeholder'] = 'Be smart and give some details that ONLY YOU can understand'
+        self.fields['wallet2_password'].widget.attrs['placeholder'] = 'Wallet password'
+        self.fields['wallet2_session'].widget.attrs['placeholder'] = 'Browser session'
+        self.fields['wallet2_link'].widget.attrs['placeholder'] = 'link to download'
+        self.fields['tasks_description'].widget.attrs['placeholder'] = 'Give description of what to do to participate to this testnet'
+        self.fields['tasks_results'].widget.attrs['placeholder'] = 'Save your transaction links, data about your participation, copy email etc...'
+        
         #if self.instance.pk:
             #self.fields['testnet_name'].disabled = True
         if not self.instance.author == self.user:
             self.fields['wallet1_name'].disabled = True
             for input_name in self.fields:
-                if input_name == 'tasks_results':
+
+                array_input = [
+                    'telegram_user',
+                    'github_user',
+                    'discord_user',
+                    'twitter_user',
+                    'email_user',
+                    'wallet1_adress',
+                    'wallet1_priv_key',
+                    'wallet1_seed',
+                    'wallet1_clue',
+                    'wallet1_password',
+                    'wallet1_session',
+                    'tasks_results',
+                    'wallet2_adress',
+                    'wallet2_priv_key',
+                    'wallet2_seed',
+                    'wallet2_clue',
+                    'wallet2_password',
+                    'wallet2_session'
+
+                    
+
+                ]
+
+                if input_name in array_input:
                     pass
                 else:
                     self.fields[input_name].disabled = True

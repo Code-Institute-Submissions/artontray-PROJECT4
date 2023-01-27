@@ -88,10 +88,28 @@ class CopyTestnet(generic.CreateView):
             if not Testnet.objects.filter(slug=slug).exists():
                 break
             suffix += 1
-        breakpoint
         t.testnet_name = slug
         t.slug = slug
         t.testnet_user = request.user
+        t.telegram_user = ''
+        t.github_user = ''
+        t.discord_user = ''
+        t.twitter_user = ''
+        t.email_user = ''
+        t.wallet1_adress = ''
+        t.wallet1_priv_key = ''
+        t.wallet1_seed = ''
+        t.wallet1_clue = ''
+        t.wallet1_password = ''
+        t.wallet1_session = ''
+        t.tasks_results = ''
+        t.wallet2_adress = ''
+        t.wallet2_priv_key = ''
+        t.wallet2_seed = ''
+        t.wallet2_clue = ''
+        t.wallet2_password = ''
+        t.wallet2_session = ''
+
         t.pk = None
         t.save()
 
