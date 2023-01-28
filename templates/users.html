@@ -246,8 +246,8 @@
                             <div class="col-lg-12 col-sm-12 col-md-12">
 
                                 {% if current_user.user == user %}
-                                <p class="btn btn-success btn-user btn-block" href="{% url 'dashboard' current_user %}">
-                                    It's YOU</p>
+                                <a class="btn btn-success btn-user btn-block" href="{% url 'dashboard' current_user %}">
+                                    YOU</a>
                                 {% else %}
                                 <a class=" btn btn-primary btn-user btn-block"
                                     href="{% url 'dashboard' current_user %}">Show</a>

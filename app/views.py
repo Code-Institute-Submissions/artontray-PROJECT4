@@ -126,7 +126,7 @@ class FormTestnetMixin:
     model = Testnet
     success_url = '/dashboard/'
     form_class = TestnetForm
-    success_msg = "Le testnet a bien été enregistré \o/"
+    success_msg = "Testnet have been registered successfully"
     action = "none"
 
     def get_form_kwargs(self):
@@ -136,17 +136,53 @@ class FormTestnetMixin:
     
     def form_valid(self, form):
         messages.add_message(self.request, messages.SUCCESS, self.success_msg)
-        if self.action=='AddTestnet':
+        if self.action == 'AddTestnet':
             manage_exp_user(self.request.user, "add")
             add_notification_user(self.request.user, "You had a new testnet successfully" , "New testnet created")
+        #self.test_if_author()
+        self.update_all_copied_testnet(form)
+        return super().form_valid(form)
+
+    def update_all_copied_testnet(self, form):
+
+        testnet = self.get_object()
+        #breakpoint()
+        if testnet.author == self.request.user:
+            testnet_original = Testnet.objects.get(slug=testnet.slug)
+            
+            #testnet_to_update = Testnet.objects.exclude(testnet_user__username=testnet_original.user.username).filter(slug_original = testnet_original.slug)
+            testnet_to_update = Testnet.objects.filter(slug_original = testnet_original.slug)
+            
+            for each_testnet in testnet_to_update:
+                each_testnet.tasks_description = form.instance.tasks_description
+                each_testnet.network_name = form.instance.network_name
+                each_testnet.network_status = form.instance.network_status
+                each_testnet.description = form.instance.description
+                each_testnet.category = form.instance.category
+                each_testnet.twitter = form.instance.twitter
+                each_testnet.facebook = form.instance.facebook
+                each_testnet.website = form.instance.website
+                each_testnet.github = form.instance.github
+                each_testnet.discord = form.instance.discord
+                each_testnet.telegram = form.instance.telegram
+                each_testnet.instagram = form.instance.instagram
+                each_testnet.youtube = form.instance.youtube
+                each_testnet.whitepaper = form.instance.whitepaper
+                #breakpoint()
+                each_testnet.save()
+                add_notification_user(each_testnet.testnet_user, f"An update has been deployed to one of the Testnet you copied : {each_testnet.testnet_name}, Check it out!" , "Updated testnet")
+                
+
+            
         
 
-        return super().form_valid(form)
+
+        
 
 
 class AddTestnet(FormTestnetMixin, generic.CreateView):
     action = "AddTestnet"
-    success_msg = "Le testnet a bien été créé \o/"
+    success_msg = "Testnet have been created successfully"
 
 class UpdateTestnet(FormTestnetMixin,LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     action = 'UpdateTestnet'
@@ -157,6 +193,8 @@ class UpdateTestnet(FormTestnetMixin,LoginRequiredMixin, UserPassesTestMixin, ge
         return testnet.testnet_user.username == self.request.user.username
 
     success_msg = "Le testnet a bien été modifié \o/"
+
+    
 
 # Autre façon de faire, en fonction, mais ça gère moins de chose:
 # def add_testnet(request):

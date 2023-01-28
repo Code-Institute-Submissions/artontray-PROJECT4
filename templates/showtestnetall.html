@@ -71,10 +71,61 @@
             </a>
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-            <a href="{% url 'copy_testnet' slug=testnet.slug_original %}" class=" btn btn-success btn-user btn-block">
-                <i class="fa-regular fa-copy"></i>
-                    Copy
-            </a>
+            
+                
+                    
+                
+                
+                
+                
+                
+                <button type="button" class="btn btn-success btn-user btn-block" data-toggle="modal"
+                            data-target="#CopyTestnet{{ testnet.id }}">
+                            <span><i class="fa-regular fa-copy"></i></span>  Copy
+                        </button>
+                        <div class="modal" id="CopyTestnet{{ testnet.id }}" tabindex="-1"
+                            aria-labelledby="CopyTestnetLabel{{ testnet.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title h3 text-secondary"
+                                            id="CopyTestnetLabel{{ testnet.id }}">
+                                            <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
+
+                                        </h5>
+                                    </div>
+                                    <form method="get" action="{% url 'copy_testnet' slug=testnet.slug_original %}">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
+                                                you want to copy the following Testnet : {{ testnet.testnet_name }} ? </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success btn-user">
+                                                YES
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                                aria-label="Close">
+                                                NO
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
             <a href="{% url 'update_testnet' slug=testnet.slug %}" class=" btn btn-primary btn-user btn-block">
@@ -99,10 +150,40 @@
             </a>
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-            <a href="{% url 'copy_testnet' slug=testnet.slug_original %}" class=" btn btn-success btn-user btn-block">
-                <i class="fa-regular fa-copy"></i>
-                    Copy
-            </a>
+            <button type="button" class="btn btn-success btn-user btn-block" data-toggle="modal"
+                            data-target="#CopyTestnet{{ testnet.id }}">
+                            <span><i class="fa-regular fa-copy"></i></span>  Copy
+                        </button>
+                        <div class="modal" id="CopyTestnet{{ testnet.id }}" tabindex="-1"
+                            aria-labelledby="CopyTestnetLabel{{ testnet.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title h3 text-secondary"
+                                            id="CopyTestnetLabel{{ testnet.id }}">
+                                            <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
+
+                                        </h5>
+                                    </div>
+                                    <form method="get" action="{% url 'copy_testnet' slug=testnet.slug_original %}">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
+                                                you want to copy the following Testnet : {{ testnet.testnet_name }} ? </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success btn-user">
+                                                YES
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                                aria-label="Close">
+                                                NO
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
             <a href="{% url 'update_testnet' slug=testnet.slug %}" class=" btn btn-primary btn-user btn-block">
@@ -128,10 +209,40 @@
         </a>
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-            <a href="{% url 'copy_testnet' slug=testnet.slug_original %}" class=" btn btn-success btn-user btn-block">
-                <i class="fa-regular fa-copy"></i>
-                    Copy
-            </a>
+            <button type="button" class="btn btn-success btn-user btn-block" data-toggle="modal"
+                            data-target="#CopyTestnet{{ testnet.id }}">
+                            <span><i class="fa-regular fa-copy"></i></span>  Copy
+                        </button>
+                        <div class="modal" id="CopyTestnet{{ testnet.id }}" tabindex="-1"
+                            aria-labelledby="CopyTestnetLabel{{ testnet.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title h3 text-secondary"
+                                            id="CopyTestnetLabel{{ testnet.id }}">
+                                            <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
+
+                                        </h5>
+                                    </div>
+                                    <form method="get" action="{% url 'copy_testnet' slug=testnet.slug_original %}">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
+                                                you want to copy the following Testnet : {{ testnet.testnet_name }} ? </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success btn-user">
+                                                YES
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                                aria-label="Close">
+                                                NO
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
             <button href="#" class=" btn btn-primary btn-user btn-block" disabled>
