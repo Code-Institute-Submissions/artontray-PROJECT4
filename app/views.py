@@ -437,7 +437,7 @@ class ShowDashboard(generic.DetailView):
             Creation_User_Info.save()
 
         # User Testnet listing only the 5 lastest
-        testnet_user = Testnet.objects.filter(author=object_user.id)[:5]
+        testnet_user = Testnet.objects.filter(testnet_user=object_user)[:5]
         paginate_by = 4
 
         context.update ({

@@ -184,7 +184,7 @@ class UserInfo(models.Model):
     @property
     def show_testnet_user(self):
         if not hasattr(self, "_show_testnet_user"):
-            self._show_testnet_user = Testnet.objects.all().filter(testnet_user=self.user.id)[:5]
+            self._show_testnet_user = Testnet.objects.all().filter(testnet_user=self.user.id)[:10]
 
         return self._show_testnet_user    
 

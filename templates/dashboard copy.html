@@ -175,7 +175,7 @@
                         </p>
                     </p>
                     {% else %}
-                    <p>My Last Created Testnet : 
+                    <p>My Last Testnet : 
                         <a href="{% url 'showtestnet' object.user_info.last_testnet_slug %}" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-download fa-sm text-white-50"></i>
                             {{ object.user_info.last_testnet }}
@@ -279,29 +279,16 @@
 <!-- Listing of the all testnet created by user-->
 
 
-    <div class="row my-1">
-        <div class="col-lg-8 col-sm-12 col-md-8 py-2">
-
-                
-                <p class="h2 text-primary" > Last Testnet(s) deployed by <code>{{ object.user_info.get_object_user.username }}</code> </p>
-            
-        </div>
-        <div class="col-lg-4 col-sm-12 col-md-4 py-2">
-            <a href="{% url 'showtestnetall' object.user_info.user.username %}" class="btn btn-primary  btn-user btn-block">
-                
-                <p class="h5" > <i class="fa-solid fa-magnifying-glass"></i>  Search a testnet</p>
-            </a>
-        </div>
-    </div>
-
 {% for testnet in object.user_info.show_testnet_user %}
 
     <div class="container-fluid bg-light border-all-around-radius my-2">
         <div class="row my-2">
-            <div class="col-lg-10 col-sm-12 col-md-10 py-3">
+            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                     <i class="fa-solid fa-arrow-right"></i>
-                    {{ testnet.testnet_name }}
+                    
+                        {{ testnet.testnet_name }}
+                   
                     
                 </h6>
             </div>
@@ -311,7 +298,18 @@
                     Show
                 </a>
             </div>
-
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="#" class=" btn btn-success btn-user btn-block">
+                    <i class="fa-regular fa-copy"></i> 
+                    Duplicate
+                </a>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+                <a href="{% url 'update_testnet' slug=testnet.slug %}" class=" btn btn-primary btn-user btn-block">
+                    <i class="fa-solid  fa-pen-to-square"></i>
+                    Edit
+                </a>
+            </div>
         </div>
     </div>
 {% empty %}

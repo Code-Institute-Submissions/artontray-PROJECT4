@@ -1,10 +1,13 @@
 from django import forms
 from .models import Testnet
+from .models import UserInfo
 from django.template.defaultfilters import slugify
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import reverse, redirect
 from django.conf import settings
+
+
 
 
 class TestnetForm(forms.ModelForm):
@@ -89,6 +92,7 @@ class TestnetForm(forms.ModelForm):
 
                 array_input = [
                     'telegram_user',
+                    'testnet_name',
                     'github_user',
                     'discord_user',
                     'twitter_user',
