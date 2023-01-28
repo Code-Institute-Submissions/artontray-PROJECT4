@@ -40,7 +40,7 @@ class NotificationsAdmin(admin.ModelAdmin):
     """
     Allows admin to manage user notifications via the admin panel
     """
-    list_display = ('user', 'exp', 'created_on')
+    list_display = ('id', 'user', 'exp', 'created_on')
 
 
 @admin.register(CheckList)

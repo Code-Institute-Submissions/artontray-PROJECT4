@@ -12,7 +12,7 @@ urlpatterns = [
     path('showtestnet/<slug:slug>', views.ShowTestnet.as_view(), name='showtestnet'),
     path('showtestnetall/<slug:username>', views.ShowTestnetall.as_view(), name='showtestnetall'),
     path('addfavorite/<int:id>', views.AddFavoriteUser.as_view(), name='add_favorite_user'),
-    
+    path('updateuserprofile/<slug:pk>', views.UpdateProfile.as_view(), name='update_profile_user'),
     path('deletefavorite/<int:id>', views.DeleteFavoriteUser.as_view(), name='delete_favorite_user'),
     path('notification/<int:id>/update', views.UpdateNotifications.as_view(), name='updatenotification'),
     path('addtestnet/', views.AddTestnet.as_view(), name='addtestnet'),

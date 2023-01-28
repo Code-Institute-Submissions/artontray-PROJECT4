@@ -7,7 +7,41 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import reverse, redirect
 from django.conf import settings
 
+class EditUserForm(forms.ModelForm):
+    class Meta:
+        model = UserInfo
+        fields = "__all__"
+        exclude = ['user', 'exp', 'status','following']
 
+        widgets = {
+          'bio': forms.Textarea(attrs={'rows':2, 'cols':45}),
+        }
+        
+        labels = {
+            'bio': 'Describe Yourself',
+            'debank': 'Your Debank link',
+            'avatar': 'Change your Avatar',
+
+        }
+
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+        
+        if not self.instance.pk:
+            self.instance.user = self.user
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+        self.fields['avatar'].widget.attrs['class'] = ''
+
+        self.fields['bio'].widget.attrs['placeholder'] = 'Bio'
+        self.fields['debank'].widget.attrs['placeholder'] = 'https://debank.com/profile/0x56.....ea'
+
+        def clean(self):
+            super().clean()
+            return self.cleaned_data
 
 
 class TestnetForm(forms.ModelForm):

@@ -12,7 +12,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import TestnetForm
+from .forms import TestnetForm, EditUserForm
 from functools import reduce
 from django.conf import settings
 from django.template.defaultfilters import slugify
@@ -121,6 +121,28 @@ class CopyTestnet(generic.CreateView):
         return HttpResponseRedirect(reverse('update_testnet', args=[slug]))
 
 
+class FormEditUserMixin:
+    model = UserInfo
+    success_url = '/dashboard/'
+    form_class = EditUserForm
+    success_msg = "..."
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        messages.add_message(self.request, messages.SUCCESS, self.success_msg)
+        return super().form_valid(form)
+
+class UpdateProfile(FormEditUserMixin,LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    def test_func(self):
+        user = self.get_object()
+        """avoiding updating others testnet"""
+        
+        return user.id == self.request.user.user_info.id
+    success_msg = "Profile Updated!"
 
 class FormTestnetMixin:
     model = Testnet
@@ -426,7 +448,7 @@ class ShowDashboard(generic.DetailView):
             exp = 100
             debank = '...'
             bio = 'I just signed up to Testnet Organizer....'
-            avatar = "https://res.cloudinary.com/dqnhlza2r/image/upload/v1674505891/png-transparent-youtube-user-computer-icons-information-youtube-hand-silhouette-avatar_ely5ye.png"
+            avatar = "https://res.cloudinary.com/dqnhlza2r/image/upload/v1674941682/ubcbtybbvu9b1zmvgiza.png"
             Creation_User_Info = UserInfo.objects.create(
                 user_id=self.request.user.id,
                 bio=bio,
@@ -438,7 +460,7 @@ class ShowDashboard(generic.DetailView):
 
         # User Testnet listing only the 5 lastest
         testnet_user = Testnet.objects.filter(testnet_user=object_user)[:5]
-        paginate_by = 4
+       
 
         context.update ({
                 "testnet_user": testnet_user,
