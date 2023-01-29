@@ -8,7 +8,7 @@ from django.conf import settings
 
 STATUS = ((0, "User"), (1, "Admin"), (2, "Blocked"))
 READ = ((0, "Unread"), (1, "Read"))
-
+STATUS_TESTNET = ((0, "published"), (1, "Archived"), (2, "Reported"))
 
 
 class Testnet(models.Model):
@@ -65,6 +65,7 @@ class Testnet(models.Model):
     discord_user = models.CharField(max_length=25, blank=True)
     telegram_user = models.CharField(max_length=25, blank=True)
     tasks_results = models.TextField(blank=True)
+    status_testnet = models.IntegerField(choices=STATUS_TESTNET, default=0)
 
 
     class Meta:
@@ -188,7 +189,7 @@ class UserInfo(models.Model):
     @property
     def show_testnet_user(self):
         if not hasattr(self, "_show_testnet_user"):
-            self._show_testnet_user = Testnet.objects.exclude(testnet_user__user_info__status=2).all().filter(testnet_user=self.user.id)[:10]
+            self._show_testnet_user = Testnet.objects.exclude(testnet_user__user_info__status=2).all().filter(testnet_user=self.user.id, status_testnet=0)[:10]
 
         return self._show_testnet_user    
 
@@ -209,7 +210,7 @@ class UserInfo(models.Model):
     @property
     def last_testnet(self):
         if not hasattr(self, "_last_testnet"):
-            self._last_testnet = Testnet.objects.all().filter(author=self.user,testnet_user=self.user).first()
+            self._last_testnet = Testnet.objects.all().filter(author=self.user,testnet_user=self.user, status_testnet=0).first()
             if self._last_testnet:
                 self._last_testnet = self._last_testnet.testnet_name
             else:
@@ -219,7 +220,7 @@ class UserInfo(models.Model):
     @property
     def last_testnet_slug(self):
         if not hasattr(self, "_last_testnet_slug"):
-            self._last_testnet_slug = Testnet.objects.all().filter(author=self.user,testnet_user=self.user).first()
+            self._last_testnet_slug = Testnet.objects.all().filter(author=self.user,testnet_user=self.user, status_testnet=0).first()
             if self._last_testnet_slug:
                 self._last_testnet_slug = self._last_testnet_slug.slug
             else:

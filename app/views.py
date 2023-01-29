@@ -353,13 +353,13 @@ class ShowTestnetall(generic.ListView):
         if search:
             #qs = qs.all()
             #qs = qs.filter(author=F('testnet_user')).all()
-            qs = qs.exclude(testnet_user__user_info__status=2).filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user))
+            qs = qs.exclude(testnet_user__user_info__status=2).filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user), status_testnet=0)
             qs = qs.filter(
                 Q(testnet_name__icontains=search) 
                 | Q(description__icontains=search)
             )
         else:
-            qs = qs.exclude(testnet_user__user_info__status=2).filter(testnet_user=self.testnet_user)
+            qs = qs.exclude(testnet_user__user_info__status=2).filter(testnet_user=self.testnet_user, status_testnet=0)
 
         return qs
 
