@@ -4,14 +4,7 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="mb-0 text-xl font-weight-bold text-primary">Testnet : {{ object.slug_original }}</h1>
-    {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="h5 text-{{ message.tags }}"{% endif %}>{{ messages }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+    <h1 class="mb-0 text-xl font-weight-bold text-primary">Testnet Information(s)</h1>
 </div>
 
 <!-- End Content Row Number 2-->
@@ -20,7 +13,175 @@
 
 
 
-    <div class="container-fluid bg-light border-all-around-radius my-2">
+    
+
+        <div class="row padding-10-pourcent-left-right">
+            <div class="col-xl-12 col-md-12">
+                <div class="card shadow h-100 mb-4">
+
+                    <div class="card-header py-3">
+                        <h6 class="h3 m-0 font-weight-bold text-primary">Testnet by {{ object.author }} : {{ object.testnet_name }}</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row my-2">
+                            <div class="col-xl-4 col-sm-12 col-md-4 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Network : 
+                                </p>
+                                <p>
+                                    {{ object.network_name }}
+                                </p>
+                            </div>
+                            <div class="col-xl-4 col-sm-12 col-md-4 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Status : 
+                                </p>
+                                <p>
+                                    {{ object.network_status }}
+                                </p>
+                            </div>
+                            <div class="col-xl-4 col-sm-12 col-md-4 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Category : 
+                                </p>
+                                <p>
+                                    {{ object.category }}
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="row my-2">
+                            <div class="col-xl-3 col-sm-12 col-md-3 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Twitter : 
+                                </p>
+                                <p>
+                                    {{ object.twitter }}
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-sm-12 col-md-3 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Facebook : 
+                                </p>
+                                <p>
+                                    {{ object.facebook }}
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-sm-12 col-md-3 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Github : 
+                                </p>
+                                <p>
+                                    {{ object.github }}
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-sm-12 col-md-3 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Discord : 
+                                </p>
+                                <p>
+                                    {{ object.discord }}
+                                </p>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row my-2">
+                            <div class="col-xl-3 col-sm-12 col-md-3 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Telegram : 
+                                </p>
+                                <p>
+                                    {{ object.telegram }}
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-sm-12 col-md-3 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Instagram : 
+                                </p>
+                                <p>
+                                    {{ object.instagram }}
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-sm-12 col-md-3 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                Youtube : 
+                                </p>
+                                <p>
+                                    {{ object.youtube }}
+                                </p>
+                            </div>
+                            <div class="col-xl-3 col-sm-12 col-md-3 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                    Browser : 
+                                    </p>
+                                    <p>
+                                        {{ object.browser }}
+                                    </p>
+
+                                
+                            </div>
+                        </div>
+
+
+
+                        <div class="row my-2">
+                            <div class="col-xl-6 col-sm-12 col-md-6 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                    whitepaper : 
+                                </p>
+                                <p>
+                                    {{ object.whitepaper }}
+                                </p>
+                            </div>
+                            <div class="col-xl-6 col-sm-12 col-md-6 ">
+                                <p class="h5 font-weight-bold text-dark">
+                                    Website : 
+                                    </p>
+                                    <p>
+                                        {{ object.website }}
+                                    </p>
+                            </div>
+                            
+                           
+                        </div>
+
+
+
+
+
+                        
+
+                        <br>
+                        <p>
+                            
+                        </p>
+                        <br>
+                        <hr>
+
+                        <br>
+                        <p class="h4 font-weight-bold text-dark">
+                            
+                        </p>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="container-fluid border-all-around-radius my-2">
+
+
         <div class="row my-2">
             <div class="col-lg-6 col-sm-12 col-md-6 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
