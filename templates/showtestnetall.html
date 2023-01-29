@@ -73,16 +73,26 @@
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
             
                 
-                    
+            {% if testnet.status_testnet == 2 %}
+            <button type="button" class="btn btn-danger btn-user btn-block" disabled>
+                <span><i class="fa-solid fa-circle-exclamation"></i></span>  Reported
+            </button>
+            {% else %}
+            <button type="button" class="btn btn-success btn-user btn-block" data-toggle="modal"
+            data-target="#CopyTestnet{{ testnet.id }}">
+            <span><i class="fa-regular fa-copy"></i></span>  Copy
+            </button>
+            {% endif %}
                 
                 
                 
                 
                 
-                <button type="button" class="btn btn-success btn-user btn-block" data-toggle="modal"
-                            data-target="#CopyTestnet{{ testnet.id }}">
-                            <span><i class="fa-regular fa-copy"></i></span>  Copy
-                        </button>
+                
+
+
+
+
                         <div class="modal" id="CopyTestnet{{ testnet.id }}" tabindex="-1"
                             aria-labelledby="CopyTestnetLabel{{ testnet.id }}" aria-hidden="true">
                             <div class="modal-dialog">
@@ -156,10 +166,16 @@
             </a>
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+            {% if testnet.status_testnet == 2 %}
+            <button type="button" class="btn btn-danger btn-user btn-block" disabled>
+                <span><i class="fa-solid fa-circle-exclamation"></i></span>  Reported
+            </button>
+            {% else %}
             <button type="button" class="btn btn-success btn-user btn-block" data-toggle="modal"
-                            data-target="#CopyTestnet{{ testnet.id }}">
-                            <span><i class="fa-regular fa-copy"></i></span>  Copy
-                        </button>
+            data-target="#CopyTestnet{{ testnet.id }}">
+            <span><i class="fa-regular fa-copy"></i></span>  Copy
+            </button>
+            {% endif %}
                         <div class="modal" id="CopyTestnet{{ testnet.id }}" tabindex="-1"
                             aria-labelledby="CopyTestnetLabel{{ testnet.id }}" aria-hidden="true">
                             <div class="modal-dialog">
@@ -220,10 +236,16 @@
         </a>
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
+            {% if testnet.status_testnet == 2 %}
+            <button type="button" class="btn btn-danger btn-user btn-block" disabled>
+                <span><i class="fa-solid fa-circle-exclamation"></i></span>  Reported
+            </button>
+            {% else %}
             <button type="button" class="btn btn-success btn-user btn-block" data-toggle="modal"
-                            data-target="#CopyTestnet{{ testnet.id }}">
-                            <span><i class="fa-regular fa-copy"></i></span>  Copy
-                        </button>
+            data-target="#CopyTestnet{{ testnet.id }}">
+            <span><i class="fa-regular fa-copy"></i></span>  Copy
+            </button>
+            {% endif %}
                         <div class="modal" id="CopyTestnet{{ testnet.id }}" tabindex="-1"
                             aria-labelledby="CopyTestnetLabel{{ testnet.id }}" aria-hidden="true">
                             <div class="modal-dialog">

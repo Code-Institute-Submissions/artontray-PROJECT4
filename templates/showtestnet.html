@@ -275,16 +275,83 @@
 
 <div class="row padding-10-pourcent-left-right">
     <div class="col-xl-6 col-sm-12 col-md-12 py-3">
-        <a href="#" class=" btn btn-danger btn-user btn-block">
-                
-            REPORT
-        </a>  
+        
+            {% if testnet.testnet_user == request.user  %}
+            <button href="#" class=" btn btn-danger btn-user btn-block" disabled>
+                REPORT
+            </button> 
+            {% else %}
+
+
+
+
+
+
+            <button type="button" class="btn btn-danger btn-user btn-block" data-toggle="modal"
+            data-target="#ReportTestnet{{ testnet.id }}">
+            <span><i class="fa-regular fa-copy"></i></span>  Report
+        </button>
+        <div class="modal" id="ReportTestnet{{ testnet.id }}" tabindex="-1"
+            aria-labelledby="ReportTestnetLabel{{ testnet.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title h3 text-secondary"
+                            id="ReportTestnetLabel{{ testnet.id }}">
+                            <i class="fa-sharp fa-solid fa-circle-exclamation text-danger fa-4x"></i>
+
+                        </h5>
+                    </div>
+                    <form method="get" action="{% url 'report_testnet' slug=testnet.slug_original %}">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do you
+                                really want to report this Testnet  : {{ testnet.testnet_name }} ? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success btn-user">
+                                YES
+                            </button>
+                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                aria-label="Close">
+                                NO
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+            {% endif %}
+            
+        
     </div>
     <div class="col-xl-6 col-sm-12 col-md-12 py-3">
+        
+
+        {% if testnet.status_testnet == 2 %}
+        <button type="button" class="btn btn-danger btn-user btn-block" disabled>
+            <span><i class="fa-solid fa-circle-exclamation"></i></span>  Copy not available
+        </button>
+        {% else %}
         <a href="{% url 'copy_testnet' slug=object.slug_original %}" class=" btn btn-success btn-user btn-block">
                 
-            COPY
+            Copy
         </a>
+        {% endif %}
+
+
+
     </div>
 </div>
 

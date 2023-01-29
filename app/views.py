@@ -75,7 +75,8 @@ class CopyTestnet(generic.CreateView):
     def get(self, request, slug, *args, **kwargs):
         current_user = UserInfo.objects.get(user=request.user.id)
         author_testnet = Testnet.objects.get(slug=slug)
-        testnet_to_copy = Testnet.objects.get(testnet_user=author_testnet.author, author=author_testnet.author, slug=slug)
+        queryset = Testnet.objects.all().filter(testnet_user=author_testnet.author, author=author_testnet.author, status_testnet=0)
+        testnet_to_copy = get_object_or_404(queryset, slug=slug)
         t = Testnet.objects.get(pk=testnet_to_copy.id)
 
         base_slug = slugify(t.testnet_name)
@@ -220,7 +221,7 @@ class UpdateTestnet(FormTestnetMixin,LoginRequiredMixin, UserPassesTestMixin, ge
         """avoiding updating others testnet"""
         return testnet.testnet_user.username == self.request.user.username
 
-    success_msg = "Le testnet a bien été modifié \o/"
+    success_msg = "Testnet registered successfully"
 
     
 
@@ -263,6 +264,32 @@ class DeleteFavoriteUser(generic.DeleteView):
         add_notification_user(self.request.user, "You are not following %s anymore" % (user_to_unfollow) , "UnFollow a user -1")
         
         return HttpResponseRedirect(reverse('dashboard', args=[user_to_unfollow]))
+
+
+
+
+class ReportTestnet(generic.DetailView):
+    def get(self, request, slug, *args, **kwargs):
+        current_user = UserInfo.objects.get(user=request.user.id)
+        testnet_to_report = Testnet.objects.filter(slug_original=slug)
+        for testnets in testnet_to_report:
+            testnets.status_testnet = 2
+            testnets.save()
+
+        
+        
+        testnet_to_report = Testnet.objects.get(slug=slug)
+        add_notification_user(testnet_to_report.author, "%s reported your testnet %s!" % (self.request.user.username,testnet_to_report.testnet_name) , "Reported +1")
+        
+        all_admin = UserInfo.objects.all().filter(status=1)
+        for admin in all_admin:
+            add_notification_user(admin.user, "The Testnet called %s got reported by %s" % (testnet_to_report.testnet_name,self.request.user.username) , "Testnet Reported +1")
+        
+        
+        
+        return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
+
+
 
 
 class UpdateNotifications(LoginRequiredMixin, View):
@@ -353,13 +380,15 @@ class ShowTestnetall(generic.ListView):
         if search:
             #qs = qs.all()
             #qs = qs.filter(author=F('testnet_user')).all()
-            qs = qs.exclude(testnet_user__user_info__status=2).filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user), status_testnet=0)
+            '''If user is author of the testnet is blocked we exclude it'''
+            '''we exclude also all testnet deleted with testnet_status = 1'''
+            qs = qs.exclude(testnet_user__user_info__status=2).exclude(status_testnet=1).filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user))
             qs = qs.filter(
                 Q(testnet_name__icontains=search) 
                 | Q(description__icontains=search)
             )
         else:
-            qs = qs.exclude(testnet_user__user_info__status=2).filter(testnet_user=self.testnet_user, status_testnet=0)
+            qs = qs.exclude(testnet_user__user_info__status=2).exclude(status_testnet=1).filter(testnet_user=self.testnet_user)
 
         return qs
 

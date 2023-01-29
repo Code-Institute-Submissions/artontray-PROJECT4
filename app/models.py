@@ -8,7 +8,7 @@ from django.conf import settings
 
 STATUS = ((0, "User"), (1, "Admin"), (2, "Blocked"))
 READ = ((0, "Unread"), (1, "Read"))
-STATUS_TESTNET = ((0, "published"), (1, "Archived"), (2, "Reported"))
+STATUS_TESTNET = ((0, "published"), (1, "Deleted"), (2, "Reported"))
 
 
 class Testnet(models.Model):
@@ -189,7 +189,7 @@ class UserInfo(models.Model):
     @property
     def show_testnet_user(self):
         if not hasattr(self, "_show_testnet_user"):
-            self._show_testnet_user = Testnet.objects.exclude(testnet_user__user_info__status=2).all().filter(testnet_user=self.user.id, status_testnet=0)[:10]
+            self._show_testnet_user = Testnet.objects.exclude(testnet_user__user_info__status=2).exclude(status_testnet=1).all().filter(testnet_user=self.user.id)[:10]
 
         return self._show_testnet_user    
 
