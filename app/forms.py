@@ -85,7 +85,7 @@ class TestnetForm(forms.ModelForm):
         self.fields['twitter'].widget.attrs['placeholder'] = 'Example @Testnet_1_official'
         self.fields['facebook'].widget.attrs['placeholder'] = 'facebook link'
         self.fields['website'].widget.attrs['placeholder'] = 'Provide the official website....'
-        self.fields['github'].widget.attrs['placeholder'] = 'Provide Github link....'
+        self.fields['github'].widget.attrs['placeholder'] = 'Provide Github username'
         self.fields['discord'].widget.attrs['placeholder'] = 'Provide discord link....'
         self.fields['telegram'].widget.attrs['placeholder'] = 'Provide telegram link....'
         self.fields['instagram'].widget.attrs['placeholder'] = 'Provide instagram link....'

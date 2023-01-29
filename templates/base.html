@@ -37,10 +37,12 @@
                     <li class="nav-item mr-2"><a class="nav-link" href="#">Checklist</a></li>
                     {% endif %}
 
-
+                 
                     {% if user.is_authenticated %}
                     <li class="nav-item mr-2">
                         <a class="btn btn-primary btn-user btn-block" href="{% url 'account_logout' %}">Logout</a>
+                        
+                        
                     </li>
                     {% else %}
                     <li class="nav-item mr-2">
@@ -61,11 +63,36 @@
     </header>
 
     <!-- Begin Page Content -->
-    <div class="container-fluid">
+    
+        {% if user.user_info.user_status == 2  %}
+        <div class="container-fluid bg-danger">
+            <div class="row padding-10-pourcent-left-right">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card shadow h-100 mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="h3 m-0 font-weight-bold text-danger">This account is Blocked</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row my-2">
+                                <div class="col-xl-12 col-sm-12 col-md-12 ">
+                                    <p>This account is blocked! please contact admin@testnet-organizer.com for more information(s)</p>
+                                </div>
+                            </div>
+                            <br><br><hr><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="container-fluid">
         {% block content %}
         <!-- Content Goes here -->
         {% endblock content %}
-    </div>
+        </div>
+        {% endif %}
+
+    
     <!-- End Page Content -->
     <footer>
         <div class="row">

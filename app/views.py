@@ -114,9 +114,13 @@ class CopyTestnet(generic.CreateView):
         t.save()
 
        # current_user.save()
-        manage_exp_user(testnet_to_copy.author, "add")
-        add_notification_user(testnet_to_copy.author, "%s has copied a Testnet from you!" % (request.user) , "New Copied Testnet +1")
-        add_notification_user(request.user, "You have copied a Testnet from  %s" % (testnet_to_copy.author) , "Testnet copied +1")
+        
+        if request.user == testnet_to_copy.author:
+            add_notification_user(request.user, "You have duplicate one of your Testnet successfully :   %s" % (testnet_to_copy.testnet_name) , "Testnet duplicated +1")
+        else:
+            manage_exp_user(testnet_to_copy.author, "add")
+            add_notification_user(testnet_to_copy.author, "%s has copied a Testnet from you!" % (request.user) , "New Copied Testnet +1")
+            add_notification_user(request.user, "You have copied a Testnet from  %s" % (testnet_to_copy.author) , "Testnet copied +1")
         
         return HttpResponseRedirect(reverse('update_testnet', args=[slug]))
 
@@ -162,7 +166,9 @@ class FormTestnetMixin:
             manage_exp_user(self.request.user, "add")
             add_notification_user(self.request.user, "You had a new testnet successfully" , "New testnet created")
         #self.test_if_author()
-        self.update_all_copied_testnet(form)
+        if self.action == 'UpdateTestnet':
+            self.update_all_copied_testnet(form)
+
         return super().form_valid(form)
 
     def update_all_copied_testnet(self, form):
@@ -347,13 +353,13 @@ class ShowTestnetall(generic.ListView):
         if search:
             #qs = qs.all()
             #qs = qs.filter(author=F('testnet_user')).all()
-            qs = qs.filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user))
+            qs = qs.exclude(testnet_user__user_info__status=2).filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user))
             qs = qs.filter(
                 Q(testnet_name__icontains=search) 
                 | Q(description__icontains=search)
             )
         else:
-            qs = qs.filter(testnet_user=self.testnet_user)
+            qs = qs.exclude(testnet_user__user_info__status=2).filter(testnet_user=self.testnet_user)
 
         return qs
 
@@ -394,11 +400,13 @@ class ShowUsers(generic.DetailView):
         search = self.request.GET.get("searching_user", None)
         if search:
             #show_users = User.objects.all().filter(username__icontains=search)
-            show_users = UserInfo.objects.all().filter(user__username__icontains = search)
+            show_users = UserInfo.objects.all().exclude(status=2).filter(user__username__icontains = search)
             #first_query.union(second_query)
 
         else:
-            show_users = UserInfo.objects.all().order_by('-exp')[:10]
+            #show_users = UserInfo.objects.all().order_by('-exp')[:10]
+            show_users = UserInfo.objects.exclude(status=2).all().order_by('-exp')[:10]
+            
         #show_users = UserInfo.objects.all().order_by('-exp')[:10]
 
         context.update ({
@@ -411,6 +419,10 @@ class ShowUsers(generic.DetailView):
             }
         )
         return context
+
+
+
+
 
 
 class ShowDashboard(generic.DetailView):

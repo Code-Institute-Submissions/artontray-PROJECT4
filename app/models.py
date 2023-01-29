@@ -6,7 +6,7 @@ from cloudinary.models import CloudinaryField
 from django.utils.functional import cached_property
 from django.conf import settings
 
-STATUS = ((0, "User"), (1, "Admin"))
+STATUS = ((0, "User"), (1, "Admin"), (2, "Blocked"))
 READ = ((0, "Unread"), (1, "Read"))
 
 
@@ -160,6 +160,10 @@ class UserInfo(models.Model):
         return self.user
 
     @property
+    def user_status(self):
+        return self.status
+
+    @property
     def nb_following(self):
         if not hasattr(self, "_nb_following"):
             self._nb_following = self.following.count()
@@ -184,7 +188,7 @@ class UserInfo(models.Model):
     @property
     def show_testnet_user(self):
         if not hasattr(self, "_show_testnet_user"):
-            self._show_testnet_user = Testnet.objects.all().filter(testnet_user=self.user.id)[:10]
+            self._show_testnet_user = Testnet.objects.exclude(testnet_user__user_info__status=2).all().filter(testnet_user=self.user.id)[:10]
 
         return self._show_testnet_user    
 

@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
+
+
+
+
+
+
+
+
+
 {% block content %}
+
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -14,6 +24,12 @@
     {% endif %}
 </div>
 <!-- Content Row Number 1-->
+
+
+{% if object.user_info.user_status == 2  %}
+{% include "app/inc/user_blocked.html" %}
+{% endif %}
+
 
 <div class="row">
     <!-- 4 Boxes with informations about the user interaction with the app -->
@@ -77,7 +93,7 @@
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fa-sharp fa-copy fa-4x text-info"></i>
+                        <i class="fa-sharp fa-solid fa-clone text-info fa-4x"></i>
                     </div>
                 </div>
             </div>

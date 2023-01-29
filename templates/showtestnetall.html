@@ -146,7 +146,13 @@
             </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
             <a href="{% url 'dashboard' testnet.author %}" class=" btn btn-warning btn-user btn-block">
-                <i class="fa-solid fa-user-large"></i>  {{ testnet.author }}
+                <i class="fa-solid fa-user-large"></i>  
+                {% if testnet.author == request.user %}
+                You
+                {% else %}
+                {{ testnet.author }}
+                {% endif %}
+                
             </a>
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
@@ -205,7 +211,12 @@
             </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
         <a href="{% url 'dashboard' testnet.author %}" class=" btn btn-secondary btn-user btn-block">
-            <i class="fa-solid fa-user-large"></i>  {{ testnet.author }}
+            <i class="fa-solid fa-user-large"></i>
+            {% if testnet.author == request.user %}
+                You
+                {% else %}
+                {{ testnet.author }}
+                {% endif %}
         </a>
         </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">

@@ -11,167 +11,492 @@
 <!-- Listing of the all testnet created by user-->
 
 
-
-
-    
-
-        <div class="row padding-10-pourcent-left-right">
-            <div class="col-xl-12 col-md-12">
-                <div class="card shadow h-100 mb-4">
-
-                    <div class="card-header py-3">
-                        <h6 class="h3 m-0 font-weight-bold text-primary">Testnet by {{ object.author }} : {{ object.testnet_name }}</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row my-2">
-                            <div class="col-xl-4 col-sm-12 col-md-4 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Network : 
-                                </p>
-                                <p>
-                                    {{ object.network_name }}
-                                </p>
-                            </div>
-                            <div class="col-xl-4 col-sm-12 col-md-4 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Status : 
-                                </p>
-                                <p>
-                                    {{ object.network_status }}
-                                </p>
-                            </div>
-                            <div class="col-xl-4 col-sm-12 col-md-4 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Category : 
-                                </p>
-                                <p>
-                                    {{ object.category }}
-                                </p>
-                            </div>
-                        </div>
-
-
-                        <div class="row my-2">
-                            <div class="col-xl-3 col-sm-12 col-md-3 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Twitter : 
-                                </p>
-                                <p>
-                                    {{ object.twitter }}
-                                </p>
-                            </div>
-                            <div class="col-xl-3 col-sm-12 col-md-3 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Facebook : 
-                                </p>
-                                <p>
-                                    {{ object.facebook }}
-                                </p>
-                            </div>
-                            <div class="col-xl-3 col-sm-12 col-md-3 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Github : 
-                                </p>
-                                <p>
-                                    {{ object.github }}
-                                </p>
-                            </div>
-                            <div class="col-xl-3 col-sm-12 col-md-3 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Discord : 
-                                </p>
-                                <p>
-                                    {{ object.discord }}
-                                </p>
-                            </div>
-                        </div>
-
-
-
-                        <div class="row my-2">
-                            <div class="col-xl-3 col-sm-12 col-md-3 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Telegram : 
-                                </p>
-                                <p>
-                                    {{ object.telegram }}
-                                </p>
-                            </div>
-                            <div class="col-xl-3 col-sm-12 col-md-3 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Instagram : 
-                                </p>
-                                <p>
-                                    {{ object.instagram }}
-                                </p>
-                            </div>
-                            <div class="col-xl-3 col-sm-12 col-md-3 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                Youtube : 
-                                </p>
-                                <p>
-                                    {{ object.youtube }}
-                                </p>
-                            </div>
-                            <div class="col-xl-3 col-sm-12 col-md-3 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                    Browser : 
-                                    </p>
-                                    <p>
-                                        {{ object.browser }}
-                                    </p>
-
-                                
-                            </div>
-                        </div>
-
-
-
-                        <div class="row my-2">
-                            <div class="col-xl-6 col-sm-12 col-md-6 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                    whitepaper : 
-                                </p>
-                                <p>
-                                    {{ object.whitepaper }}
-                                </p>
-                            </div>
-                            <div class="col-xl-6 col-sm-12 col-md-6 ">
-                                <p class="h5 font-weight-bold text-dark">
-                                    Website : 
-                                    </p>
-                                    <p>
-                                        {{ object.website }}
-                                    </p>
-                            </div>
-                            
-                           
-                        </div>
+{% if object.testnet_user.user_info.user_status == 2  %}
+{% include "app/inc/user_blocked.html" %}
+{% endif %}
 
 
 
 
 
-                        
+<div class="row padding-10-pourcent-left-right">
+    <div class="col-xl-12 col-md-12">
+        <div class="card shadow h-100 mb-4">
 
-                        <br>
+            <div class="card-header py-3">
+                <h6 class="h3 m-0 font-weight-bold text-primary">Testnet by {{ object.author }} :
+                    {{ object.testnet_name }}</h6>
+            </div>
+            <div class="card-body">
+                <div class="row my-2">
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-primary">
+                            Network :
+                        </p>
                         <p>
-                            
+                            {{ object.network_name }}
                         </p>
-                        <br>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-primary">
+                            Status :
+                        </p>
+                        <p>
+                            {{ object.network_status }}
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-primary">
+                            Category :
+                        </p>
+                        <p>
+                            {{ object.category }}
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-primary">
+                            Website :
+                        </p>
+                        <p>
+                            {{ object.website }}
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="row my-2">
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+
+                            <i class="fa-brands fa-twitter fa-2x text-primary"></i>
+                        </p>
+                        <p>
+
+                            <a href="https://twitter.com/{{ object.twitter }}" target="_blank"> {{ object.twitter }}
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            <i class="fa-brands fa-facebook fa-2x text-primary"></i>
+                        </p>
+                        <p>
+                            <a href="{{ object.facebook }}" target="_blank"> {{ object.facebook }} </a>
+
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            <i class="fa-brands fa-github fa-2x text-primary"></i>
+                        </p>
+                        <p>
+
+                            <a href="https://github.com/{{ object.github }}" target="_blank"> {{ object.github }} </a>
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            <i class="fa-brands fa-discord fa-2x text-primary"></i>
+                        </p>
+                        <p>
+
+                            <a href="{{ object.discord }}" target="_blank"> {{ object.discord }} </a>
+                        </p>
+                    </div>
+                </div>
+
+
+
+                <div class="row my-2">
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            <i class="fa-brands fa-telegram fa-2x text-primary"></i>
+                        </p>
+                        <p>
+                            <a href="{{ object.telegram }}" target="_blank"> {{ object.telegram }} </a>
+
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            <i class="fa-brands fa-instagram fa-2x text-primary"></i>
+                        </p>
+                        <p>
+                            <a href="{{ object.instagram }}" target="_blank"> {{ object.instagram }} </a>
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            <i class="fa-brands fa-youtube fa-2x text-primary"></i>
+                        </p>
+                        <p>
+
+                            <a href="{{ object.youtube }}" target="_blank"> {{ object.youtube }} </a>
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-primary">
+                            Browser :
+                        </p>
+                        <p>
+                            {{ object.browser }}
+                        </p>
+
+
+                    </div>
+                </div>
+
+
+
+                <div class="row my-2">
+                    <div class="col-xl-12 col-sm-12 col-md-12 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            whitepaper :
+                        </p>
+                        <p>
+                            {{ object.whitepaper }}
+                        </p>
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="row my-2">
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 1 :
+                        </p>
+                        <p>
+                            <a href="{{ object.wallet1_link }}" target="_blank"> {{ object.wallet1_name }}</a>
+
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            Type :
+                        </p>
+                        <p>
+                            {{ object.wallet1_type }}
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 2 :
+                        </p>
+                        <p>
+                            {{ object.wallet2_name }}
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            Type :
+                        </p>
+                        <p>
+                            {{ object.wallet2_type}}
+                        </p>
+
+
+                    </div>
+                </div>
+
+
+
+
+                <br>
+                <p>
+
+                </p>
+                <br>
+                <hr>
+
+                <br>
+                <p class="h4 font-weight-bold text-dark">
+
+                </p>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row padding-10-pourcent-left-right">
+    <div class="col-xl-12 col-md-12">
+        <div class="card shadow h-100 mb-4">
+
+            <div class="card-header py-3">
+                <h6 class="h3 m-0 font-weight-bold text-primary">Tasks Description</h6>
+            </div>
+            <div class="card-body">
+                <div class="row my-2">
+                    <div class="col-xl-12 col-sm-12 col-md-12 ">
+
+                        <p> {% autoescape on %}
+                            {{ object.tasks_description }}
+                            {% endautoescape %}
+
+                        </p>
+                    </div>
+
+                </div>
+
+                <br>
+                <p>
+
+                </p>
+                <br>
+                <hr>
+
+                <br>
+                <p class="h4 font-weight-bold text-dark">
+
+                </p>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row padding-10-pourcent-left-right">
+    <div class="col-xl-6 col-sm-12 col-md-12 py-3">
+        <a href="#" class=" btn btn-danger btn-user btn-block">
+                
+            REPORT
+        </a>  
+    </div>
+    <div class="col-xl-6 col-sm-12 col-md-12 py-3">
+        <a href="{% url 'copy_testnet' slug=object.slug_original %}" class=" btn btn-success btn-user btn-block">
+                
+            COPY
+        </a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% if testnet.testnet_user == request.user  %}
+<div class="row padding-10-pourcent-left-right">
+    <div class="col-xl-12 col-md-12">
+        <div class="card shadow h-100 mb-4">
+
+            <div class="card-header py-3">
+                <h6 class="h3 m-0 font-weight-bold text-primary">Information(s) User</h6>
+            </div>
+            <div class="card-body">
+
+
+
+                <div class="row my-2">
+                    <div class="col-xl-12 col-sm-12 col-md-12 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            Your Email :
+                        </p>
+                        <p>
+                            {{ object.email_user }}
+                        </p>
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+                <div class="row my-2">
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+
+                            <i class="fa-brands fa-twitter fa-2x text-primary"></i>
+                        </p>
+                        <p>
+
+                            <a href="https://twitter.com/{{ object.twitter_user }}" target="_blank">
+                                {{ object.twitter_user }} </a>
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            <i class="fa-brands fa-telegram fa-2x text-primary"></i>
+                        </p>
+                        <p>
+                            <a href="{{ object.telegram_user }}" target="_blank"> {{ object.telegram_user }} </a>
+
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            <i class="fa-brands fa-github fa-2x text-primary"></i>
+                        </p>
+                        <p>
+
+                            <a href="https://github.com/{{ object.github_user }}" target="_blank">
+                                {{ object.github_user }} </a>
+                        </p>
+                    </div>
+                    <div class="col-xl-3 col-sm-12 col-md-6 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            <i class="fa-brands fa-discord fa-2x text-primary"></i>
+                        </p>
+                        <p>
+
+                            <a href="{{ object.discord_user }}" target="_blank"> {{ object.discord_user }} </a>
+                        </p>
+                    </div>
+                </div>
+
+
+
+                <div class="row my-2">
+                    <div class="col-xl-6 col-sm-12 col-md-12 py-3">
                         <hr>
-
-                        <br>
-                        <p class="h4 font-weight-bold text-dark">
-                            
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 1 :
                         </p>
+                        <p>
+                            <a href="{{ object.wallet1_link }}" target="_blank"> {{ object.wallet1_name }}</a>
 
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Type :
+                        </p>
+                        <p>
+                            {{ object.wallet1_type }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Adress :
+                        </p>
+                        <p>
+                            {{ object.wallet1_adress }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Seed :
+                        </p>
+                        <p>
+                            {{ object.wallet1_seed }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Private Key :
+                        </p>
+                        <p>
+                            {{ object.wallet1_priv_key }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 1 Clue :
+                        </p>
+                        <p>
+                            {{ object.wallet1_clue }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 1 Password :
+                        </p>
+                        <p>
+                            {{ object.wallet1_password }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 1 Session:
+                        </p>
+                        <p>
+                            {{ object.wallet1_session }}
+
+                        </p>
+                    </div>
+                    <div class="col-xl-6 col-sm-12 col-md-12 py-3">
+                        <hr>
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 2 :
+                        </p>
+                        <p>
+                            <a href="{{ object.wallet2_link }}" target="_blank"> {{ object.wallet2_name }}</a>
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Type :
+                        </p>
+                        <p>
+                            {{ object.wallet2_type }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Adress :
+                        </p>
+                        <p>
+                            {{ object.wallet2_adress }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Seed :
+                        </p>
+                        <p>
+                            {{ object.wallet2_seed }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Private Key :
+                        </p>
+                        <p>
+                            {{ object.wallet2_priv_key }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 2 Clue :
+                        </p>
+                        <p>
+                            {{ object.wallet2_clue }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 2 Password :
+                        </p>
+                        <p>
+                            {{ object.wallet2_password }}
+
+                        </p>
+                        <p class="h5 font-weight-bold text-dark">
+                            Wallet 2 Session:
+                        </p>
+                        <p>
+                            {{ object.wallet2_session }}
+
+                        </p>
                     </div>
 
 
                 </div>
-            </div>
-        </div>
 
 
 
@@ -179,73 +504,69 @@
 
 
 
-        <div class="container-fluid border-all-around-radius my-2">
 
-
-        <div class="row my-2">
-            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
-                <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    {{ object.author }}-------
-                    {{ request.user.username }}
-                    {% if request.user == object.author %}
-                    <h1>OWNER</h1> 
-                    {% else %}
-                    <h1> PAS OWNER</h1> 
-                    {% endif %}
-                </h6>
-            </div>
-            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-               
-                   
-                    {{ object.network_status }}
-               
-            </div>
-            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-
-                    {{ object.description }}
-   
-            </div>
-            <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-                <a href="{% url 'update_testnet' slug=object.slug_original %}" class=" btn btn-primary btn-user btn-block">
-                    <i class="fa-solid  fa-pen-to-square"></i>
-                    Edit
-                </a>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-{%  comment  %}
-
-{%  if is_paginated  %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="pagination justify-content-center my-4">
-                <span class="step-links">
-                    {% if page_obj.has_previous %}
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page=1">First</a>
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                    {% endif %}
-                    <span class="current text-dark">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                    </span>
-                    {% if page_obj.has_next %}
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.next_page_number }}">Next</a>
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-                    {% endif %}
-                </span>
+                </p>
+                <br>
+                <hr>
             </div>
         </div>
     </div>
 </div>
-{%  endif  %}
-{%  endcomment  %}
-<!-- End Listing of the all testnet created by user-->
+
+
+
+
+
+<div class="row padding-10-pourcent-left-right">
+    <div class="col-xl-12 col-md-12">
+        <div class="card shadow h-100 mb-4">
+
+            <div class="card-header py-3">
+                <h6 class="h3 m-0 font-weight-bold text-primary">All Your Data About this testnet</h6>
+            </div>
+            <div class="card-body">
+                <div class="row my-2">
+                    <div class="col-xl-12 col-sm-12 col-md-12 ">
+
+                        <p> {% autoescape on %}
+                            {{ object.tasks_results }}
+                            {% endautoescape %}
+                        </p>
+                    </div>
+                </div>
+                <br><br><hr><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row padding-10-pourcent-left-right">
+    <div class="col-xl-6 col-sm-12 col-md-12 py-3">
+        <a href="#" class=" btn btn-danger btn-user btn-block">
+                
+            DELETE
+        </a>  
+    </div>
+    <div class="col-xl-6 col-sm-12 col-md-12 py-3">
+        <a href="{% url 'update_testnet' slug=object.slug %}" class=" btn btn-primary btn-user btn-block">
+                
+            EDIT
+        </a>
+    </div>
+</div>
+
+
+{% endif %}
+
+
+
+
+
+<!-- End -->
 <br>
 <br>
 <hr>
