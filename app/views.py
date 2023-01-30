@@ -69,6 +69,22 @@ def add_notification_user(user, message, title):
     creation_notification.save()
 
 
+class DeleteTestnet(generic.CreateView):
+    model = Testnet
+    def get(self, request, slug, *args, **kwargs):
+        current_user = UserInfo.objects.get(user=request.user.id)
+        author_testnet = Testnet.objects.get(slug=slug)
+        queryset = Testnet.objects.all().exclude(status_testnet=1).filter(testnet_user=current_user.user)
+        testnet_to_delete = get_object_or_404(queryset, slug=slug)
+        t = Testnet.objects.get(pk=testnet_to_delete.id)
+        t.status_testnet = 1
+        t.save()
+        
+        add_notification_user(request.user, "You have deleted a Testnet called  %s" % (testnet_to_delete.testnet_name) , "Testnet deleted +1")
+        
+        return HttpResponseRedirect(reverse('dashboard', args=[request.user.username]))
+
+
 class CopyTestnet(generic.CreateView):
     model = Testnet
 
@@ -316,6 +332,9 @@ class ShowTestnet(generic.DetailView):
     slug_url_kwarg = 'slug'
     def get_object(self, queryset=None):
         if self.slug_url_kwarg in self.kwargs:
+            queryset = Testnet.objects.exclude(status_testnet=1).all()
+            
+            testnet = get_object_or_404(queryset, slug=self.kwargs['slug'])
             return super().get_object(queryset)
         else:
             return self.request.user

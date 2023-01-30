@@ -17,6 +17,7 @@ urlpatterns = [
     path('notification/<int:id>/update', views.UpdateNotifications.as_view(), name='updatenotification'),
     path('addtestnet/', views.AddTestnet.as_view(), name='addtestnet'),
     path('copytestnet/<slug:slug>', views.CopyTestnet.as_view(), name='copy_testnet'),
+    path('deletetestnet/<slug:slug>', views.DeleteTestnet.as_view(), name='delete_testnet'),
     path('edittestnet/<slug:slug>', views.UpdateTestnet.as_view(), name='update_testnet'),
     path('reporttestnet/<slug:slug>', views.ReportTestnet.as_view(), name='report_testnet'),
 

@@ -14,7 +14,7 @@ class EditUserForm(forms.ModelForm):
         exclude = ['user', 'exp', 'status','following']
 
         widgets = {
-          'bio': forms.Textarea(attrs={'rows':2, 'cols':45}),
+          'bio': forms.Textarea(attrs={'rows':5, 'cols':45}),
         }
         
         labels = {
