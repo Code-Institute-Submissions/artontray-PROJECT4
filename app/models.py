@@ -6,7 +6,7 @@ from cloudinary.models import CloudinaryField
 from django.utils.functional import cached_property
 from django.conf import settings
 
-STATUS = ((0, "User"), (1, "Admin"), (2, "Blocked"))
+STATUS = ((0, "User"), (1, "Admin"), (2, "Blocked"), (3, "Deleted"))
 READ = ((0, "Unread"), (1, "Read"))
 STATUS_TESTNET = ((0, "published"), (1, "Deleted"), (2, "Reported"))
 

@@ -14,12 +14,15 @@ urlpatterns = [
     path('addfavorite/<int:id>', views.AddFavoriteUser.as_view(), name='add_favorite_user'),
     path('updateuserprofile/<slug:pk>', views.UpdateProfile.as_view(), name='update_profile_user'),
     path('deletefavorite/<int:id>', views.DeleteFavoriteUser.as_view(), name='delete_favorite_user'),
+    path('blockuser/<int:id>', views.BlockUser.as_view(), name='block_user'),
     path('notification/<int:id>/update', views.UpdateNotifications.as_view(), name='updatenotification'),
     path('addtestnet/', views.AddTestnet.as_view(), name='addtestnet'),
     path('copytestnet/<slug:slug>', views.CopyTestnet.as_view(), name='copy_testnet'),
     path('deletetestnet/<slug:slug>', views.DeleteTestnet.as_view(), name='delete_testnet'),
     path('edittestnet/<slug:slug>', views.UpdateTestnet.as_view(), name='update_testnet'),
     path('reporttestnet/<slug:slug>', views.ReportTestnet.as_view(), name='report_testnet'),
+    path('administrateusers/', views.AdminitrateUsers.as_view(), name='administrate_users'),
+
 
 
 ]

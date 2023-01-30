@@ -132,16 +132,17 @@ class CopyTestnet(generic.CreateView):
 
         t.pk = None
         t.save()
-        testnet_to_copy.copied_nb += 1
-        testnet_to_copy.save()
+        
        # current_user.save()
         
         if request.user == testnet_to_copy.author:
             add_notification_user(request.user, "You have duplicate one of your Testnet successfully :   %s" % (testnet_to_copy.testnet_name) , "Testnet duplicated +1")
         else:
+            testnet_to_copy.copied_nb += 1
+            testnet_to_copy.save()
             manage_exp_user(testnet_to_copy.author, "add")
             add_notification_user(testnet_to_copy.author, "%s has copied a Testnet from you!" % (request.user) , "New Copied Testnet +1")
-            add_notification_user(request.user, "You have copied a Testnet from  %s" % (testnet_to_copy.author) , "Testnet copied +1")
+            add_notification_user(request.user, "As %d Users on the app, You have copied a Testnet from  %s called %s" % (t.copied_nb+1,testnet_to_copy.author,testnet_to_copy.testnet_name) , "Testnet copied +1")
         
         return HttpResponseRedirect(reverse('update_testnet', args=[slug]))
 
@@ -286,6 +287,17 @@ class DeleteFavoriteUser(generic.DeleteView):
         return HttpResponseRedirect(reverse('dashboard', args=[user_to_unfollow]))
 
 
+class BlockUser(generic.DetailView):
+    def get(self, request, id, *args, **kwargs):
+        current_user = UserInfo.objects.get(user=request.user.id)
+        user_to_block = UserInfo.objects.get(id=id)
+        user_to_block.status = 2
+        user_to_block.save()
+        
+        add_notification_user(self.request.user, "You blocked the following user : %s " % (user_to_block.user.username) , "Blocked User +1")
+
+        
+        return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
 
 
 class ReportTestnet(generic.DetailView):
@@ -375,6 +387,41 @@ class ShowNotifications(generic.DetailView):
         )
         return context
 
+class AdminitrateUsers(generic.ListView):
+    """
+    This view is used to display all users blocked
+    """
+    model = UserInfo
+    template_name = "administrateusers.html"
+    paginate_by = 3
+
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+    
+
+    def get_queryset(self):
+        qs = super().get_queryset()  
+        
+        search = self.request.GET.get("searching", None)
+        
+        if search:
+
+            qs = qs.filter(user__username__icontains=search)
+        else:
+            qs = qs.filter(status=2)
+
+        return qs
+
+    def get_context_data(self, **context):
+        # User Testnet listing only the 5 lastest
+        context = super().get_context_data(**context)
+        context.update({
+                
+                
+                "searching": self.request.GET.get("searching", None),
+            }
+        )
+        return context
 
 
 
