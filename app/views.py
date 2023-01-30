@@ -80,9 +80,12 @@ class DeleteTestnet(generic.CreateView):
         t.status_testnet = 1
         t.save()
         
+        '''If deleted a testnet and user is the author we substract exp'''
+        if author_testnet.author == current_user.user:
+            manage_exp_user(current_user.user, "subtract")
         add_notification_user(request.user, "You have deleted a Testnet called  %s" % (testnet_to_delete.testnet_name) , "Testnet deleted +1")
         
-        return HttpResponseRedirect(reverse('dashboard', args=[request.user.username]))
+        return HttpResponseRedirect(reverse('show_notifications', args=[request.user.username]))
 
 
 class CopyTestnet(generic.CreateView):
@@ -129,7 +132,8 @@ class CopyTestnet(generic.CreateView):
 
         t.pk = None
         t.save()
-
+        testnet_to_copy.copied_nb += 1
+        testnet_to_copy.save()
        # current_user.save()
         
         if request.user == testnet_to_copy.author:
@@ -296,7 +300,7 @@ class ReportTestnet(generic.DetailView):
         
         testnet_to_report = Testnet.objects.get(slug=slug)
         add_notification_user(testnet_to_report.author, "%s reported your testnet %s!" % (self.request.user.username,testnet_to_report.testnet_name) , "Reported +1")
-        
+        add_notification_user(self.request.user, "You reported a testnet called %s!" % (testnet_to_report.testnet_name) , "Reported +1")
         all_admin = UserInfo.objects.all().filter(status=1)
         for admin in all_admin:
             add_notification_user(admin.user, "The Testnet called %s got reported by %s" % (testnet_to_report.testnet_name,self.request.user.username) , "Testnet Reported +1")
@@ -428,7 +432,6 @@ class ShowUsers(generic.DetailView):
     """
     model = User
     template_name = "users.html"
-    paginate_by = 6
     slug_field = 'username'
     slug_url_kwarg = 'username'
     #object_user = self.kwargs['object_user']
@@ -453,7 +456,7 @@ class ShowUsers(generic.DetailView):
 
         else:
             #show_users = UserInfo.objects.all().order_by('-exp')[:10]
-            show_users = UserInfo.objects.exclude(status=2).all().order_by('-exp')[:10]
+            show_users = UserInfo.objects.exclude(status=2).all().order_by('-exp')[:12]
             
         #show_users = UserInfo.objects.all().order_by('-exp')[:10]
 
@@ -484,14 +487,7 @@ class ShowDashboard(generic.DetailView):
     #object_user = self.kwargs['object_user']
     
     def get_object(self, queryset=None):
-        if self.slug_url_kwarg in self.kwargs:
-            return super().get_object(queryset)
-        else:
-            return self.request.user
 
-    
-
-    def get_context_data(self, **context):
 
         request = self.request
         object_user = self.request.user
@@ -518,15 +514,16 @@ class ShowDashboard(generic.DetailView):
                 )
             Creation_User_Info.save()
 
-        # User Testnet listing only the 5 lastest
-        testnet_user = Testnet.objects.filter(testnet_user=object_user)[:5]
-       
 
-        context.update ({
-                "testnet_user": testnet_user,
-            }
-        )
-        return context
+        if self.slug_url_kwarg in self.kwargs:
+            return super().get_object(queryset)
+        else:
+
+            return self.request.user
+
+    
+
+
 
 
        
