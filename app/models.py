@@ -201,6 +201,13 @@ class UserInfo(models.Model):
         return self._nb_copied_testnet
 
     @property
+    def nb_testnet_copied_from_this_author(self):
+        if not hasattr(self, "_nb_testnet_copied_from_this_author"):
+            self._nb_testnet_copied_from_this_author = Testnet.objects.all().exclude(testnet_user=self.user.id).filter(author=self.user.id).count()
+
+        return self._nb_testnet_copied_from_this_author
+
+    @property
     def nb_notifications(self):
         if not hasattr(self, "_nb_notifications"):
             self._nb_notifications = Notifications.objects.all().filter(notification_owner=self.user.id, read=0).count()

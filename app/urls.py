@@ -15,6 +15,7 @@ urlpatterns = [
     path('updateuserprofile/<slug:pk>', views.UpdateProfile.as_view(), name='update_profile_user'),
     path('deletefavorite/<int:id>', views.DeleteFavoriteUser.as_view(), name='delete_favorite_user'),
     path('blockuser/<int:id>', views.BlockUser.as_view(), name='block_user'),
+    path('deleteuser/<int:id>', views.DeleteUser.as_view(), name='delete_user'),
     path('notification/<int:id>/update', views.UpdateNotifications.as_view(), name='updatenotification'),
     path('addtestnet/', views.AddTestnet.as_view(), name='addtestnet'),
     path('copytestnet/<slug:slug>', views.CopyTestnet.as_view(), name='copy_testnet'),
@@ -22,6 +23,7 @@ urlpatterns = [
     path('edittestnet/<slug:slug>', views.UpdateTestnet.as_view(), name='update_testnet'),
     path('reporttestnet/<slug:slug>', views.ReportTestnet.as_view(), name='report_testnet'),
     path('administrateusers/', views.AdminitrateUsers.as_view(), name='administrate_users'),
+    path('administratetestnet/', views.AdminitrateTestnet.as_view(), name='administrate_testnet'),
 
 
 

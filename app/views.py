@@ -287,14 +287,38 @@ class DeleteFavoriteUser(generic.DeleteView):
         return HttpResponseRedirect(reverse('dashboard', args=[user_to_unfollow]))
 
 
+
+class DeleteUser(generic.DeleteView):
+    def get(self, request, id, *args, **kwargs):
+        current_user = UserInfo.objects.get(user=request.user.id)
+        user_to_delete = User.objects.get(id=id)
+
+        all_testnet_to_delete = Testnet.objects.all().filter(author__id=id)
+        for testnet in all_testnet_to_delete:
+            testnet.delete()
+            add_notification_user(testnet.testnet_user, "A Testnet you copied have been deleted : %s " % (testnet.testnet_name) , "Deleted Copied Testnet +1")
+        user_to_delete.delete()
+        
+        add_notification_user(self.request.user, "You deleted the following user : %s " % (user_to_delete.username) , "Deleted User +1")
+
+        
+        return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
+
 class BlockUser(generic.DetailView):
     def get(self, request, id, *args, **kwargs):
         current_user = UserInfo.objects.get(user=request.user.id)
         user_to_block = UserInfo.objects.get(id=id)
-        user_to_block.status = 2
-        user_to_block.save()
+        if user_to_block.status == 2 :
+            user_to_block.status = 0
+            user_to_block.save()
         
-        add_notification_user(self.request.user, "You blocked the following user : %s " % (user_to_block.user.username) , "Blocked User +1")
+            add_notification_user(self.request.user, "You Unblocked the following user : %s " % (user_to_block.user.username) , "Unblocked User +1")
+        else:
+
+            user_to_block.status = 2
+            user_to_block.save()
+        
+            add_notification_user(self.request.user, "You blocked the following user : %s " % (user_to_block.user.username) , "Blocked User +1")
 
         
         return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
@@ -303,20 +327,33 @@ class BlockUser(generic.DetailView):
 class ReportTestnet(generic.DetailView):
     def get(self, request, slug, *args, **kwargs):
         current_user = UserInfo.objects.get(user=request.user.id)
-        testnet_to_report = Testnet.objects.filter(slug_original=slug)
-        for testnets in testnet_to_report:
-            testnets.status_testnet = 2
-            testnets.save()
+
 
         
         
         testnet_to_report = Testnet.objects.get(slug=slug)
-        add_notification_user(testnet_to_report.author, "%s reported your testnet %s!" % (self.request.user.username,testnet_to_report.testnet_name) , "Reported +1")
-        add_notification_user(self.request.user, "You reported a testnet called %s!" % (testnet_to_report.testnet_name) , "Reported +1")
-        all_admin = UserInfo.objects.all().filter(status=1)
-        for admin in all_admin:
-            add_notification_user(admin.user, "The Testnet called %s got reported by %s" % (testnet_to_report.testnet_name,self.request.user.username) , "Testnet Reported +1")
-        
+
+        if testnet_to_report.status_testnet == 2:
+            testnet_to_report.status_testnet = 0
+            testnet_to_report.save()
+            all_testnet_to_report = Testnet.objects.filter(slug_original=slug)
+
+            for testnets in all_testnet_to_report:
+                testnets.status_testnet = 0
+                testnets.save()
+            add_notification_user(testnet_to_report.author, "%s have cancelled the report on your testnet %s!" % (self.request.user.username,testnet_to_report.testnet_name) , "Cancel report +1")
+        else:
+            all_testnet_to_report = Testnet.objects.filter(slug_original=slug)
+
+            for testnets in all_testnet_to_report:
+                testnets.status_testnet = 2
+                testnets.save()
+            add_notification_user(testnet_to_report.author, "%s reported your testnet %s!" % (self.request.user.username,testnet_to_report.testnet_name) , "Reported +1")
+            add_notification_user(self.request.user, "You reported a testnet called %s!" % (testnet_to_report.testnet_name) , "Reported +1")
+            all_admin = UserInfo.objects.all().filter(status=1)
+            for admin in all_admin:
+                add_notification_user(admin.user, "The Testnet called %s got reported by %s" % (testnet_to_report.testnet_name,self.request.user.username) , "Testnet Reported +1")
+            
         
         
         return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
@@ -386,6 +423,46 @@ class ShowNotifications(generic.DetailView):
             }
         )
         return context
+
+
+class AdminitrateTestnet(generic.ListView):
+    """
+    This view is used to display all Testnet blocked
+    """
+    model = Testnet
+    template_name = "administratetestnet.html"
+    paginate_by = 3
+
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+    
+
+    def get_queryset(self):
+        qs = super().get_queryset()  
+        
+        search = self.request.GET.get("searching", None)
+        
+        if search:
+
+            qs = qs.exclude(status_testnet=1).filter(Q(author=F('testnet_user'))).filter(testnet_name__icontains=search)
+            
+        else:
+            qs = qs.exclude(status_testnet=1).filter(Q(author=F('testnet_user'))).filter(status_testnet=2)
+
+        return qs
+
+    def get_context_data(self, **context):
+        # User Testnet listing only the 5 lastest
+        context = super().get_context_data(**context)
+        context.update({
+                
+                
+                "searching": self.request.GET.get("searching", None),
+            }
+        )
+        return context
+
+
 
 class AdminitrateUsers(generic.ListView):
     """
