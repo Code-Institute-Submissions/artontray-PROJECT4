@@ -24,6 +24,7 @@ urlpatterns = [
     path('reporttestnet/<slug:slug>', views.ReportTestnet.as_view(), name='report_testnet'),
     path('administrateusers/', views.AdminitrateUsers.as_view(), name='administrate_users'),
     path('administratetestnet/', views.AdminitrateTestnet.as_view(), name='administrate_testnet'),
+    path('giveadmin/<int:id>', views.GiveAdmin.as_view(), name='give_admin'),
 
 
 

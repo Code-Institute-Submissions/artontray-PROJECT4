@@ -73,6 +73,7 @@ class DeleteTestnet(generic.CreateView):
     model = Testnet
     def get(self, request, slug, *args, **kwargs):
         current_user = UserInfo.objects.get(user=request.user.id)
+        
         author_testnet = Testnet.objects.get(slug=slug)
         queryset = Testnet.objects.all().exclude(status_testnet=1).filter(testnet_user=current_user.user)
         testnet_to_delete = get_object_or_404(queryset, slug=slug)
@@ -162,10 +163,34 @@ class FormEditUserMixin:
         messages.add_message(self.request, messages.SUCCESS, self.success_msg)
         return super().form_valid(form)
 
+
+class GiveAdmin(generic.UpdateView):
+
+
+    def get(self, request, id, *args, **kwargs):
+        current_user = UserInfo.objects.filter(user=request.user.id)
+        admin = get_object_or_404(current_user, status=1)
+        user_to_update = UserInfo.objects.get(id=id)
+        if user_to_update.status == 1 and request.user.id != id:
+            '''if user already admin and not call himself through URL'''
+            user_to_update.status = 0
+            user_to_update.save()
+            add_notification_user(user_to_update.user, "%s deleted you as an admin" % (self.request.user.username) , "Admin -1")
+            add_notification_user(self.request.user, "You deleted %s as an admin of the App" % (user_to_update.user.username) , "Admin -1")
+            return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
+        if user_to_update.status == 0:
+            user_to_update.status = 1
+            user_to_update.save()
+            add_notification_user(user_to_update.user, "%s added you as admin on the App, Welcome!" % (self.request.user.username) , "Admin +1")
+            add_notification_user(self.request.user, "You added %s as an admin of the App" % (user_to_update.user.username) , "Admin +1")
+            return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
+        
+        return HttpResponseRedirect(reverse('dashboard'))
+
 class UpdateProfile(FormEditUserMixin,LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     def test_func(self):
         user = self.get_object()
-        """avoiding updating others testnet"""
+        """avoiding updating others user Profiles"""
         
         return user.id == self.request.user.user_info.id
     success_msg = "Profile Updated!"
@@ -290,9 +315,16 @@ class DeleteFavoriteUser(generic.DeleteView):
 
 class DeleteUser(generic.DeleteView):
     def get(self, request, id, *args, **kwargs):
-        current_user = UserInfo.objects.get(user=request.user.id)
+        #breakpoint()
+        current_user = UserInfo.objects.filter(user=request.user.id)
+        admin = get_object_or_404(current_user, status=1)
         user_to_delete = User.objects.get(id=id)
+        if request.user.id == id:
+            '''Trying to delete yourself as a user, aborted'''
+            add_notification_user(self.request.user, "You are trying to delete yourself from the app, aborted"  , "Aborted Action")
+            return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
 
+        
         all_testnet_to_delete = Testnet.objects.all().filter(author__id=id)
         for testnet in all_testnet_to_delete:
             testnet.delete()
@@ -306,19 +338,24 @@ class DeleteUser(generic.DeleteView):
 
 class BlockUser(generic.DetailView):
     def get(self, request, id, *args, **kwargs):
-        current_user = UserInfo.objects.get(user=request.user.id)
+        current_user = UserInfo.objects.filter(user=request.user.id)
+        admin = get_object_or_404(current_user, status=1)
         user_to_block = UserInfo.objects.get(id=id)
+
         if user_to_block.status == 2 :
             user_to_block.status = 0
             user_to_block.save()
         
             add_notification_user(self.request.user, "You Unblocked the following user : %s " % (user_to_block.user.username) , "Unblocked User +1")
         else:
-
-            user_to_block.status = 2
-            user_to_block.save()
+            if admin.id == id:
+                '''cannot block user himself'''
+                add_notification_user(self.request.user, "You are trying to block yourself : aborted" , "aborted action")
+            else:    
+                user_to_block.status = 2
+                user_to_block.save()
         
-            add_notification_user(self.request.user, "You blocked the following user : %s " % (user_to_block.user.username) , "Blocked User +1")
+                add_notification_user(self.request.user, "You blocked the following user : %s " % (user_to_block.user.username) , "Blocked User +1")
 
         
         return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))

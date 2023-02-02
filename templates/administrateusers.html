@@ -37,7 +37,7 @@
 
 <span><i class="fa-sharp fa-solid fa-circle text-success"></i> Active Users  </span>
 <span><i class="fa-sharp fa-solid fa-circle text-danger"></i> Blocked Users  </span>
-
+<span><i class="fa-sharp fa-solid fa-circle text-primary"></i> Admin Users  </span>
 <!-- End Content Row Number 2-->
 <!-- Listing of the all testnet created by user-->
 
@@ -54,7 +54,7 @@
 
 
 
-    <div class="container-fluid bg-light border-bottom-{% if user.status == 2  %}danger{% else %}success{% endif %} border-all-around-radius my-2">
+    <div class="container-fluid bg-light border-bottom-{% if user.status == 2  %}danger{% elif user.status == 1 %}primary{% else %}success{% endif %} border-all-around-radius my-2">
         <div class="row my-2">
             <div class="col-lg-6 col-sm-12 col-md-6 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
@@ -66,50 +66,143 @@
         <div class="col-lg-2 col-sm-12 col-md-2 py-3 ">
 
      
-   
-                <button type="button" class="btn btn-danger btn-user btn-block" data-toggle="modal"
-                data-target="#DeleteUser{{ user.id }}">
-                <span><i class="fa-solid fa-trash"></i></span>   Delete
-                </button>
-                        <div class="modal" id="DeleteUser{{ user.id }}" tabindex="-1"
-                            aria-labelledby="DeleteUser{{ user.id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title h3 text-secondary"
-                                            id="DeleteUserLabel{{ user.id }}">
-                                            <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
-
-                                        </h5>
-                                    </div>
-                                    <form method="get" action="{% url 'delete_user' user.user.id %}">
-                                        {% csrf_token %}
-                                        <div class="modal-body">
-                                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
-                                                you want to Delete this user : {{ user.user.username }} ? </p><br>
-                                                {% if user.nb_testnet_copied_from_this_author > 0 %}
-                                                
-                                                <p>Some users on the app copied some of Testnet(s) from this user !</p><br>
-                                                <p class="h4 text-danger"><code>{{ user.nb_testnet }}</code> Testnet(s) will be deleted and <code>{{user.nb_testnet_copied_from_this_author}}</code> Copie(s) from other users will be deleted</p><br>
-
-                                                {% endif %}
-                                                
-                                                
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success btn-user">
-                                                YES
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
-                                                aria-label="Close">
-                                                NO
-                                            </button>
-                                        </div>
-                                    </form>
+            {% if user.status == 2  %}
+            <button type="button" class="btn btn-danger btn-user btn-block" data-toggle="modal"
+            data-target="#DeleteUser{{ user.id }}">
+            <span><i class="fa-solid fa-trash"></i></span>   Delete
+            </button>
+                    <div class="modal" id="DeleteUser{{ user.id }}" tabindex="-1"
+                        aria-labelledby="DeleteUser{{ user.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title h3 text-secondary"
+                                        id="DeleteUserLabel{{ user.id }}">
+                                        <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
+                                        Delete User
+                                    </h5>
                                 </div>
+                                <form method="get" action="{% url 'delete_user' user.user.id %}">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
+                                            you want to Delete this user : {{ user.user.username }} ? </p><br>
+                                            {% if user.nb_testnet_copied_from_this_author > 0 %}
+                                            
+                                            <p>Some users on the app copied some of Testnet(s) from this user !</p><br>
+                                            <p class="h4 text-danger"><code>{{ user.nb_testnet }}</code> Testnet(s) will be deleted and <code>{{user.nb_testnet_copied_from_this_author}}</code> Copie(s) from other users will be deleted</p><br>
+
+                                            {% endif %}
+                                            
+                                            
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success btn-user">
+                                            YES
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                            aria-label="Close">
+                                            NO
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+                    </div>
 
+            {% else %}
+
+            {% if user.status == 1 %}
+            <button type="button" class="btn btn-danger btn-user btn-block" data-toggle="modal"
+            data-target="#KickAdminRole{{ user.id }}">
+            <span><i class="fa-solid fa-trash"></i></span>   Kick as Admin
+            </button>
+                    <div class="modal" id="KickAdminRole{{ user.id }}" tabindex="-1"
+                        aria-labelledby="KickAdminRole{{ user.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title h3 text-secondary"
+                                        id="KickAdminRoleLabel{{ user.id }}">
+                                        <i class="fa-sharp fa-solid fa-circle-exclamation text-danger fa-4x"></i>
+                                        Kick Admin Role
+                                    </h5>
+                                </div>
+                                <form method="get" action="{% url 'give_admin' user.id %}">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
+                                            you want to Kick this user from admin Role : {{ user.user.username }} ? </p><br>
+                                            
+                                            
+                                        
+                                            <p class="h4 text-danger"><code>{{ user.user.username }}</code> will be as normal User in the app</p><br>
+
+                                            
+                                            
+                                            
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success btn-user">
+                                            YES
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                            aria-label="Close">
+                                            NO
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            {% else %}
+            <button type="button" class="btn btn-primary btn-user btn-block" data-toggle="modal"
+            data-target="#GiveAdminRole{{ user.id }}">
+            <span><i class="fa-solid fa-lock-open"></i></span>   Admin
+            </button>
+                    <div class="modal" id="GiveAdminRole{{ user.id }}" tabindex="-1"
+                        aria-labelledby="GiveAdminRole{{ user.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title h3 text-secondary"
+                                        id="GiveAdminRoleLabel{{ user.id }}">
+                                        <i class="fa-sharp fa-solid fa-circle-exclamation text-danger fa-4x"></i>
+                                        Admin Role
+                                    </h5>
+                                </div>
+                                <form method="get" action="{% url 'give_admin' user.id %}">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
+                                            you want to give admin role to this user : {{ user.user.username }} ? </p><br>
+                                            
+                                            
+                                        
+                                            <p class="h4 text-danger"><code>{{ user.user.username }}</code> will be able to delete/Block Testnet and Users</p><br>
+
+                                            
+                                            
+                                            
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success btn-user">
+                                            YES
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                            aria-label="Close">
+                                            NO
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            {% endif %}
+            
+
+            {% endif %}
+                
 
 
 
