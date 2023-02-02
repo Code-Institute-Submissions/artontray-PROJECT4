@@ -60,6 +60,7 @@ class TestnetForm(forms.ModelForm):
         labels = {
             'testnet_name': 'Name',
             'discord_user': 'Discord',
+            'website_user': 'Link with informations about this testnet',
         }
 
 
@@ -97,6 +98,7 @@ class TestnetForm(forms.ModelForm):
         self.fields['email_user'].widget.attrs['placeholder'] = 'Provide Your email'
         self.fields['twitter_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
         self.fields['telegram_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
+        self.fields['website_user'].widget.attrs['placeholder'] = 'Provide a link'
         self.fields['wallet1_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
         self.fields['wallet1_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
         self.fields['wallet1_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'

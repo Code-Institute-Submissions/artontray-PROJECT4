@@ -26,7 +26,12 @@
                 <p class="h5 text-success">{{ notification.title }}</p>
             </div>
             <div class="col-lg-7 col-sm-12 col-md-7 py-3">
-                <p class="h5 text-secondary">{{ notification.message }}</p>
+                <p class="h5 text-secondary">
+                  
+                    {{ notification.message|safe }}
+                           
+                    
+                    </p>
             </div>
             <div class="col-lg-2 col-sm-12 col-md-2 py-3">
                 <form method="POST" action="#">

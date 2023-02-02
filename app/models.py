@@ -8,7 +8,7 @@ from django.conf import settings
 
 STATUS = ((0, "User"), (1, "Admin"), (2, "Blocked"), (3, "Deleted"))
 READ = ((0, "Unread"), (1, "Read"))
-STATUS_TESTNET = ((0, "published"), (1, "Deleted"), (2, "Reported"))
+STATUS_TESTNET = ((0, "published"), (2, "Reported"))
 
 
 class Testnet(models.Model):
@@ -26,14 +26,14 @@ class Testnet(models.Model):
     network_status = models.CharField(max_length=25)
     description = models.TextField(db_index=True)
     category = models.CharField(max_length=25)
-    twitter = models.CharField(max_length=25, blank=True)
-    facebook = models.CharField(max_length=25, blank=True)
+    twitter = models.CharField(max_length=255, blank=True)
+    facebook = models.CharField(max_length=255, blank=True)
     website = models.CharField(max_length=255, blank=True)
-    github = models.CharField(max_length=25, blank=True)
-    discord = models.CharField(max_length=25, blank=True)
-    telegram = models.CharField(max_length=25, blank=True)
+    github = models.CharField(max_length=255, blank=True)
+    discord = models.CharField(max_length=255, blank=True)
+    telegram = models.CharField(max_length=255, blank=True)
     instagram = models.CharField(max_length=255, blank=True)
-    youtube = models.CharField(max_length=120, blank=True)
+    youtube = models.CharField(max_length=255, blank=True)
     whitepaper = models.CharField(max_length=255, blank=True)
     browser = models.CharField(max_length=25, blank=True)
     tasks_description = models.TextField()

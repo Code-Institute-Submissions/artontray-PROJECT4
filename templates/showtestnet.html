@@ -381,7 +381,7 @@
 
 
                 <div class="row my-2">
-                    <div class="col-xl-12 col-sm-12 col-md-12 ">
+                    <div class="col-xl-6 col-sm-12 col-md-12 ">
                         <p class="h5 font-weight-bold text-dark">
                             Your Email :
                         </p>
@@ -389,7 +389,14 @@
                             {{ object.email_user }}
                         </p>
                     </div>
-
+                    <div class="col-xl-6 col-sm-12 col-md-12 ">
+                        <p class="h5 font-weight-bold text-dark">
+                            Link information Testnet :
+                        </p>
+                        <p>
+                            {{ object.website_user }}
+                        </p>
+                    </div>
 
 
                 </div>
@@ -596,6 +603,7 @@
                     <div class="col-xl-12 col-sm-12 col-md-12 ">
 
                         <p> {% autoescape on %}
+                            
                             {{ object.tasks_results }}
                             {% endautoescape %}
                         </p>
@@ -660,7 +668,7 @@
     <div class="col-xl-6 col-sm-12 col-md-12 py-3">
         <a href="{% url 'update_testnet' slug=object.slug %}" class=" btn btn-primary btn-user btn-block">
                 
-            Save
+            Edit
         </a>
     </div>
 </div>

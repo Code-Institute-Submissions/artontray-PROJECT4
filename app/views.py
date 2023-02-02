@@ -16,6 +16,8 @@ from .forms import TestnetForm, EditUserForm
 from functools import reduce
 from django.conf import settings
 from django.template.defaultfilters import slugify
+from django.utils.html import strip_tags
+import re
 
 
 
@@ -69,31 +71,63 @@ def add_notification_user(user, message, title):
     creation_notification.save()
 
 
+
+
+
+
 class DeleteTestnet(generic.CreateView):
     model = Testnet
+    
     def get(self, request, slug, *args, **kwargs):
-        current_user = UserInfo.objects.get(user=request.user.id)
+        queryset = UserInfo.objects.all()
         
-        author_testnet = Testnet.objects.get(slug=slug)
+        current_user = get_object_or_404(queryset, user=request.user.id)
+        
+        
         queryset = Testnet.objects.all()
     
         testnet_to_delete = get_object_or_404(queryset, slug=slug)
-        if testnet_to_delete.testnet_user == current_user:
-            '''User that calling to delete this testnet is the testnet_user'''
-            testnet_to_delete.network_status = 1
-            add_notification_user(request.user, "You have deleted a Testnet called  %s" % (testnet_to_delete.testnet_name) , "Testnet deleted +1")
-
-        if testnet_to_delete.author == current_user or current_user.status == 1:
-
-            all_testnet_to_delete = Testnet.objects.all().filter(slug_original=testnet_to_delete.slug)
+       
+        if testnet_to_delete.testnet_user == current_user or current_user.status == 1:
+            html_pattern = "<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>"
+            #all_testnet_to_delete = Testnet.objects.all().filter(slug_original=testnet_to_delete.slug)
+            all_testnet_to_delete = Testnet.objects.all().filter(
+                Q(slug_original=testnet_to_delete.slug) 
+                | Q(slug=testnet_to_delete.slug)
+                )
+            
             for testnet in all_testnet_to_delete:
-                testnet.network_status = 1
-                testnet.save()
-                add_notification_user(testnet.testnet_user, "The Testnet called  %s have been deleted by the Author" % (testnet.testnet_name) , "Testnet deleted +1")
+                
+                
+                
+                message = "The Testnet <code>%s</code> have been deleted by the Author<br>" % re.sub(html_pattern, '', testnet.testnet_name) 
+                message += "Here is your informations about this testnet : <br>"
+                message += "Your telegram : " +  re.sub(html_pattern, '', testnet.telegram_user) + "<br>"
+                message += "Your Github : " +  re.sub(html_pattern, '', testnet.github_user) + "<br>"
+                message += "Your discord : " +  re.sub(html_pattern, '', testnet.discord_user) + "<br>"
+                message += "Your twitter : " +  re.sub(html_pattern, '', testnet.twitter_user) + "<br>"
+                message += "Your email : " +  re.sub(html_pattern, '', testnet.email_user) + "<br>"
+                message += "Your wallet 1 : " +  re.sub(html_pattern, '', testnet.wallet1_adress) + "<br>"
+                message += "Private key Wallet 1 : " +  re.sub(html_pattern, '', testnet.wallet1_priv_key) + "<br>"
+                message += "Seed Wallet 1 : " +  re.sub(html_pattern, '', testnet.wallet1_seed) + "<br>"
+                message += "Clue Wallet 1 : " +  re.sub(html_pattern, '', testnet.wallet1_clue) + "<br>"
+                message += "password Wallet 1 : " +  re.sub(html_pattern, '', testnet.wallet1_password) + "<br>"
+                message += "Session Wallet 1 : " +  re.sub(html_pattern, '', testnet.wallet1_session) + "<br>"
+                message += "Your wallet 2 : " +  re.sub(html_pattern, '', testnet.wallet2_adress) + "<br>"
+                message += "Private key Wallet 2 : " +  re.sub(html_pattern, '', testnet.wallet2_priv_key) + "<br>"
+                message += "Seed Wallet 2 : " +  re.sub(html_pattern, '', testnet.wallet2_seed) + "<br>"
+                message += "Clue Wallet 2 : " +  re.sub(html_pattern, '', testnet.wallet2_clue) + "<br>"
+                message += "password Wallet 2 : " +  re.sub(html_pattern, '', testnet.wallet2_password) + "<br>"
+                message += "Session Wallet 2 : " +  re.sub(html_pattern, '', testnet.wallet2_session) + "<br>"
+                message += "Tasks description : " + re.sub(html_pattern, '', testnet.tasks_description) + "<br>"
+                message += "Tasks Results : " + re.sub(html_pattern, '', testnet.tasks_results) + "<br>"
+                add_notification_user(testnet.testnet_user, message , "Testnet deleted +1")
+                testnet.delete()
         '''If deleted a testnet and user is the author we substract exp'''
-        if author_testnet.author == current_user.user:
+        if testnet_to_delete.author == current_user.user:
             manage_exp_user(current_user.user, "subtract")
- 
+        if current_user.status ==1:
+            add_notification_user(current_user.user, "The Testnet called  %s have been deleted" % (testnet_to_delete.testnet_name) , "Testnet deleted +1")
         return HttpResponseRedirect(reverse('show_notifications', args=[request.user.username]))
 
 
@@ -141,7 +175,8 @@ class CopyTestnet(generic.CreateView):
 
         t.pk = None
         t.save()
-        
+        testnet_to_copy.copied_nb += 1
+        testnet_to_copy.save()
        # current_user.save()
         
         if request.user == testnet_to_copy.author:
@@ -489,7 +524,10 @@ class AdminitrateTestnet(generic.ListView):
         
         if search:
 
-            qs = qs.exclude(status_testnet=1).filter(Q(author=F('testnet_user'))).filter(testnet_name__icontains=search)
+            qs = qs.exclude(status_testnet=1).filter(Q(author=F('testnet_user'))).filter(
+                Q(testnet_name__icontains=search) 
+                | Q(description__icontains=search)
+                )
             
         else:
             qs = qs.exclude(status_testnet=1).filter(status_testnet=2)
