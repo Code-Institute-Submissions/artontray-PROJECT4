@@ -58,12 +58,13 @@ class TestnetForm(forms.ModelForm):
         }
         
         labels = {
-            'testnet_name': 'Name',
-            'discord_user': 'Discord',
+            'testnet_name': 'Name *',
+            'network_name': 'Network *',
+            'network_status': 'Network Status *',
+            'category': 'Category *',
+            'description': 'Description *',
             'website_user': 'Link with informations about this testnet',
         }
-
-
 
 
     def __init__(self, *args, **kwargs):
@@ -83,22 +84,22 @@ class TestnetForm(forms.ModelForm):
         #self.fields['description'].widget.attrs['placeholder'] = ''
         self.fields['category'].widget.attrs['placeholder'] = 'Defi, Bridge, L2, NFT etc...'
         self.fields['network_status'].widget.attrs['placeholder'] = 'Testnet, Devnet, Mainnet etc...'
-        self.fields['twitter'].widget.attrs['placeholder'] = 'Example @Testnet_1_official'
-        self.fields['facebook'].widget.attrs['placeholder'] = 'facebook link'
-        self.fields['website'].widget.attrs['placeholder'] = 'Provide the official website....'
-        self.fields['github'].widget.attrs['placeholder'] = 'Provide Github username'
-        self.fields['discord'].widget.attrs['placeholder'] = 'Provide discord link....'
-        self.fields['telegram'].widget.attrs['placeholder'] = 'Provide telegram link....'
-        self.fields['instagram'].widget.attrs['placeholder'] = 'Provide instagram link....'
-        self.fields['youtube'].widget.attrs['placeholder'] = 'Provide youtube link....'
-        self.fields['whitepaper'].widget.attrs['placeholder'] = 'Provide whitepaper link....'
+        self.fields['twitter'].widget.attrs['placeholder'] = 'Provide a link https://'
+        self.fields['facebook'].widget.attrs['placeholder'] = 'Provide a link https://'
+        self.fields['website'].widget.attrs['placeholder'] = 'Provide a link https://'
+        self.fields['github'].widget.attrs['placeholder'] = 'Provide a link https://'
+        self.fields['discord'].widget.attrs['placeholder'] = 'Provide a link https://'
+        self.fields['telegram'].widget.attrs['placeholder'] = 'Provide a link https://'
+        self.fields['instagram'].widget.attrs['placeholder'] = 'Provide a link https://'
+        self.fields['youtube'].widget.attrs['placeholder'] = 'Provide a link https://'
+        self.fields['whitepaper'].widget.attrs['placeholder'] = 'Provide a link https://'
         self.fields['browser'].widget.attrs['placeholder'] = 'Brave, Firefox, Opera etc...'
-        self.fields['discord_user'].widget.attrs['placeholder'] = 'example : username#4565'
-        self.fields['github_user'].widget.attrs['placeholder'] = 'example :  https://github.com/John-Doe'
+        self.fields['discord_user'].widget.attrs['placeholder'] = 'Provide a link https://'
+        self.fields['github_user'].widget.attrs['placeholder'] = 'Provide a link https://'
         self.fields['email_user'].widget.attrs['placeholder'] = 'Provide Your email'
         self.fields['twitter_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
         self.fields['telegram_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
-        self.fields['website_user'].widget.attrs['placeholder'] = 'Provide a link'
+        self.fields['website_user'].widget.attrs['placeholder'] = 'Provide a link https://'
         self.fields['wallet1_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
         self.fields['wallet1_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
         self.fields['wallet1_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
@@ -107,7 +108,7 @@ class TestnetForm(forms.ModelForm):
         self.fields['wallet1_clue'].widget.attrs['placeholder'] = 'Be smart and give some details that ONLY YOU can understand'
         self.fields['wallet1_password'].widget.attrs['placeholder'] = 'Wallet password'
         self.fields['wallet1_session'].widget.attrs['placeholder'] = 'Browser session'
-        self.fields['wallet1_link'].widget.attrs['placeholder'] = 'link to download this wallet'
+        self.fields['wallet1_link'].widget.attrs['placeholder'] = 'Provide a link https://'
         self.fields['wallet2_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
         self.fields['wallet2_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
         self.fields['wallet2_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
@@ -116,14 +117,13 @@ class TestnetForm(forms.ModelForm):
         self.fields['wallet2_clue'].widget.attrs['placeholder'] = 'Be smart and give some details that ONLY YOU can understand'
         self.fields['wallet2_password'].widget.attrs['placeholder'] = 'Wallet password'
         self.fields['wallet2_session'].widget.attrs['placeholder'] = 'Browser session'
-        self.fields['wallet2_link'].widget.attrs['placeholder'] = 'link to download'
+        self.fields['wallet2_link'].widget.attrs['placeholder'] = 'Provide a link https://'
         self.fields['tasks_description'].widget.attrs['placeholder'] = 'Give description of what to do to participate to this testnet'
         self.fields['tasks_results'].widget.attrs['placeholder'] = 'Save your transaction links, data about your participation, copy email etc...'
         
         #if self.instance.pk:
             #self.fields['testnet_name'].disabled = True
         if not self.instance.author == self.user:
-            self.fields['wallet1_name'].disabled = True
             for input_name in self.fields:
 
                 array_input = [

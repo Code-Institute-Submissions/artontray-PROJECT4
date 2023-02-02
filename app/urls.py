@@ -11,6 +11,7 @@ urlpatterns = [
     path('notifications/<slug:username>', views.ShowNotifications.as_view(), name='show_notifications'),
     path('showtestnet/<slug:slug>', views.ShowTestnet.as_view(), name='showtestnet'),
     path('showtestnetall/<slug:username>', views.ShowTestnetall.as_view(), name='showtestnetall'),
+    path('shownewtestnetall/', views.ShowNewTestnetAll.as_view(), name='show_new_testnet_all'),
     path('addfavorite/<int:id>', views.AddFavoriteUser.as_view(), name='add_favorite_user'),
     path('updateuserprofile/<slug:pk>', views.UpdateProfile.as_view(), name='update_profile_user'),
     path('deletefavorite/<int:id>', views.DeleteFavoriteUser.as_view(), name='delete_favorite_user'),

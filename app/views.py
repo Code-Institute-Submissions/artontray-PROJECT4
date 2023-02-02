@@ -122,13 +122,13 @@ class DeleteTestnet(generic.CreateView):
                 message += "Session Wallet 2 : " +  re.sub(html_pattern, '', testnet.wallet2_session) + "<br>"
                 message += "Tasks description : " + re.sub(html_pattern, '', testnet.tasks_description) + "<br>"
                 message += "Tasks Results : " + re.sub(html_pattern, '', testnet.tasks_results) + "<br>"
-                add_notification_user(testnet.testnet_user, message , "Testnet deleted +1")
+                add_notification_user(testnet.testnet_user, message , "Testnet deleted -1")
                 testnet.delete()
         '''If deleted a testnet and user is the author we substract exp'''
         if testnet_to_delete.author == current_user.user:
             manage_exp_user(current_user.user, "subtract")
         if current_user.status ==1:
-            add_notification_user(current_user.user, "The Testnet called  %s have been deleted" % (testnet_to_delete.testnet_name) , "Testnet deleted +1")
+            add_notification_user(current_user.user, "The Testnet called  %s have been deleted" % (testnet_to_delete.testnet_name) , "Testnet deleted -1")
         return HttpResponseRedirect(reverse('show_notifications', args=[request.user.username]))
 
 
@@ -493,9 +493,9 @@ class ShowNotifications(generic.DetailView):
 
     def get_context_data(self, **context):
         # User Testnet listing only the 5 lastest
-        notifications_user_unread = Notifications.objects.filter(notification_owner=self.request.user, read=0)[:5]
+        notifications_user_unread = Notifications.objects.filter(notification_owner=self.request.user, read=0)[:10]
         notifications_user_read = Notifications.objects.filter(notification_owner=self.request.user, read=1)[:25]
-        paginate_by = 4
+        
 
         context.update ({
                 "notifications_user_unread": notifications_user_unread,
@@ -587,6 +587,27 @@ class AdminitrateUsers(generic.ListView):
 
 
 
+
+class ShowNewTestnetAll(generic.ListView):
+    """
+    This view is used to display All new Testnet or freshly updated
+    """
+    model = Testnet
+    template_name = "shownewtestnetall.html"
+    paginate_by = 3  
+
+   
+
+    def get_queryset(self):
+        qs = super().get_queryset()  
+        # Displaying only Original Testnet from Not Blocked Users
+        qs = qs.exclude(testnet_user__user_info__status=2).all().filter(Q(author=F('testnet_user'))).order_by('updated_on')
+
+        return qs
+
+
+        
+
 class ShowTestnetall(generic.ListView):
     """
     This view is used to display All User Testnet 
@@ -614,13 +635,13 @@ class ShowTestnetall(generic.ListView):
             #qs = qs.filter(author=F('testnet_user')).all()
             '''If user is author of the testnet is blocked we exclude it'''
             '''we exclude also all testnet deleted with testnet_status = 1'''
-            qs = qs.exclude(testnet_user__user_info__status=2).exclude(status_testnet=1).filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user))
+            qs = qs.exclude(testnet_user__user_info__status=2).filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user))
             qs = qs.filter(
                 Q(testnet_name__icontains=search) 
                 | Q(description__icontains=search)
             )
         else:
-            qs = qs.exclude(testnet_user__user_info__status=2).exclude(status_testnet=1).filter(testnet_user=self.testnet_user)
+            qs = qs.exclude(testnet_user__user_info__status=2).filter(testnet_user=self.testnet_user)
 
         return qs
 
