@@ -28,7 +28,7 @@
 
     <span>
 
-        <a class=" btn btn-primary" href="{% url 'administrate_testnet' %}">Show All Blocked Testnet</a>
+        <a class=" btn btn-primary" href="{% url 'administrate_testnet' %}">Show All Reported Testnet</a>
 
     </span>
 
@@ -36,7 +36,7 @@
 
 
 <span><i class="fa-sharp fa-solid fa-circle text-success"></i> Active Testnet  </span>
-<span><i class="fa-sharp fa-solid fa-circle text-danger"></i> Blocked Testnet  </span>
+<span><i class="fa-sharp fa-solid fa-circle text-danger"></i> Reported Testnet  </span>
 
 <!-- End Content Row Number 2-->
 <!-- Listing of the all testnet created by user-->
@@ -77,12 +77,12 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title h3 text-secondary"
-                                            id="DeleteUserLabel{{ user.id }}">
+                                            id="DeleteTestnetLabel{{ user.id }}">
                                             <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
 
                                         </h5>
                                     </div>
-                                    <form method="get" action="{% url 'delete_testnet' testnet.id %}">
+                                    <form method="get" action="{% url 'delete_testnet' testnet.slug %}">
                                         {% csrf_token %}
                                         <div class="modal-body">
                                             <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
@@ -166,9 +166,9 @@
 
 
             
-                <button type="button" class="btn btn-warning btn-user btn-block" data-toggle="modal"
+                <button type="button" class="btn btn-danger btn-user btn-block" data-toggle="modal"
                 data-target="#ReportTestnet{{ testnet.id }}">
-                <span><i class="fa-regular fa-copy"></i></span>   Block
+                <span><i class="fa-regular fa-copy"></i></span>   Report
                 </button>
                         <div class="modal" id="ReportTestnet{{ testnet.id }}" tabindex="-1"
                             aria-labelledby="ReportTestnet{{ testnet.id }}" aria-hidden="true">

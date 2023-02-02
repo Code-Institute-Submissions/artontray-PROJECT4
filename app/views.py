@@ -75,17 +75,25 @@ class DeleteTestnet(generic.CreateView):
         current_user = UserInfo.objects.get(user=request.user.id)
         
         author_testnet = Testnet.objects.get(slug=slug)
-        queryset = Testnet.objects.all().exclude(status_testnet=1).filter(testnet_user=current_user.user)
+        queryset = Testnet.objects.all()
+    
         testnet_to_delete = get_object_or_404(queryset, slug=slug)
-        t = Testnet.objects.get(pk=testnet_to_delete.id)
-        t.status_testnet = 1
-        t.save()
-        
+        if testnet_to_delete.testnet_user == current_user:
+            '''User that calling to delete this testnet is the testnet_user'''
+            testnet_to_delete.network_status = 1
+            add_notification_user(request.user, "You have deleted a Testnet called  %s" % (testnet_to_delete.testnet_name) , "Testnet deleted +1")
+
+        if testnet_to_delete.author == current_user or current_user.status == 1:
+
+            all_testnet_to_delete = Testnet.objects.all().filter(slug_original=testnet_to_delete.slug)
+            for testnet in all_testnet_to_delete:
+                testnet.network_status = 1
+                testnet.save()
+                add_notification_user(testnet.testnet_user, "The Testnet called  %s have been deleted by the Author" % (testnet.testnet_name) , "Testnet deleted +1")
         '''If deleted a testnet and user is the author we substract exp'''
         if author_testnet.author == current_user.user:
             manage_exp_user(current_user.user, "subtract")
-        add_notification_user(request.user, "You have deleted a Testnet called  %s" % (testnet_to_delete.testnet_name) , "Testnet deleted +1")
-        
+ 
         return HttpResponseRedirect(reverse('show_notifications', args=[request.user.username]))
 
 
@@ -484,7 +492,7 @@ class AdminitrateTestnet(generic.ListView):
             qs = qs.exclude(status_testnet=1).filter(Q(author=F('testnet_user'))).filter(testnet_name__icontains=search)
             
         else:
-            qs = qs.exclude(status_testnet=1).filter(Q(author=F('testnet_user'))).filter(status_testnet=2)
+            qs = qs.exclude(status_testnet=1).filter(status_testnet=2)
 
         return qs
 
