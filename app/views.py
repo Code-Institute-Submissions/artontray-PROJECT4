@@ -90,6 +90,7 @@ class DeleteTestnet(generic.CreateView):
        
         if testnet_to_delete.testnet_user == current_user or current_user.status == 1:
             html_pattern = "<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>"
+            '''This regex been taken from https://uibakery.io/regex-library/html-regex-python'''
             #all_testnet_to_delete = Testnet.objects.all().filter(slug_original=testnet_to_delete.slug)
             all_testnet_to_delete = Testnet.objects.all().filter(
                 Q(slug_original=testnet_to_delete.slug) 
@@ -137,6 +138,7 @@ class CopyTestnet(generic.CreateView):
     def get(self, request, slug, *args, **kwargs):
         current_user = UserInfo.objects.get(user=request.user.id)
         author_testnet = Testnet.objects.get(slug=slug)
+        # looking after the published original testnet to copy
         queryset = Testnet.objects.all().filter(testnet_user=author_testnet.author, author=author_testnet.author, status_testnet=0)
         testnet_to_copy = get_object_or_404(queryset, slug=slug)
         t = Testnet.objects.get(pk=testnet_to_copy.id)
