@@ -93,7 +93,9 @@ class Testnet(models.Model):
     def __str__(self):
         return f"{self.testnet_name}"
 
-
+    @property
+    def time_copied(self):
+        return self.copied_nb
 
 
 

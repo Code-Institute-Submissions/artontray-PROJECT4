@@ -12,21 +12,15 @@
     width: 90px;
 }
 
-.logo_user{
+.logo-user{
     border-radius: 50%;
     height: 200px;
     width: 200px;
 
 }
 
-.logo_user_miniature{
-    border-radius: 50%;
-    height: 150px;
-    width: 150px;
 
-}
-
-.logo_user_display_all{
+.logo-user-display-all{
     border-radius: 50%;
     height: 150px;
     width: 150px;
@@ -189,8 +183,14 @@ html {
     font-size: 46px;
 }
 .align-justify{
-text-align: justify;
+    text-align: justify;
 
+}
+
+.long-string{
+    width:100%;
+    word-wrap:break-word;
+    display:inline-block;
 }
 /*----------------------------------------Footer-----*/
 .current-version{
@@ -208,7 +208,7 @@ footer{
 .container-box{
     height: 100vh;
     padding:15px;
-    background:#ddd;
+    background:rgb(192, 177, 254);
     margin:20px auto;
 }
 

@@ -184,7 +184,7 @@ class CopyTestnet(generic.CreateView):
         if request.user == testnet_to_copy.author:
             add_notification_user(request.user, "You have duplicate one of your Testnet successfully :   %s" % (testnet_to_copy.testnet_name) , "Testnet duplicated +1")
         else:
-            testnet_to_copy.copied_nb += 1
+            
             testnet_to_copy.save()
             manage_exp_user(testnet_to_copy.author, "add")
             add_notification_user(testnet_to_copy.author, "%s has copied a Testnet from you!" % (request.user) , "New Copied Testnet +1")
@@ -256,7 +256,7 @@ class FormTestnetMixin:
         messages.add_message(self.request, messages.SUCCESS, self.success_msg)
         if self.action == 'AddTestnet':
             manage_exp_user(self.request.user, "add")
-            add_notification_user(self.request.user, "You had a new testnet successfully" , "New testnet created")
+            add_notification_user(self.request.user, "You wrote a new testnet successfully" , "New testnet +1")
         #self.test_if_author()
         if self.action == 'UpdateTestnet':
             self.update_all_copied_testnet(form)
@@ -600,11 +600,25 @@ class ShowNewTestnetAll(generic.ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()  
-        # Displaying only Original Testnet from Not Blocked Users
-        qs = qs.exclude(testnet_user__user_info__status=2).all().filter(Q(author=F('testnet_user'))).order_by('updated_on')
+
+        popular = self.request.GET.get("PopularTestnet", None)
+        
+        if popular:
+            qs = qs.exclude(testnet_user__user_info__status=2).all().filter(Q(author=F('testnet_user'))).order_by('-copied_nb')
+        else:
+            # Displaying only Original Testnet from Not Blocked Users
+            qs = qs.exclude(testnet_user__user_info__status=2).all().filter(Q(author=F('testnet_user'))).order_by('updated_on')
 
         return qs
 
+    def get_context_data(self, **context):
+
+        context = super().get_context_data(**context)
+        context.update({
+                "PopularTestnet": 'ok',
+            }
+        )
+        return context
 
         
 

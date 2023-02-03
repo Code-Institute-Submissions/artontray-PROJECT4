@@ -16,14 +16,32 @@
 
 
 
-<span><i class="fa-sharp fa-solid fa-circle text-primary"></i> Created by you  </span>
-<span><i class="fa-sharp fa-solid fa-circle text-secondary"></i> Original Testnet from an other User  </span>
 
-<span>
 
-    <a class=" btn btn-primary" href="{% url 'showtestnetall' request.user.username %}">Search a Testnet</a>
 
-</span>
+
+
+<form id="showpopulartestnet" action="#" method="get" accept-charset="utf-8">
+
+    <span><i class="fa-sharp fa-solid fa-circle text-primary"></i> Created by you  </span>
+    <span><i class="fa-sharp fa-solid fa-circle text-secondary"></i> Original Testnet from an other User  </span>
+
+    <span>
+        <input  id="PopularTestnet"  name="PopularTestnet" type="hidden" value="ok">
+    </span>
+    <span>
+        <button class=" btn btn-primary" type="submit">Show Most Popular</a>
+        </button>
+    </span>
+    <span>
+
+        <a class=" btn btn-primary" href="{% url 'showtestnetall' request.user.username %}">Search a Testnet</a>
+    
+    </span>
+
+
+</form>
+
 <!-- End Content Row Number 2-->
 <!-- Listing of the all testnet created by user-->
 
@@ -40,11 +58,22 @@
     {% if testnet.author == request.user and testnet.testnet_user == request.user %}
     <div class="container-fluid bg-light border-bottom-primary border-all-around-radius my-2">
         <div class="row my-2">
-            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
+            <div class="col-lg-5 col-sm-12 col-md-5 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                     <a href="{% url 'showtestnet' testnet.slug %}" class="no-decoration">
                         <p class="h5 text-secondary"><i class="fa-solid fa-house"></i>   {{ testnet.testnet_name }}, {{ testnet.network_name }}, {{ testnet.wallet1_name }}</p>
                     </a>
+                </h6>
+            </div>
+            <div class="col-lg-1 col-sm-12 col-md-1 py-3">
+                <h6 class=" font-weight-bold text-primary align-right">
+                    
+                        <p class="h5 text-secondary">
+                            
+                            <i class="fa-regular fa-copy fa-2x text-primary"></i>
+                            {{ testnet.time_copied }}
+                        </p>
+    
                 </h6>
             </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3 ">
@@ -126,85 +155,26 @@
         </div>
 
 
-    {% elif testnet.testnet_user == request.user and testnet.author != request.user %}
-    <div class="container-fluid bg-light border-bottom-warning border-all-around-radius my-2">
-        <div class="row my-2">
-            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
-                <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
-                    <a href="{% url 'showtestnet' testnet.slug %}" class="no-decoration">
-                        <p class="h5 text-secondary"><i class="fa-regular fa-copy"></i>   {{ testnet.testnet_name }}, {{ testnet.network_name }}, {{ testnet.wallet1_name }}</p>
-                    </a>
-                </h6>
-            </div>
-        <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-            <a href="{% url 'dashboard' testnet.author %}" class=" btn btn-warning btn-user btn-block">
-                <i class="fa-solid fa-user-large"></i>  
-                {% if testnet.author == request.user %}
-                You
-                {% else %}
-                {{ testnet.author }}
-                {% endif %}
-                
-            </a>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-            {% if testnet.status_testnet == 2 %}
-            <button type="button" class="btn btn-danger btn-user btn-block" disabled>
-                <span><i class="fa-solid fa-circle-exclamation"></i></span>  Reported
-            </button>
-            {% else %}
-            <button type="button" class="btn btn-success btn-user btn-block" data-toggle="modal"
-            data-target="#CopyTestnet{{ testnet.id }}">
-            <span><i class="fa-regular fa-copy"></i></span>  Copy
-            </button>
-            {% endif %}
-                        <div class="modal" id="CopyTestnet{{ testnet.id }}" tabindex="-1"
-                            aria-labelledby="CopyTestnetLabel{{ testnet.id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title h3 text-secondary"
-                                            id="CopyTestnetLabel{{ testnet.id }}">
-                                            <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
-
-                                        </h5>
-                                    </div>
-                                    <form method="get" action="{% url 'copy_testnet' slug=testnet.slug_original %}">
-                                        {% csrf_token %}
-                                        <div class="modal-body">
-                                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
-                                                you want to copy the following Testnet : {{ testnet.testnet_name }} ? </p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success btn-user">
-                                                YES
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
-                                                aria-label="Close">
-                                                NO
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-md-2 py-3">
-            <a href="{% url 'update_testnet' slug=testnet.slug %}" class=" btn btn-primary btn-user btn-block">
-            <i class="fa-solid  fa-pen-to-square"></i>EDIT
-            </a>
-        </div>
-
-
 
     {% else %}
     <div class="container-fluid bg-light border-bottom-secondary border-all-around-radius my-2">
         <div class="row my-2">
-            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
+            <div class="col-lg-5 col-sm-12 col-md-5 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                     <a href="{% url 'showtestnet' testnet.slug %}" class="no-decoration">
                         <p class="h5 text-secondary"><i class="fa-solid fa-unlock-keyhole"></i>   {{ testnet.testnet_name }}, {{ testnet.network_name }}, {{ testnet.wallet1_name }}</p>
                     </a>
+                </h6>
+            </div>
+            <div class="col-lg-1 col-sm-12 col-md-1 py-3">
+                <h6 class=" font-weight-bold text-secondary align-right">
+                    
+                        <p class="h5 text-secondary">
+                            
+                            <i class="fa-regular fa-copy fa-2x text-secondary"></i>
+                            {{ testnet.time_copied }}
+                        </p>
+    
                 </h6>
             </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3">
@@ -285,8 +255,8 @@
 </div>
 {% endfor %}
 
-{% if searching %}
-{% include "app/inc/pagination.html" with extra_url_args="searching="|add:searching %}
+{% if PopularTestnet == 'ok' %}
+{% include "app/inc/pagination.html" with extra_url_args="PopularTestnet="|add:PopularTestnet %}
 {% else %}
 {% include "app/inc/pagination.html" %}
 {% endif %}
