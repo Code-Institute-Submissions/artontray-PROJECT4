@@ -373,7 +373,7 @@ class AddFavoriteUser(generic.DetailView):
     """
     def get(self, request, id, *args, **kwargs):
         """
-        Get the id from user to follow and current logged user From URL
+        Get the id from user to follow and current logged user 
         """
         queryset = UserInfo.objects.all()
         current_user = get_object_or_404(queryset, user=request.user.id)
@@ -397,7 +397,7 @@ class DeleteFavoriteUser(generic.DeleteView):
     """
     def get(self, request, id, *args, **kwargs):
         """
-        Get the id from user to follow and current logged user From URL
+        Get the id from user to follow and current logged user 
         """
         queryset = UserInfo.objects.all()
         current_user = get_object_or_404(queryset, user=request.user.id)
@@ -421,7 +421,7 @@ class DeleteUser(generic.DeleteView):
     """
     def get(self, request, id, *args, **kwargs):
         """
-        Get the id from user to delete and current logged user From URL
+        Get the id from user to delete and current logged user 
         """
         current_user = UserInfo.objects.filter(user=request.user.id)
         admin = get_object_or_404(current_user, status=1)
@@ -456,7 +456,7 @@ class BlockUser(generic.DetailView):
     """
     def get(self, request, id, *args, **kwargs):
         """
-        Get the id from user to block and current logged user From URL
+        Get the id from user to block and current logged user 
         """
         current_user = UserInfo.objects.filter(user=request.user.id)
         admin = get_object_or_404(current_user, status=1)
@@ -471,7 +471,7 @@ class BlockUser(generic.DetailView):
             messages.add_message(self.request, messages.SUCCESS, "A user account is now active!")
         else:
             if admin.id == id:
-                '''cannot block user himself'''
+                '''user cannot block himself'''
                 add_notification_user(self.request.user, "You are trying to block yourself : aborted" , "Action -1")
                 messages.add_message(self.request, messages.SUCCESS, "You cannot block yourself!")
             else:    
@@ -489,13 +489,21 @@ class BlockUser(generic.DetailView):
 
 
 class ReportTestnet(generic.DetailView):
+    """
+    Report Testnet
+    All users on the app can report a Testnet
+    If happening, all admin from the app will receive a notification
+    Any admin can cancel the report
+    A reported Testnet is not available for copying
+    """
     def get(self, request, slug, *args, **kwargs):
-        current_user = UserInfo.objects.get(user=request.user.id)
-        
-
-        
-        
-        testnet_to_report = Testnet.objects.get(slug=slug)
+        """
+        Get the slug from testnet to report and current logged user
+        """
+        queryset = UserInfo.objects.all()
+        current_user = get_object_or_404(queryset, user=request.user.id)
+        queryset = Testnet.objects.all()
+        testnet_to_report = get_object_or_404(queryset, slug=slug)
         url = reverse('showtestnet', args=[testnet_to_report.slug])
         if testnet_to_report.status_testnet == 2:
             #If normal User, redirect to dashboard because Testnet is already Reported
@@ -512,13 +520,14 @@ class ReportTestnet(generic.DetailView):
             add_notification_user(testnet_to_report.author, f"{self.request.user.username} have cancelled the report on your testnet <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + "</a>" , "Testnet +1")
             messages.add_message(self.request, messages.SUCCESS, "You have cancelled the report on a Testnet successfully")
         else:
+            # Testnet original and all copies will be reported status
             all_testnet_to_report = Testnet.objects.filter(slug_original=slug)
 
             for testnets in all_testnet_to_report:
                 testnets.status_testnet = 2
                 testnets.save()
             
-            
+            # We inform the Author
             add_notification_user(testnet_to_report.author, f"{self.request.user.username} reported your testnet : <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + "</a>" , "Testnet -1")
             add_notification_user(self.request.user, "You reported a testnet called <code>%s</code>" % (testnet_to_report.testnet_name) , "Reported +1")
             all_admin = UserInfo.objects.all().filter(status=1)
@@ -538,8 +547,13 @@ class ReportTestnet(generic.DetailView):
 
 
 class UpdateNotifications(LoginRequiredMixin, View):
-
+    """
+    Update Notifications from Unread to read
+    """
     def get(self, request, id, *args, **kwargs):
+        """
+        Get the id notification to update and current logged user
+        """
         queryset = Notifications.objects.filter(notification_owner=request.user.id)
         notif = get_object_or_404(queryset, id=id)
         if notif.read == 0:
@@ -555,14 +569,12 @@ class ShowTestnet(generic.DetailView):
     This view is used to display User Testnet 
     """
     model = Testnet
-
     template_name = "showtestnet.html"
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
     def get_object(self, queryset=None):
         if self.slug_url_kwarg in self.kwargs:
             queryset = Testnet.objects.exclude(status_testnet=1).all()
-            
             testnet = get_object_or_404(queryset, slug=self.kwargs['slug'])
             return super().get_object(queryset)
         else:
@@ -575,7 +587,6 @@ class ShowNotifications(generic.DetailView):
     This view is used to display All User Notifications
     """
     model = User
-
     template_name = "shownotifications.html"
     slug_field = 'username'
     slug_url_kwarg = 'username'
@@ -586,16 +597,14 @@ class ShowNotifications(generic.DetailView):
             return self.request.user
 
     def get_context_data(self, **context):
-        # User Testnet listing only the 5 lastest
+        """
+        return an updated context to shownotifications.html with unread/read notifications
+        """
         notifications_user_unread = Notifications.objects.filter(notification_owner=self.request.user, read=0)[:10]
         notifications_user_read = Notifications.objects.filter(notification_owner=self.request.user, read=1)[:25]
-        
-
         context.update ({
                 "notifications_user_unread": notifications_user_unread,
                 "notifications_user_read": notifications_user_read,
-
-
             }
         )
         return context
@@ -604,6 +613,7 @@ class ShowNotifications(generic.DetailView):
 class AdminitrateTestnet(generic.ListView):
     """
     This view is used to display all Testnet blocked
+    If searching is called on URL, we display a searching on Testnet Table
     """
     model = Testnet
     template_name = "administratetestnet.html"
@@ -614,28 +624,27 @@ class AdminitrateTestnet(generic.ListView):
     
 
     def get_queryset(self):
+        """
+        Return query result about searching Testnet or display all original blocked Testnet
+        """
         qs = super().get_queryset()  
-        
         search = self.request.GET.get("searching", None)
-        
         if search:
-
-            qs = qs.exclude(status_testnet=1).filter(Q(author=F('testnet_user'))).filter(
+            qs = qs.filter(
                 Q(testnet_name__icontains=search) 
                 | Q(description__icontains=search)
+                | Q(testnet_user__username__icontains=search)
                 )
-            
         else:
-            qs = qs.exclude(status_testnet=1).filter(status_testnet=2)
-
+            qs = qs.filter(Q(author=F('testnet_user'))).filter(status_testnet=2)
         return qs
 
     def get_context_data(self, **context):
-        # User Testnet listing only the 5 lastest
+        """
+        Return updated context to display the current search on administratetestnet.html
+        """
         context = super().get_context_data(**context)
         context.update({
-                
-                
                 "searching": self.request.GET.get("searching", None),
             }
         )
@@ -656,24 +665,23 @@ class AdminitrateUsers(generic.ListView):
     
 
     def get_queryset(self):
+        """
+        Return query result about searching User or display all blocked Users
+        """
         qs = super().get_queryset()  
-        
         search = self.request.GET.get("searching", None)
-        
         if search:
-
             qs = qs.filter(user__username__icontains=search)
         else:
             qs = qs.filter(status=2)
-
         return qs
 
     def get_context_data(self, **context):
-        # User Testnet listing only the 5 lastest
+        """
+        Return updated context to display the current search on administrateusers.html
+        """
         context = super().get_context_data(**context)
         context.update({
-                
-                
                 "searching": self.request.GET.get("searching", None),
             }
         )

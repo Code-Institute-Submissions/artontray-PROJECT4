@@ -56,11 +56,24 @@
 
     <div class="container-fluid bg-light border-bottom-{% if testnet.status_testnet == 2  %}danger{% else %}success{% endif %} border-all-around-radius my-2">
         <div class="row my-2">
-            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
+            <div class="col-lg-5 col-sm-12 col-md-5 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                  
                         <p class="h5 text-secondary"><i class="fa-solid fa-user"></i>   <code>{{ testnet.testnet_name }}</code> </p>
              
+                </h6>
+            </div>
+            <div class="col-lg-1 col-sm-12 col-md-1 py-3">
+                <h6 class=" font-weight-bold text-primary align-right">
+                    
+                        <p class="h5 text-secondary">
+                            {% if testnet.testnet_user == testnet.author %}
+                            <i class="fa-solid fa-person fa-2x"></i>
+                            {% else %}
+                            <i class="fa-regular fa-copy fa-2x"></i>
+                            {% endif %}
+                        </p>
+    
                 </h6>
             </div>
         <div class="col-lg-2 col-sm-12 col-md-2 py-3 ">
@@ -181,7 +194,7 @@
 
                                         </h5>
                                     </div>
-                                    <form method="get" action="{% url 'report_testnet' testnet.slug %}">
+                                    <form method="get" action="{% url 'report_testnet' slug=testnet.slug_original %}">
                                         {% csrf_token %}
                                         <div class="modal-body">
                                             <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
