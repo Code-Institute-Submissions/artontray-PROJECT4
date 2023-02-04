@@ -150,8 +150,10 @@ class CopyTestnet(generic.CreateView):
         """
         Get slug and current user info
         """
-        current_user = UserInfo.objects.get(user=request.user.id)
-        author_testnet = Testnet.objects.get(slug=slug)
+        queryset = UserInfo.objects.all()
+        current_user = get_object_or_404(queryset, user=request.user.id)
+        queryset = Testnet.objects.all()
+        author_testnet = get_object_or_404(queryset, slug=slug)
         # looking after the published original testnet to copy
         queryset = Testnet.objects.all().filter(testnet_user=author_testnet.author, author=author_testnet.author, status_testnet=0)
         testnet_to_copy = get_object_or_404(queryset, slug=slug)
@@ -243,7 +245,8 @@ class GiveAdmin(generic.UpdateView):
         current_user = UserInfo.objects.filter(user=request.user.id)
         # We make sure is admin connected
         admin = get_object_or_404(current_user, status=1)
-        user_to_update = UserInfo.objects.get(id=id)
+        queryset = UserInfo.objects.all()
+        user_to_update = get_object_or_404(queryset, id=id)
         if user_to_update.status == 1 and request.user.id != id:
             #if user already admin and not call himself through URL'''
             user_to_update.status = 0
@@ -363,88 +366,102 @@ class UpdateTestnet(FormTestnetMixin,LoginRequiredMixin, UserPassesTestMixin, ge
         return testnet.testnet_user.username == self.request.user.username
     success_msg = "Testnet updated successfully"
 
-    
-
-# Autre façon de faire, en fonction, mais ça gère moins de chose:
-# def add_testnet(request):
-#     if request.method == 'POST':
-#         form = AddNewTestnet(data=request.POST, user=request.user)
-#         if form.is_valid():
-#             form.save()
-#             messages.add_message(request, messages.SUCCESS, "Le testnet a bien été créé \o/")
-#             return HttpResponseRedirect('/dashboard/')
-#     else:
-#         form = AddNewTestnet(user=request.user)
-#     return render(request, 'addtestnet.html', {'form': form})
-
 
 class AddFavoriteUser(generic.DetailView):
+    """
+    Add Favorite user : Follow a new user
+    """
     def get(self, request, id, *args, **kwargs):
-        current_user = UserInfo.objects.get(user=request.user.id)
-        user_to_follow = User.objects.get(id=id)
+        """
+        Get the id from user to follow and current logged user From URL
+        """
+        queryset = UserInfo.objects.all()
+        current_user = get_object_or_404(queryset, user=request.user.id)
+        queryset = User.objects.all()
+        user_to_follow = get_object_or_404(queryset, id=id)
         current_user.following.add(user_to_follow)
         current_user.save()
         manage_exp_user(user_to_follow, "add")
         url = reverse('dashboard', args=[self.request.user])
-        add_notification_user(user_to_follow, f"<a href='{url}' target='_blank'>" + self.request.user.username + "</a> is following you!" , "New follower +1")
+        add_notification_user(user_to_follow, f"<a href='{url}' target='_blank'>" + self.request.user.username + "</a> is following you!" , "Follower +1")
         url = reverse('dashboard', args=[user_to_follow])
-        add_notification_user(self.request.user, f"You are now following <a href='{url}' target='_blank'>" + user_to_follow.username + "</a>" , "Following a new user +1")
+        add_notification_user(self.request.user, f"You are now following <a href='{url}' target='_blank'>" + user_to_follow.username + "</a>" , "Following +1")
         messages.add_message(self.request, messages.SUCCESS, "You add a New User as Favorite")
         return HttpResponseRedirect(reverse('dashboard', args=[user_to_follow]))
 
 
 
 class DeleteFavoriteUser(generic.DeleteView):
+    """
+    Delete Favorite user : Unfollow a user
+    """
     def get(self, request, id, *args, **kwargs):
-        current_user = UserInfo.objects.get(user=request.user.id)
-        user_to_unfollow = User.objects.get(id=id)
+        """
+        Get the id from user to follow and current logged user From URL
+        """
+        queryset = UserInfo.objects.all()
+        current_user = get_object_or_404(queryset, user=request.user.id)
+        queryset = User.objects.all()
+        user_to_unfollow = get_object_or_404(queryset, id=id)
         manage_exp_user(user_to_unfollow, "subtract")
         current_user.following.remove(user_to_unfollow)
         current_user.save()
-        
-
         url = reverse('dashboard', args=[self.request.user])
         add_notification_user(user_to_unfollow, f"<a href='{url}' target='_blank'>" + self.request.user.username + "</a> is not following you anymore!" , "follower -1")
         url = reverse('dashboard', args=[user_to_unfollow])
-        add_notification_user(self.request.user, f"You are not following <a href='{url}' target='_blank'>" + user_to_unfollow.username + "</a>" , "Follow User -1")
+        add_notification_user(self.request.user, f"You are not following <a href='{url}' target='_blank'>" + user_to_unfollow.username + "</a>" , "Following -1")
         messages.add_message(self.request, messages.SUCCESS, "You unfollowed a User")
-
-
-
-        
         return HttpResponseRedirect(reverse('dashboard', args=[user_to_unfollow]))
 
 
 
 class DeleteUser(generic.DeleteView):
+    """
+    Delete User
+    """
     def get(self, request, id, *args, **kwargs):
-        #breakpoint()
+        """
+        Get the id from user to delete and current logged user From URL
+        """
         current_user = UserInfo.objects.filter(user=request.user.id)
         admin = get_object_or_404(current_user, status=1)
-        user_to_delete = User.objects.get(id=id)
+        queryset = User.objects.all()
+        user_to_delete = get_object_or_404(queryset, id=id)
         if request.user.id == id:
-            '''Trying to delete yourself as a user, aborted'''
+            #Trying to delete yourself as a user, aborted
             add_notification_user(self.request.user, "You are trying to delete yourself from the app, aborted"  , "Aborted -1")
             messages.add_message(self.request, messages.ERROR, "Aborted Action : Cannot delete yourself!")
             return HttpResponseRedirect(reverse('dashboard'))
 
-        
+        # If user deleted, we delete all Testnet from this user
         all_testnet_to_delete = Testnet.objects.all().filter(author__id=id)
         for testnet in all_testnet_to_delete:
             testnet.delete()
+            # In this case, Its Admin that deleted this user 
+            # Testnet contents from Deleted user by admin are not considered as legit
+            # So we just deleted all copies and original Testnet from this user
+            # We send notifications to all copied Testnet users
             add_notification_user(testnet.testnet_user, "A Testnet you copied have been deleted : <code>%s</code> ! Reason : The author have been deleted from the app by an Admin " % (testnet.testnet_name) , "Testnet -1")
         user_to_delete.delete()
-        
         add_notification_user(self.request.user, "You deleted the following user : %s " % (user_to_delete.username) , "User -1")
         messages.add_message(self.request, messages.SUCCESS, "You delete a User from the App!")
         
         return HttpResponseRedirect(reverse('administrate_users'))
 
 class BlockUser(generic.DetailView):
+    """
+    Block a User
+    If Testnet from this user are reported, Admin can decide to block this user
+    Consequences : Any Testnet from this user are not available for copying or displaying
+    """
     def get(self, request, id, *args, **kwargs):
+        """
+        Get the id from user to block and current logged user From URL
+        """
         current_user = UserInfo.objects.filter(user=request.user.id)
         admin = get_object_or_404(current_user, status=1)
-        user_to_block = UserInfo.objects.get(id=id)
+        request = UserInfo.objects.all()
+        user_to_block = get_object_or_404(request, id=id)
 
         if user_to_block.status == 2 :
             user_to_block.status = 0
@@ -725,6 +742,7 @@ class ShowTestnetall(generic.ListView):
             qs = qs.filter(
                 Q(testnet_name__icontains=search) 
                 | Q(description__icontains=search)
+                | Q(testnet_user__username__icontains=search)
             )
         else:
             qs = qs.exclude(testnet_user__user_info__status=2).filter(testnet_user=self.testnet_user)
@@ -818,14 +836,12 @@ class ShowDashboard(generic.DetailView):
             # Creating user info table with basic value
             # We fill up the table with none value and 100 exp
             exp = 100
-            debank = '...'
             bio = 'I just signed up to Testnet Organizer....'
             avatar = "https://res.cloudinary.com/dqnhlza2r/image/upload/v1674941682/ubcbtybbvu9b1zmvgiza.png"
             Creation_User_Info = UserInfo.objects.create(
                 user_id=self.request.user.id,
                 bio=bio,
                 exp=exp,
-                debank=debank,
                 avatar=avatar
                 )
             Creation_User_Info.save()
