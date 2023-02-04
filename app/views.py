@@ -30,12 +30,8 @@ class StatistiqueApp(generic.ListView):
         """
         Get the Testnet Total number and the User total number 
         """
-        
         nb_testnet_total = Testnet.objects.all().count()
         nb_user_total = User.objects.all().count()
-  
-
-
         return render(
             request,
             "index.html",
@@ -48,12 +44,13 @@ class StatistiqueApp(generic.ListView):
 
 
 def manage_exp_user(user, action):
+    """
+    Add or substract Exp from user
+    """
     exp = settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP   
     user_info = UserInfo.objects.get(user=user)
-
     if action == "add":
         user_info.exp += exp
-
     elif action == "subtract":
         user_info.exp -= exp
     else:
@@ -61,14 +58,29 @@ def manage_exp_user(user, action):
     user_info.save()
 
 
+def check_user_exist(object_user):
+    """
+    return True if user exist
+    """   
+    user_exist = User.objects.filter(id=object_user.id).exists()
+    return user_exist
+
+
 
 def add_notification_user(user, message, title):
-    creation_notification = Notifications.objects.create(
+    """
+    Add a Notification to title
+    """
+    if check_user_exist(user):
+        creation_notification = Notifications.objects.create(
                 notification_owner=user,
                 message=message,
                 title=title
                 )
-    creation_notification.save()
+        return creation_notification.save()
+
+    
+    
 
 
 
@@ -127,9 +139,10 @@ class DeleteTestnet(generic.CreateView):
         '''If deleted a testnet and user is the author we substract exp'''
         if testnet_to_delete.author == current_user.user:
             manage_exp_user(current_user.user, "subtract")
-        if current_user.status ==1:
-            add_notification_user(current_user.user, "The Testnet called  %s have been deleted" % (testnet_to_delete.testnet_name) , "Testnet deleted -1")
-        return HttpResponseRedirect(reverse('show_notifications', args=[request.user.username]))
+        if current_user.status == 1:
+            add_notification_user(current_user.user, "The Testnet called  %s have been deleted" % (testnet_to_delete.testnet_name) , "Testnet -1")
+            messages.add_message(self.request, messages.SUCCESS, "You deleted a Testnet successfully")
+        return HttpResponseRedirect(reverse('dashboard'))
 
 
 class CopyTestnet(generic.CreateView):
@@ -182,13 +195,16 @@ class CopyTestnet(generic.CreateView):
        # current_user.save()
         
         if request.user == testnet_to_copy.author:
-            add_notification_user(request.user, "You have duplicate one of your Testnet successfully :   %s" % (testnet_to_copy.testnet_name) , "Testnet duplicated +1")
+            url = reverse('showtestnet', args=[t.slug])
+            add_notification_user(request.user, f"You have duplicate one of your Testnet successfully : <a href='{url}' target='_blank'>" + testnet_to_copy.testnet_name + "</a>" , "Testnet duplicated +1")
         else:
             
             testnet_to_copy.save()
             manage_exp_user(testnet_to_copy.author, "add")
-            add_notification_user(testnet_to_copy.author, "%s has copied a Testnet from you!" % (request.user) , "New Copied Testnet +1")
-            add_notification_user(request.user, "As %d Users on the app, You have copied a Testnet from  %s called %s" % (t.copied_nb+1,testnet_to_copy.author,testnet_to_copy.testnet_name) , "Testnet copied +1")
+            url = reverse('showtestnet', args=[testnet_to_copy.slug])
+            
+            add_notification_user(testnet_to_copy.author, f"%s has copied this <a href='{url}' target='_blank'><code>Testnet</code></a> from you!" % (request.user) , "New Copied Testnet +1")
+            add_notification_user(request.user, "As <code>%d Users</code> on the app, You have copied a Testnet from <code> %s </code>called <code> %s </code>" % (t.copied_nb+1,testnet_to_copy.author,testnet_to_copy.testnet_name) , "Testnet copied +1")
         
         return HttpResponseRedirect(reverse('update_testnet', args=[slug]))
 
@@ -220,25 +236,27 @@ class GiveAdmin(generic.UpdateView):
             '''if user already admin and not call himself through URL'''
             user_to_update.status = 0
             user_to_update.save()
-            add_notification_user(user_to_update.user, "%s deleted you as an admin" % (self.request.user.username) , "Admin -1")
-            add_notification_user(self.request.user, "You deleted %s as an admin of the App" % (user_to_update.user.username) , "Admin -1")
-            return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
+            add_notification_user(user_to_update.user, "<code>%s</code> deleted you as an admin" % (self.request.user.username) , "Admin -1")
+            add_notification_user(self.request.user, "You deleted <code> %s </code> as an admin of the App" % (user_to_update.user.username) , "Admin -1")
+            messages.add_message(self.request, messages.SUCCESS, "You deleted a User from Admin Role successfully")
+            return HttpResponseRedirect(reverse('administrate_users'))
         if user_to_update.status == 0:
             user_to_update.status = 1
             user_to_update.save()
-            add_notification_user(user_to_update.user, "%s added you as admin on the App, Welcome!" % (self.request.user.username) , "Admin +1")
-            add_notification_user(self.request.user, "You added %s as an admin of the App" % (user_to_update.user.username) , "Admin +1")
+            add_notification_user(user_to_update.user, "<code>%s</code> added you as admin on the App, Welcome!" % (self.request.user.username) , "Admin +1")
+            add_notification_user(self.request.user, "You added <code>%s</code> as an admin of the App" % (user_to_update.user.username) , "Admin +1")
+            messages.add_message(self.request, messages.SUCCESS, "You added a User with Admin Role successfully")
             return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
         
         return HttpResponseRedirect(reverse('dashboard'))
+
 
 class UpdateProfile(FormEditUserMixin,LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     def test_func(self):
         user = self.get_object()
         """avoiding updating others user Profiles"""
-        
-        return user.id == self.request.user.user_info.id
-    success_msg = "Profile Updated!"
+        return  user.id == self.request.user.user_info.id
+    success_msg = "Congratulation, your Profile is Updated!"
 
 class FormTestnetMixin:
     model = Testnet
@@ -256,7 +274,7 @@ class FormTestnetMixin:
         messages.add_message(self.request, messages.SUCCESS, self.success_msg)
         if self.action == 'AddTestnet':
             manage_exp_user(self.request.user, "add")
-            add_notification_user(self.request.user, "You wrote a new testnet successfully" , "New testnet +1")
+            add_notification_user(self.request.user, "You add a new testnet, Good Job!" , "New testnet +1")
         #self.test_if_author()
         if self.action == 'UpdateTestnet':
             self.update_all_copied_testnet(form)
@@ -290,8 +308,9 @@ class FormTestnetMixin:
                 each_testnet.whitepaper = form.instance.whitepaper
                 #breakpoint()
                 each_testnet.save()
-                add_notification_user(each_testnet.testnet_user, f"An update has been deployed to one of the Testnet you copied : {each_testnet.testnet_name}, Check it out!" , "Updated testnet")
-                
+                url = reverse('showtestnet', args=[each_testnet.slug])
+                add_notification_user(each_testnet.testnet_user, f"An update has been deployed to one of the Testnet you use : {each_testnet.testnet_name}, <a href='{url}' target='_blank'><code>Check it out here</code></a>" , "Updated testnet +1")
+            messages.add_message(self.request, messages.SUCCESS, "Updated Testnet : All copies of this Testnet have been updated and all User using this testnet got a Notification about it!")  
 
             
         
@@ -336,9 +355,11 @@ class AddFavoriteUser(generic.DetailView):
         current_user.following.add(user_to_follow)
         current_user.save()
         manage_exp_user(user_to_follow, "add")
-        add_notification_user(user_to_follow, "%s is following you!" % (self.request.user) , "New follower +1")
-        add_notification_user(self.request.user, "You are now following %s" % (user_to_follow) , "Following a new user +1")
-        
+        url = reverse('dashboard', args=[self.request.user])
+        add_notification_user(user_to_follow, f"<a href='{url}' target='_blank'>" + self.request.user.username + "</a> is following you!" , "New follower +1")
+        url = reverse('dashboard', args=[user_to_follow])
+        add_notification_user(self.request.user, f"You are now following <a href='{url}' target='_blank'>" + user_to_follow.username + "</a>" , "Following a new user +1")
+        messages.add_message(self.request, messages.SUCCESS, "You add a New User as Favorite")
         return HttpResponseRedirect(reverse('dashboard', args=[user_to_follow]))
 
 
@@ -351,8 +372,15 @@ class DeleteFavoriteUser(generic.DeleteView):
         current_user.following.remove(user_to_unfollow)
         current_user.save()
         
-        add_notification_user(user_to_unfollow, "%s is not following you anymore" % (self.request.user) , "Follower -1")
-        add_notification_user(self.request.user, "You are not following %s anymore" % (user_to_unfollow) , "UnFollow a user -1")
+
+        url = reverse('dashboard', args=[self.request.user])
+        add_notification_user(user_to_unfollow, f"<a href='{url}' target='_blank'>" + self.request.user.username + "</a> is not following you anymore!" , "follower -1")
+        url = reverse('dashboard', args=[user_to_unfollow])
+        add_notification_user(self.request.user, f"You are not following <a href='{url}' target='_blank'>" + user_to_unfollow.username + "</a>" , "Follow User -1")
+        messages.add_message(self.request, messages.SUCCESS, "You unfollowed a User")
+
+
+
         
         return HttpResponseRedirect(reverse('dashboard', args=[user_to_unfollow]))
 
@@ -366,20 +394,21 @@ class DeleteUser(generic.DeleteView):
         user_to_delete = User.objects.get(id=id)
         if request.user.id == id:
             '''Trying to delete yourself as a user, aborted'''
-            add_notification_user(self.request.user, "You are trying to delete yourself from the app, aborted"  , "Aborted Action")
-            return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
+            add_notification_user(self.request.user, "You are trying to delete yourself from the app, aborted"  , "Aborted -1")
+            messages.add_message(self.request, messages.ERROR, "Aborted Action : Cannot delete yourself!")
+            return HttpResponseRedirect(reverse('dashboard'))
 
         
         all_testnet_to_delete = Testnet.objects.all().filter(author__id=id)
         for testnet in all_testnet_to_delete:
             testnet.delete()
-            add_notification_user(testnet.testnet_user, "A Testnet you copied have been deleted : %s " % (testnet.testnet_name) , "Deleted Copied Testnet +1")
+            add_notification_user(testnet.testnet_user, "A Testnet you copied have been deleted : <code>%s</code> ! Reason : The author have been deleted from the app by an Admin " % (testnet.testnet_name) , "Testnet -1")
         user_to_delete.delete()
         
-        add_notification_user(self.request.user, "You deleted the following user : %s " % (user_to_delete.username) , "Deleted User +1")
-
+        add_notification_user(self.request.user, "You deleted the following user : %s " % (user_to_delete.username) , "User -1")
+        messages.add_message(self.request, messages.SUCCESS, "You delete a User from the App!")
         
-        return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
+        return HttpResponseRedirect(reverse('administrate_users'))
 
 class BlockUser(generic.DetailView):
     def get(self, request, id, *args, **kwargs):
@@ -391,54 +420,68 @@ class BlockUser(generic.DetailView):
             user_to_block.status = 0
             user_to_block.save()
         
-            add_notification_user(self.request.user, "You Unblocked the following user : %s " % (user_to_block.user.username) , "Unblocked User +1")
+            add_notification_user(self.request.user, "The following user : <code> %s </code> is not blocked anymore" % (user_to_block.user.username) , "User +1")
+            messages.add_message(self.request, messages.SUCCESS, "A user account is now active!")
         else:
             if admin.id == id:
                 '''cannot block user himself'''
-                add_notification_user(self.request.user, "You are trying to block yourself : aborted" , "aborted action")
+                add_notification_user(self.request.user, "You are trying to block yourself : aborted" , "Action -1")
+                messages.add_message(self.request, messages.SUCCESS, "You cannot block yourself!")
             else:    
                 user_to_block.status = 2
                 user_to_block.save()
         
-                add_notification_user(self.request.user, "You blocked the following user : %s " % (user_to_block.user.username) , "Blocked User +1")
-
+                add_notification_user(self.request.user, "You blocked the following user : %s " % (user_to_block.user.username) , "User -1")
+                messages.add_message(self.request, messages.SUCCESS, "You blocked a user successfully")
         
-        return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
+        return HttpResponseRedirect(reverse('administrate_users'))
+
+
+
+
 
 
 class ReportTestnet(generic.DetailView):
     def get(self, request, slug, *args, **kwargs):
         current_user = UserInfo.objects.get(user=request.user.id)
-
+        if not request.user.user_info.is_admin:
+            return HttpResponseRedirect(reverse('dashboard'))
 
         
         
         testnet_to_report = Testnet.objects.get(slug=slug)
-
+        url = reverse('showtestnet', args=[testnet_to_report.slug])
         if testnet_to_report.status_testnet == 2:
             testnet_to_report.status_testnet = 0
             testnet_to_report.save()
             all_testnet_to_report = Testnet.objects.filter(slug_original=slug)
-
+            
             for testnets in all_testnet_to_report:
                 testnets.status_testnet = 0
                 testnets.save()
-            add_notification_user(testnet_to_report.author, "%s have cancelled the report on your testnet %s!" % (self.request.user.username,testnet_to_report.testnet_name) , "Cancel report +1")
+            add_notification_user(testnet_to_report.author, f"{self.request.user.username} have cancelled the report on your testnet <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + "</a>" , "Testnet +1")
+            messages.add_message(self.request, messages.SUCCESS, "You have cancelled the report on a Testnet successfully")
         else:
             all_testnet_to_report = Testnet.objects.filter(slug_original=slug)
 
             for testnets in all_testnet_to_report:
                 testnets.status_testnet = 2
                 testnets.save()
-            add_notification_user(testnet_to_report.author, "%s reported your testnet %s!" % (self.request.user.username,testnet_to_report.testnet_name) , "Reported +1")
-            add_notification_user(self.request.user, "You reported a testnet called %s!" % (testnet_to_report.testnet_name) , "Reported +1")
+            
+            
+            add_notification_user(testnet_to_report.author, f"{self.request.user.username} reported your testnet : <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + "</a>" , "Testnet -1")
+            add_notification_user(self.request.user, "You reported a testnet called <code>%s</code>" % (testnet_to_report.testnet_name) , "Reported +1")
             all_admin = UserInfo.objects.all().filter(status=1)
+            # Send to all admin of the platform about this reported Testnet
             for admin in all_admin:
-                add_notification_user(admin.user, "The Testnet called %s got reported by %s" % (testnet_to_report.testnet_name,self.request.user.username) , "Testnet Reported +1")
+                add_notification_user(admin.user, f"The Testnet called <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + f"</a> got reported by <code>{self.request.user.username}</code>" , "Testnet -1")
+            messages.add_message(self.request, messages.SUCCESS, "You reported a Testnet successfully")
+        
+        
+        return HttpResponseRedirect(reverse('administrate_testnet'))
+        
             
         
-        
-        return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
 
 
 
@@ -607,7 +650,7 @@ class ShowNewTestnetAll(generic.ListView):
             qs = qs.exclude(testnet_user__user_info__status=2).all().filter(Q(author=F('testnet_user'))).order_by('-copied_nb')
         else:
             # Displaying only Original Testnet from Not Blocked Users
-            qs = qs.exclude(testnet_user__user_info__status=2).all().filter(Q(author=F('testnet_user'))).order_by('updated_on')
+            qs = qs.exclude(testnet_user__user_info__status=2).all().filter(Q(author=F('testnet_user'))).order_by('-updated_on')
 
         return qs
 

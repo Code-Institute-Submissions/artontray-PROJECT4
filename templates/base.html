@@ -85,8 +85,16 @@
             </div>
         </div>
         {% else %}
+        {% if messages and request.user.is_authenticated %}
+        
+            {% for message in messages %}
+                <p {% if message.tags %} class="h5 align-center alert alert-info text-primary"{% endif %}>{{ message }}, Please check <a href="{% url 'show_notifications' request.user.username %}"><strong>here</strong></a> for more details!</p>
+            {% endfor %}
+       
+        {% endif %}
         <div class="container-fluid">
         {% block content %}
+        
         <!-- Content Goes here -->
         {% endblock content %}
         </div>

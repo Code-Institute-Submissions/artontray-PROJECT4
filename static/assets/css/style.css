@@ -192,6 +192,11 @@ html {
     word-wrap:break-word;
     display:inline-block;
 }
+
+code {
+    font-weight: 700;
+    color:rgb(44, 58, 255);
+}
 /*----------------------------------------Footer-----*/
 .current-version{
     font-size: 12px;
@@ -208,7 +213,6 @@ footer{
 .container-box{
     height: 100vh;
     padding:15px;
-    background:rgb(192, 177, 254);
     margin:20px auto;
 }
 

@@ -153,6 +153,12 @@ class UserInfo(models.Model):
     def user_follows(self):
         return self.user.following
             
+    def is_admin(self):
+        if self.status == 1:
+            return True
+        else:
+            return False
+
 
     @property
     def created_on(self):
