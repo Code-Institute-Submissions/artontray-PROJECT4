@@ -61,15 +61,14 @@ def manage_exp_user(user, action):
 def check_user_exist(object_user):
     """
     return True if user exist
-    """   
-    user_exist = User.objects.filter(id=object_user.id).exists()
-    return user_exist
+    """
+    return User.objects.filter(id=object_user.id).exists()
 
 
 
 def add_notification_user(user, message, title):
     """
-    Add a Notification to title
+    Add a Notification to user
     """
     if check_user_exist(user):
         creation_notification = Notifications.objects.create(
@@ -79,47 +78,40 @@ def add_notification_user(user, message, title):
                 )
         return creation_notification.save()
 
-    
-    
-
-
-
-
-
 
 class DeleteTestnet(generic.CreateView):
+    """
+    Delete a Testnet
+    """
     model = Testnet
-    
     def get(self, request, slug, *args, **kwargs):
+        """
+        Get slug and current user info
+        """
         queryset = UserInfo.objects.all()
-        
         current_user = get_object_or_404(queryset, user=request.user.id)
-        
-        
         queryset = Testnet.objects.all()
-    
         testnet_to_delete = get_object_or_404(queryset, slug=slug)
-       
-        if testnet_to_delete.testnet_user == current_user or current_user.status == 1:
+        if testnet_to_delete.testnet_user == current_user.user or current_user.status == 1:
             html_pattern = "<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>"
             '''This regex been taken from https://uibakery.io/regex-library/html-regex-python'''
-            #all_testnet_to_delete = Testnet.objects.all().filter(slug_original=testnet_to_delete.slug)
             all_testnet_to_delete = Testnet.objects.all().filter(
                 Q(slug_original=testnet_to_delete.slug) 
                 | Q(slug=testnet_to_delete.slug)
                 )
-            
+            # Before Deleting a Testnet we send the Testnet user info into Notification
+            # If user/admin delete a Testnet which have been copied by other user, original and copy will be deleted
             for testnet in all_testnet_to_delete:
-                
-                
-                
-                message = "The Testnet <code>%s</code> have been deleted by the Author<br>" % re.sub(html_pattern, '', testnet.testnet_name) 
+                message = "The Testnet <code>%s</code> have been deleted by the Author or an Admin<br>" % re.sub(html_pattern, '', testnet.testnet_name) 
                 message += "Here is your informations about this testnet : <br>"
+                # In case a user incoporate malicious script code into Testnet, we dont want this code
+                # to be executed while displaying on Notification : re.sub function will extract some tags
                 message += "Your telegram : " +  re.sub(html_pattern, '', testnet.telegram_user) + "<br>"
                 message += "Your Github : " +  re.sub(html_pattern, '', testnet.github_user) + "<br>"
                 message += "Your discord : " +  re.sub(html_pattern, '', testnet.discord_user) + "<br>"
                 message += "Your twitter : " +  re.sub(html_pattern, '', testnet.twitter_user) + "<br>"
                 message += "Your email : " +  re.sub(html_pattern, '', testnet.email_user) + "<br>"
+                message += "The link : " +  re.sub(html_pattern, '', testnet.website_user) + "<br>"
                 message += "Your wallet 1 : " +  re.sub(html_pattern, '', testnet.wallet1_adress) + "<br>"
                 message += "Private key Wallet 1 : " +  re.sub(html_pattern, '', testnet.wallet1_priv_key) + "<br>"
                 message += "Seed Wallet 1 : " +  re.sub(html_pattern, '', testnet.wallet1_seed) + "<br>"
@@ -134,28 +126,37 @@ class DeleteTestnet(generic.CreateView):
                 message += "Session Wallet 2 : " +  re.sub(html_pattern, '', testnet.wallet2_session) + "<br>"
                 message += "Tasks description : " + re.sub(html_pattern, '', testnet.tasks_description) + "<br>"
                 message += "Tasks Results : " + re.sub(html_pattern, '', testnet.tasks_results) + "<br>"
-                add_notification_user(testnet.testnet_user, message , "Testnet deleted -1")
+                add_notification_user(testnet.testnet_user, message , "Testnet -1")
                 testnet.delete()
-        '''If deleted a testnet and user is the author we substract exp'''
+        
+        #If deleted a testnet and user is the author we substract exp
         if testnet_to_delete.author == current_user.user:
             manage_exp_user(current_user.user, "subtract")
+        #If user is admin
         if current_user.status == 1:
             add_notification_user(current_user.user, "The Testnet called  %s have been deleted" % (testnet_to_delete.testnet_name) , "Testnet -1")
             messages.add_message(self.request, messages.SUCCESS, "You deleted a Testnet successfully")
+            return HttpResponseRedirect(reverse('administrate_testnet'))
         return HttpResponseRedirect(reverse('dashboard'))
 
 
-class CopyTestnet(generic.CreateView):
-    model = Testnet
 
+class CopyTestnet(generic.CreateView):
+    """
+    Copy a Testnet
+    """
+    model = Testnet
     def get(self, request, slug, *args, **kwargs):
+        """
+        Get slug and current user info
+        """
         current_user = UserInfo.objects.get(user=request.user.id)
         author_testnet = Testnet.objects.get(slug=slug)
         # looking after the published original testnet to copy
         queryset = Testnet.objects.all().filter(testnet_user=author_testnet.author, author=author_testnet.author, status_testnet=0)
         testnet_to_copy = get_object_or_404(queryset, slug=slug)
         t = Testnet.objects.get(pk=testnet_to_copy.id)
-
+        # When copy a Testnet we generated a none existing slug as slug should be unique
         base_slug = slugify(t.testnet_name)
         suffix = 0
         while True:
@@ -169,6 +170,7 @@ class CopyTestnet(generic.CreateView):
         t.testnet_name = slug
         t.slug = slug
         t.testnet_user = request.user
+        #We empty the copied testnet info
         t.telegram_user = ''
         t.github_user = ''
         t.discord_user = ''
@@ -187,53 +189,63 @@ class CopyTestnet(generic.CreateView):
         t.wallet2_clue = ''
         t.wallet2_password = ''
         t.wallet2_session = ''
-
         t.pk = None
         t.save()
         testnet_to_copy.copied_nb += 1
         testnet_to_copy.save()
-       # current_user.save()
-        
+        # If user is the author of the expected copied Testnet
         if request.user == testnet_to_copy.author:
             url = reverse('showtestnet', args=[t.slug])
             add_notification_user(request.user, f"You have duplicate one of your Testnet successfully : <a href='{url}' target='_blank'>" + testnet_to_copy.testnet_name + "</a>" , "Testnet duplicated +1")
         else:
-            
             testnet_to_copy.save()
             manage_exp_user(testnet_to_copy.author, "add")
             url = reverse('showtestnet', args=[testnet_to_copy.slug])
-            
             add_notification_user(testnet_to_copy.author, f"%s has copied this <a href='{url}' target='_blank'><code>Testnet</code></a> from you!" % (request.user) , "New Copied Testnet +1")
             add_notification_user(request.user, "As <code>%d Users</code> on the app, You have copied a Testnet from <code> %s </code>called <code> %s </code>" % (t.copied_nb+1,testnet_to_copy.author,testnet_to_copy.testnet_name) , "Testnet copied +1")
-        
         return HttpResponseRedirect(reverse('update_testnet', args=[slug]))
 
 
+
 class FormEditUserMixin:
+    """
+    Class to deal with profile edition user form
+    """
     model = UserInfo
     success_url = '/dashboard/'
     form_class = EditUserForm
-    success_msg = "..."
 
     def get_form_kwargs(self):
+        """
+        Get user from the URL
+        """
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
+        """
+        If form is valid, User Profile will be updated
+        """
         messages.add_message(self.request, messages.SUCCESS, self.success_msg)
         return super().form_valid(form)
 
 
 class GiveAdmin(generic.UpdateView):
-
-
+    """
+    Class to give admin status to a user
+    If already an Admin, it will loose the admin role
+    """
     def get(self, request, id, *args, **kwargs):
+        """
+        Get id from the user to give admin from URL and current User logged
+        """
         current_user = UserInfo.objects.filter(user=request.user.id)
+        # We make sure is admin connected
         admin = get_object_or_404(current_user, status=1)
         user_to_update = UserInfo.objects.get(id=id)
         if user_to_update.status == 1 and request.user.id != id:
-            '''if user already admin and not call himself through URL'''
+            #if user already admin and not call himself through URL'''
             user_to_update.status = 0
             user_to_update.save()
             add_notification_user(user_to_update.user, "<code>%s</code> deleted you as an admin" % (self.request.user.username) , "Admin -1")
@@ -247,18 +259,27 @@ class GiveAdmin(generic.UpdateView):
             add_notification_user(self.request.user, "You added <code>%s</code> as an admin of the App" % (user_to_update.user.username) , "Admin +1")
             messages.add_message(self.request, messages.SUCCESS, "You added a User with Admin Role successfully")
             return HttpResponseRedirect(reverse('show_notifications', args=[self.request.user.username]))
-        
         return HttpResponseRedirect(reverse('dashboard'))
 
 
 class UpdateProfile(FormEditUserMixin,LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    """
+    Update Profile from the FromEditUserMixin class
+    """
     def test_func(self):
+        """
+        Avoiding updating others user Profiles
+        """
         user = self.get_object()
-        """avoiding updating others user Profiles"""
         return  user.id == self.request.user.user_info.id
     success_msg = "Congratulation, your Profile is Updated!"
 
+
+
 class FormTestnetMixin:
+    """
+    Class use to generate Testnet form for adding or editing
+    """
     model = Testnet
     success_url = '/dashboard/'
     form_class = TestnetForm
@@ -266,31 +287,40 @@ class FormTestnetMixin:
     action = "none"
 
     def get_form_kwargs(self):
+        """
+        Get user from the URL
+        """
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
     
     def form_valid(self, form):
-        messages.add_message(self.request, messages.SUCCESS, self.success_msg)
+        """
+        If form is valid and follow the rules given from Testnet Models
+        the testnet will be created or Updated with new data
+        """
+        
         if self.action == 'AddTestnet':
             manage_exp_user(self.request.user, "add")
-            add_notification_user(self.request.user, "You add a new testnet, Good Job!" , "New testnet +1")
+            add_notification_user(self.request.user, "You add a new testnet, Good Job!" , "Testnet +1")
         #self.test_if_author()
         if self.action == 'UpdateTestnet':
+            add_notification_user(self.request.user, "You edited one of your Testnet" , "Update Testnet +1")
             self.update_all_copied_testnet(form)
-
+        messages.add_message(self.request, messages.SUCCESS, self.success_msg)
         return super().form_valid(form)
 
-    def update_all_copied_testnet(self, form):
 
+    def update_all_copied_testnet(self, form):
+        """
+        Update all the copied testnet from the updated Testnet
+        Of course We update only the Testnet information, each user keep their info on each Testnet
+        """
         testnet = self.get_object()
-        #breakpoint()
         if testnet.author == self.request.user:
             testnet_original = Testnet.objects.get(slug=testnet.slug)
-            
-            #testnet_to_update = Testnet.objects.exclude(testnet_user__username=testnet_original.user.username).filter(slug_original = testnet_original.slug)
+            # We seek after all the Testnet with slug_original = slug of the Updated Testnet
             testnet_to_update = Testnet.objects.filter(slug_original = testnet_original.slug)
-            
             for each_testnet in testnet_to_update:
                 each_testnet.tasks_description = form.instance.tasks_description
                 each_testnet.network_name = form.instance.network_name
@@ -306,32 +336,32 @@ class FormTestnetMixin:
                 each_testnet.instagram = form.instance.instagram
                 each_testnet.youtube = form.instance.youtube
                 each_testnet.whitepaper = form.instance.whitepaper
-                #breakpoint()
                 each_testnet.save()
                 url = reverse('showtestnet', args=[each_testnet.slug])
                 add_notification_user(each_testnet.testnet_user, f"An update has been deployed to one of the Testnet you use : {each_testnet.testnet_name}, <a href='{url}' target='_blank'><code>Check it out here</code></a>" , "Updated testnet +1")
             messages.add_message(self.request, messages.SUCCESS, "Updated Testnet : All copies of this Testnet have been updated and all User using this testnet got a Notification about it!")  
 
-            
-        
-
-
-        
-
 
 class AddTestnet(FormTestnetMixin, generic.CreateView):
+    """
+    Add new Testnet
+    """
     action = "AddTestnet"
     success_msg = "Testnet have been created successfully"
+    
 
 class UpdateTestnet(FormTestnetMixin,LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    """
+    Update a Testnet
+    """
     action = 'UpdateTestnet'
-
     def test_func(self):
+        """
+        Avoiding Updating an other user's Testnet
+        """
         testnet = self.get_object()
-        """avoiding updating others testnet"""
         return testnet.testnet_user.username == self.request.user.username
-
-    success_msg = "Testnet registered successfully"
+    success_msg = "Testnet updated successfully"
 
     
 
@@ -444,14 +474,17 @@ class BlockUser(generic.DetailView):
 class ReportTestnet(generic.DetailView):
     def get(self, request, slug, *args, **kwargs):
         current_user = UserInfo.objects.get(user=request.user.id)
-        if not request.user.user_info.is_admin:
-            return HttpResponseRedirect(reverse('dashboard'))
+        
 
         
         
         testnet_to_report = Testnet.objects.get(slug=slug)
         url = reverse('showtestnet', args=[testnet_to_report.slug])
         if testnet_to_report.status_testnet == 2:
+            #If normal User, redirect to dashboard because Testnet is already Reported
+            if not request.user.user_info.is_admin:
+                return HttpResponseRedirect(reverse('dashboard'))
+            #If admin we cancel the report to this testnet
             testnet_to_report.status_testnet = 0
             testnet_to_report.save()
             all_testnet_to_report = Testnet.objects.filter(slug_original=slug)
@@ -477,8 +510,9 @@ class ReportTestnet(generic.DetailView):
                 add_notification_user(admin.user, f"The Testnet called <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + f"</a> got reported by <code>{self.request.user.username}</code>" , "Testnet -1")
             messages.add_message(self.request, messages.SUCCESS, "You reported a Testnet successfully")
         
-        
-        return HttpResponseRedirect(reverse('administrate_testnet'))
+        if request.user.user_info.is_admin:
+            return HttpResponseRedirect(reverse('administrate_testnet'))
+        return HttpResponseRedirect(reverse('dashboard'))
         
             
         
@@ -556,7 +590,7 @@ class AdminitrateTestnet(generic.ListView):
     """
     model = Testnet
     template_name = "administratetestnet.html"
-    paginate_by = 3
+    paginate_by = 8
 
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
@@ -598,7 +632,7 @@ class AdminitrateUsers(generic.ListView):
     """
     model = UserInfo
     template_name = "administrateusers.html"
-    paginate_by = 3
+    paginate_by = 8
 
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
@@ -637,21 +671,16 @@ class ShowNewTestnetAll(generic.ListView):
     """
     model = Testnet
     template_name = "shownewtestnetall.html"
-    paginate_by = 3  
-
-   
-
+    paginate_by = 8
     def get_queryset(self):
         qs = super().get_queryset()  
-
         popular = self.request.GET.get("PopularTestnet", None)
-        
         if popular:
+            # Displaying only most popular Original Testnet from Not Blocked Users
             qs = qs.exclude(testnet_user__user_info__status=2).all().filter(Q(author=F('testnet_user'))).order_by('-copied_nb')
         else:
             # Displaying only Original Testnet from Not Blocked Users
             qs = qs.exclude(testnet_user__user_info__status=2).all().filter(Q(author=F('testnet_user'))).order_by('-updated_on')
-
         return qs
 
     def get_context_data(self, **context):
@@ -671,7 +700,7 @@ class ShowTestnetall(generic.ListView):
     """
     model = Testnet
     template_name = "showtestnetall.html"
-    paginate_by = 3
+    paginate_by = 8
 
     def get(self, request, *args, **kwargs):
         self.testnet_user = self.get_user()

@@ -6,7 +6,7 @@ from cloudinary.models import CloudinaryField
 from django.utils.functional import cached_property
 from django.conf import settings
 
-STATUS = ((0, "User"), (1, "Admin"), (2, "Blocked"), (3, "Deleted"))
+STATUS = ((0, "User"), (1, "Admin"), (2, "Blocked"))
 READ = ((0, "Unread"), (1, "Read"))
 STATUS_TESTNET = ((0, "published"), (2, "Reported"))
 
@@ -132,7 +132,7 @@ class UserInfo(models.Model):
     bio = models.TextField()
     exp = models.IntegerField(default=100)
     status = models.IntegerField(choices=STATUS, default=0)
-    debank = models.CharField(max_length=255)
+    debank = models.CharField(max_length=255, blank=True)
     avatar = CloudinaryField('image', default='placeholder')
     following = models.ManyToManyField(
         User, related_name='following', blank=True)
@@ -149,10 +149,14 @@ class UserInfo(models.Model):
         if not hasattr(self, "_is_followed_by_user"):
             user = UserInfo.objects.get(user=self.user)
             self._is_followed_by_user = user.following.filter(id=request.user.id).exists()
-            
+
+
+    @property
     def user_follows(self):
         return self.user.following
-            
+
+
+    @property
     def is_admin(self):
         if self.status == 1:
             return True

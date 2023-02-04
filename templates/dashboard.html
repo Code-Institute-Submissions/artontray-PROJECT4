@@ -176,7 +176,12 @@
             </div>
             <div class="row">
                 <div class="col mb-2 ">
-                    <p>Debank Adress : {{ object.user_info.debank }}</p>
+                    {% if object.user_info.debank %}
+                    <p>Debank Adress :
+                        <a href="{{ object.user_info.debank }}" target="_blank">Check it out</a>
+                    </p>
+                    {% endif %}
+                    
                     <p>Register : {{ object.date_joined|date  }}</p>
                     {% if object.user_info.last_testnet == "Not created yet" %}
                     <p>My Last Created Testnet : 
