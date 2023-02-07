@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import reverse, redirect
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.utils.html import strip_tags
 
 class EditUserForm(forms.ModelForm):
     class Meta:
@@ -156,11 +158,23 @@ class TestnetForm(forms.ModelForm):
                 else:
                     self.fields[input_name].disabled = True
 
+
+
+
     def clean(self):
         super().clean()
 
         if self.instance.pk:
             return self.cleaned_data
+        
+        data = strip_tags(self.instance.testnet_name)
+        # The slug_original is created according the value of testnet_name
+        # testnet_name cannot start with " " (space)
+        # If it's the case, we just add 'Testnet ' + Testnet_name
+        # so slug and slug_original will be still unique and keep integrity on the app
+        # User can change later the testnet_name on the editing section of the app
+        if data.startswith(""):
+            self.cleaned_data["testnet_name"] = 'Testnet ' + self.cleaned_data["testnet_name"]
         base_slug = slugify(self.cleaned_data["testnet_name"])
         suffix = 0
         while True:
@@ -173,4 +187,5 @@ class TestnetForm(forms.ModelForm):
             suffix += 1
         self.cleaned_data["slug_original"] = slug_original
         self.instance.slug_original = slug_original
+        
         return self.cleaned_data

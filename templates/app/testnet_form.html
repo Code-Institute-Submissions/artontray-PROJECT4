@@ -372,7 +372,17 @@
       
       </div>
       <div class="col-xl-6 col-md-6">
-        <button type="submit" class="btn btn-success btn-block ">{{ form.instance.pk|yesno:"SAVE,CREATE" }} THIS TESTNET</button>
+        
+          {% if form.instance.status_testnet == 2 %}
+            <button type="submit" class="btn btn-danger btn-block " disabled>
+              EDITING NOT AVAILABLE
+            </button>
+          {% else %}
+            <button type="submit" class="btn btn-success btn-block ">
+              {{ form.instance.pk|yesno:"SAVE,CREATE" }} THIS TESTNET
+            </button>
+          {% endif %}
+          
 
       </div>
       

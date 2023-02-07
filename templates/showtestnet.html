@@ -17,6 +17,7 @@
             <div class="card-header py-3">
                 <h6 class="h3 m-0 font-weight-bold text-primary">Testnet by <code>{{ object.author }}</code> :
                     {{ object.testnet_name }}</h6>
+                    {% if testnet.status_testnet == 2  %}<p class="text-danger">(Reported) - copy and Edition not available</p>{% endif %}
             </div>
             <div class="card-body">
                 <div class="row my-2">
@@ -200,9 +201,9 @@
                 <div class="row my-2">
                     <div class="col-xl-12 col-sm-12 col-md-12 ">
                         <p>
-                            {% autoescape on %}
-                            {{ object.tasks_description }}
-                            {% endautoescape %}
+                            
+                            {{ object.tasks_description|linebreaks }}
+                            
                         </p>
                     </div>
                 </div>
@@ -461,9 +462,9 @@
             <div class="card-body">
                 <div class="row my-2">
                     <div class="col-xl-12 col-sm-12 col-md-12 ">
-                        <p> {% autoescape on %}
-                            {{ object.tasks_results }}
-                            {% endautoescape %}
+                        <p> 
+                            {{ object.tasks_results|linebreaks }}
+                            
                         </p>
                     </div>
                 </div>
@@ -509,9 +510,19 @@
         </div>
     </div>
     <div class="col-xl-6 col-sm-12 col-md-12 py-3">
+        {% if testnet.status_testnet == 2  %}
+        <!-- The Testnet have been reported, editing not permitted-->
+        <button class=" btn btn-info btn-user btn-block" disabled>
+            Editing not available
+        </button>
+        {% else %}
         <a href="{% url 'update_testnet' slug=object.slug %}" class=" btn btn-primary btn-user btn-block">
             Edit
         </a>
+        {% endif  %}
+
+
+        
     </div>
 </div>
 {% endif %}
