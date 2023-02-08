@@ -45,6 +45,7 @@
                             {{ object.category }}
                         </p>
                     </div>
+                    {% if object.website %}
                     <div class="col-xl-3 col-sm-12 col-md-6 py-3">
                         <p class="h5 font-weight-bold text-primary">
                             Website 
@@ -53,6 +54,7 @@
                             <a href="{{ object.website }}" target="_blank"><i class="fa-solid fa-link"></i></a>
                         </p>
                     </div>
+                    {% endif %}
                 </div>
 
 
@@ -143,9 +145,17 @@
                             <p class="h5 font-weight-bold text-primary">
                                 Wallet I  
                             </p>
-                            <a href="{% if object.wallet1_link %}{{ object.wallet1_link }}{% else %}#{% endif %}" target="_blank" alt="Wallet I link">
+                            {% if object.wallet1_link and object.wallet1_name %}
+                            <p>
+                                <a href="{{ object.wallet1_link }}" target="_blank" alt="wallet1 link">
+                                    {{ object.wallet1_name }}
+                                </a>
+                            </p>
+                            {% else %}
+                            <p>
                                 {{ object.wallet1_name }}
-                            </a>
+                            </p>
+                            {% endif %}
                         </div>
                     {% endif %}
                     {% if object.wallet1_type %}
@@ -161,9 +171,17 @@
                             <p class="h5 font-weight-bold text-primary">
                                 Wallet II
                             </p>
-                            <a href="{% if object.wallet2_link %}{{ object.wallet2_link }}{% else %}#{% endif %}" target="_blank" alt="Wallet II link">
+                            {% if object.wallet2_link and object.wallet2_name %}
+                            <p>
+                                <a href="{{ object.wallet2_link }}" target="_blank" alt="wallet2 link">
+                                    {{ object.wallet2_name }}
+                                </a>
+                            </p>
+                            {% else %}
+                            <p>
                                 {{ object.wallet2_name }}
-                            </a>
+                            </p>
+                            {% endif %}
                         </div>
                     {% endif %}
                     {% if object.wallet2_type %}
@@ -288,6 +306,7 @@
                             {{ object.email_user }}
                         </p>
                     </div>
+                    {% if object.website_user %}
                     <div class="col-xl-6 col-sm-12 col-md-12 ">
                         <p class="h5 font-weight-bold text-success">
                             Link information Testnet :
@@ -296,6 +315,7 @@
                             Click here
                         </a>
                     </div>
+                    {% endif %}
                 </div>
                 <div class="row my-2">
                     {% if object.twitter_user %}
@@ -342,11 +362,19 @@
                         <p class="h5 font-weight-bold text-dark">
                             Wallet I :
                         </p>
-                        <p>
-                            <a href="{{ object.wallet1_link }}" target="_blank" alt="Github User link">
-                                 {{ object.wallet1_name }}
-                            </a>
-                        </p>
+                        
+                            {% if object.wallet1_link and object.wallet1_name %}
+                            <p>
+                                <a href="{{ object.wallet1_link }}" target="_blank" alt="wallet1 link">
+                                    {{ object.wallet1_name }}
+                                </a>
+                            </p>
+                            {% else %}
+                            <p>
+                                {{ object.wallet1_name }}
+                            </p>
+                            {% endif %}
+                        
                         <p class="h5 font-weight-bold text-dark">
                             Type :
                         </p>
@@ -398,7 +426,7 @@
                             Wallet II :
                         </p>
                         <p>
-                            <a href="{{ object.wallet2_link }}" target="_blank" alt="Github User link">
+                            <a href="{{ object.wallet2_link }}" target="_blank" alt="wallet2 link">
                                  {{ object.wallet2_name }}
                             </a>
                         </p>

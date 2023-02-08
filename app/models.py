@@ -316,8 +316,6 @@ class UserInfo(models.Model):
         return result
 
 
-
-
     def __str__(self):
         return f"{self.user}"
 

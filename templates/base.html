@@ -31,19 +31,21 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item mr-2"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <!--If user just register to platform, redirect to dashboard directly to create his space on table UserInfo-->
+                    {% if request.user.user_info.user_status == '' %}
+                    <meta http-equiv="refresh" content="1;{% url 'dashboard' %}">
+                    {% endif %}
+                    
                     {% if user.is_authenticated %}
-                    <li class="nav-item mr-2"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
                     <li class="nav-item mr-2"><a class="nav-link" href="{% url 'showusers' %}">Users</a></li>
                     <li class="nav-item mr-2"><a class="nav-link" href="{% url 'show_new_testnet_all' %}">Testnet(s)</a></li>
-                    {% endif %}
-
-                 
-                    {% if user.is_authenticated %}
+                    
                     <li class="nav-item mr-2">
-                        <a class="btn btn-primary btn-user btn-block" href="{% url 'account_logout' %}">Logout</a>
+                        <li class="nav-item mr-2"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li class="nav-item mr-2"><a class="btn btn-primary btn-user btn-block" href="{% url 'account_logout' %}">Logout</a></li>
                         
                         
-                    </li>
+                    
                     {% else %}
                     <li class="nav-item mr-2">
                         <a class="btn btn-success btn-user btn-block" href="{% url 'account_login' %}">Connect</a>
@@ -85,10 +87,10 @@
             </div>
         </div>
         {% else %}
-        {% if messages and request.user.is_authenticated %}
+        {% if messages  %}
         
             {% for message in messages %}
-                <p {% if message.tags %} class="h5 align-center alert alert-info text-primary"{% endif %}>{{ message }}, Please check <a href="{% url 'show_notifications' request.user.username %}"><strong>here</strong></a> for more details!</p>
+                <p {% if message.tags %} class="h5 align-center alert alert-info text-primary"{% endif %}>{{ message }}{% if request.user.is_authenticated %}, Please check <a href="{% url 'show_notifications' request.user.username %}"><strong>here</strong></a> for more details!</p>{% endif %}
             {% endfor %}
        
         {% endif %}

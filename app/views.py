@@ -3,7 +3,7 @@ from django.views import generic, View
 from django.db.models import F, Q
 from django.http import HttpResponseRedirect
 from .models import Testnet
-from .models import Notifications, UserInfo, CheckList
+from .models import Notifications, UserInfo
 from django.contrib.auth.models import User
 from django.template import loader,RequestContext
 from django.contrib import messages
@@ -698,6 +698,11 @@ class ShowNewTestnetAll(generic.ListView):
     template_name = "shownewtestnetall.html"
     paginate_by = 8
     def get_queryset(self):
+        """
+        Get the informations for the form on shownewtestnetall.html
+        Return the result of query on Testnet Table depending if "popular" exists
+        if not, we display all Original Testnet registered on the app
+        """
         qs = super().get_queryset()  
         popular = self.request.GET.get("PopularTestnet", None)
         if popular:
@@ -709,7 +714,9 @@ class ShowNewTestnetAll(generic.ListView):
         return qs
 
     def get_context_data(self, **context):
-
+        """
+        Return context with PopularTestnet to get it into URL for paginate_by
+        """
         context = super().get_context_data(**context)
         context.update({
                 "PopularTestnet": 'ok',
@@ -721,31 +728,39 @@ class ShowNewTestnetAll(generic.ListView):
 
 class ShowTestnetall(generic.ListView):
     """
-    This view is used to display All User Testnet 
+    This view is used to display All Testnet from username on URL
     """
     model = Testnet
     template_name = "showtestnetall.html"
     paginate_by = 8
 
     def get(self, request, *args, **kwargs):
+        """
+        Retrives the user
+        """
         self.testnet_user = self.get_user()
         return super().get(request, *args, **kwargs)
     
     def get_user(self):
+        """
+        Get the user into database from username from URL
+        """
         if "username" in self.kwargs:
             return get_object_or_404(User, username=self.kwargs["username"])
         return self.request.user
 
     def get_queryset(self):
+        """
+        Get the informations for the form on showtestnetall.html
+        Return the result of query on Testnet Table depending if "search" exists
+        if not, we display all Testnet (copy and original) from the user on URL
+        """
         qs = super().get_queryset()  
         
         search = self.request.GET.get("searching", None)
         
         if search:
-            #qs = qs.all()
-            #qs = qs.filter(author=F('testnet_user')).all()
-            '''If user is author of the testnet is blocked we exclude it'''
-            '''we exclude also all testnet deleted with testnet_status = 1'''
+            '''If user/author of the testnet is blocked we exclude it'''
             qs = qs.exclude(testnet_user__user_info__status=2).filter((Q(author=F('testnet_user'))) | Q(testnet_user=self.testnet_user))
             qs = qs.filter(
                 Q(testnet_name__icontains=search) 
@@ -754,11 +769,12 @@ class ShowTestnetall(generic.ListView):
             )
         else:
             qs = qs.exclude(testnet_user__user_info__status=2).filter(testnet_user=self.testnet_user)
-
         return qs
 
     def get_context_data(self, **context):
-        # User Testnet listing only the 5 lastest
+        """
+        Return context with informations as searching (to keep the search if paginate_by)
+        """
         context = super().get_context_data(**context)
         context.update({
                 "testnet_username": self.kwargs["username"],
@@ -768,17 +784,20 @@ class ShowTestnetall(generic.ListView):
         )
         return context
 
+
 class ShowUsers(generic.DetailView):
     """
-    This view is used to display User Dashboard informations
+    This view is used to display User from the app (most active order_by 'exp')
     """
     model = User
     template_name = "users.html"
     slug_field = 'username'
     slug_url_kwarg = 'username'
-    #object_user = self.kwargs['object_user']
     
     def get_object(self, queryset=None):
+        """
+        Get the info of current logged user
+        """
         if self.slug_url_kwarg in self.kwargs:
             return super().get_object(queryset)
         else:
@@ -787,28 +806,21 @@ class ShowUsers(generic.DetailView):
 
 
     def get_context_data(self, **context):
-
+        """
+        Return context to the page users.html to display :
+         - users most active on the app
+         - result of searching
+        """
         request = self.request
         object_user = self.request.user
         search = self.request.GET.get("searching_user", None)
         if search:
-            #show_users = User.objects.all().filter(username__icontains=search)
             show_users = UserInfo.objects.all().exclude(status=2).filter(user__username__icontains = search)
-            #first_query.union(second_query)
-
         else:
-            #show_users = UserInfo.objects.all().order_by('-exp')[:10]
             show_users = UserInfo.objects.exclude(status=2).all().order_by('-exp')[:12]
-            
-        #show_users = UserInfo.objects.all().order_by('-exp')[:10]
-
         context.update ({
                 "show_users": show_users,
-                "searching_user": search,
-
-
-
-                
+                "searching_user": search, 
             }
         )
         return context
@@ -826,13 +838,14 @@ class ShowDashboard(generic.DetailView):
     template_name = "dashboard.html"
     slug_field = 'username'
     slug_url_kwarg = 'username'
-    #object_user = self.kwargs['object_user']
     
     def get_object(self, queryset=None):
-
-
+        """
+        Get the info of current logged user
+        """
         request = self.request
         object_user = self.request.user
+
 
         def check_user_info_exist(object_user):
             """
@@ -840,9 +853,11 @@ class ShowDashboard(generic.DetailView):
             """   
             user_info_exist = UserInfo.objects.filter(user_id=object_user.id).exists()
             return user_info_exist
+
+
         if not check_user_info_exist(object_user):
             # Creating user info table with basic value
-            # We fill up the table with none value and 100 exp
+            # We fill up the table with comun avatar image, basic bio and 100 exp
             exp = 100
             bio = 'I just signed up to Testnet Organizer....'
             avatar = "https://res.cloudinary.com/dqnhlza2r/image/upload/v1674941682/ubcbtybbvu9b1zmvgiza.png"
@@ -854,11 +869,9 @@ class ShowDashboard(generic.DetailView):
                 )
             Creation_User_Info.save()
 
-
         if self.slug_url_kwarg in self.kwargs:
             return super().get_object(queryset)
         else:
-
             return self.request.user
 
     
