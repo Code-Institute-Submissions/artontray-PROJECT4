@@ -18,7 +18,8 @@
 <form id="searchform" action="#" method="get" accept-charset="utf-8">
 
 
-
+    <div class="row my-2">
+        <div class="col-lg-3 col-sm-12 col-md-3 py-3">
     <span>
         <input class="searchfield" id="searchbox" minlength=1 name="searching" type="text" placeholder="Search"
             value="{% if searching %}{{ searching }}{% endif %}">
@@ -28,13 +29,16 @@
             <i class="fa fa-search"></i>
         </button>
     </span>
+</div>
 
+    <div class="col-lg-3 col-sm-12 col-md-3 py-3">
     <span>
 
-        <a class=" btn btn-primary" href="{% url 'showtestnetall' request.user.username %}">Show My Testnets</a>
+        <a class=" btn btn-primary " href="{% url 'showtestnetall' request.user.username %}">Show My Testnets</a>
 
     </span>
-
+</div>
+</div>
 </form>
 
 <span><i class="fa-sharp fa-solid fa-circle text-primary"></i> Created by you  </span>
