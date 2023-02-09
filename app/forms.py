@@ -52,7 +52,7 @@ class TestnetForm(forms.ModelForm):
     class Meta:
         model = Testnet
         fields = "__all__"
-        exclude = ['author', 'testnet_user', 'slug_original', 'status_testnet']
+        exclude = ['author', 'testnet_user', 'slug_original', 'status_testnet', 'created_on']
 
         widgets = {
           'description': forms.Textarea(attrs={'rows':2, 'cols':45}),

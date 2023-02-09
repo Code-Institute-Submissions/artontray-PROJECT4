@@ -57,7 +57,7 @@ class Testnet(models.Model):
     wallet2_password = models.CharField(max_length=30, blank=True)
     wallet2_session = models.CharField(max_length=30, blank=True)
     wallet2_clue = models.TextField(blank=True)
-    created_on = models.DateTimeField(auto_now=True)
+    created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     copied_nb = models.IntegerField(default=0, blank=True)
     twitter_user = models.CharField(max_length=21, blank=True)
@@ -318,6 +318,7 @@ class UserInfo(models.Model):
 
     def __str__(self):
         return f"{self.user}"
+
 
 
 class CheckList(models.Model):

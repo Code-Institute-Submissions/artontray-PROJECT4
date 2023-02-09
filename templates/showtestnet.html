@@ -16,7 +16,7 @@
 
             <div class="card-header py-3">
                 <h6 class="h3 m-0 font-weight-bold text-primary">Testnet by <code>{{ object.author }}</code> :
-                    {{ object.testnet_name }}</h6>
+                    {{ object.testnet_name }} <br> created <code>{{ object.created_on|date }}</code> with last update made <code>{{ object.updated_on|date }}</code> </h6>
                     {% if testnet.status_testnet == 2  %}<p class="text-danger">(Reported) - copy and Edition not available</p>{% endif %}
             </div>
             <div class="card-body">
@@ -241,6 +241,44 @@
                 REPORT
             </button> 
         {% else %}
+
+
+            {% if testnet.status_testnet == 2 and request.user.user_info.status == 1 %}
+                <!--Testnet is reported and admin is connected, available for cancel report-->
+                <button type="button" class="btn btn-danger btn-user btn-block" data-toggle="modal" data-target="#CancelReportTestnet{{ testnet.id }}">
+                    CANCEL REPORT
+                </button>
+                <div class="modal" id="CancelReportTestnet{{ testnet.id }}" tabindex="-1" aria-labelledby="CancelReportTestnetLabel{{ testnet.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title h3 text-secondary" id="CancelReportTestnetLabel{{ testnet.id }}">
+                                    <i class="fa-sharp fa-solid fa-circle-exclamation text-danger fa-4x"></i>
+                                </h5>
+                            </div>
+                            <form method="get" action="{% url 'report_testnet' slug=testnet.slug_original %}">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <p class="h4 font-weight-bold text-uppercase text-primary align-center">
+                                        Do you really want to cancel the report for this Testnet  : {{ testnet.testnet_name }} ?
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success btn-user">
+                                        YES
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-user" data-dismiss="modal" aria-label="Close">
+                                        NO
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+
+            
+
             <button type="button" class="btn btn-danger btn-user btn-block" data-toggle="modal" data-target="#ReportTestnet{{ testnet.id }}">
                 REPORT
             </button>
@@ -271,6 +309,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
         {% endif %}
     </div>
     <div class="col-xl-6 col-sm-12 col-md-12 py-3">

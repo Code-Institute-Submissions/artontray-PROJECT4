@@ -317,7 +317,7 @@ class FormTestnetMixin:
     def update_all_copied_testnet(self, form):
         """
         Update all the copied testnet from the updated Testnet
-        Of course We update only the Testnet information, each user keep their info on each Testnet
+        Of course We update only the Testnet information, each user keep their personal info on each Testnet
         """
         testnet = self.get_object()
         if testnet.author == self.request.user:
