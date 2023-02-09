@@ -2,12 +2,12 @@
 
 Blockchain technology is fascinating to me and I observe the emergence of numerous new applications that are accessible to users for testing purposes. This is known as a Testnet. It provides an opportunity for users to evaluate and provide feedback on the app's features. Once the project is ready for its mainnet release as a stable version, beta testers are usually rewarded with an airdrop.
 
-![rewarded](assets/images/readme-images/diapo6.png)
+![rewarded](static/assets/images/readme-images/diapo6.png)
 
 Presently, we are witnessing a shift from web2 to web3, where in web2, all that was required for interaction with a platform was a login and password. With web3, users own a wallet, which serves as a means of interaction with blockchain platforms. This results in the management of various wallets and private keys.
 
 
-![web2/web3](assets/images/readme-images/diapo5.png)
+![web2/web3](static/assets/images/readme-images/diapo5.png)
 
 
 
@@ -16,9 +16,9 @@ Analys of the main problem:
 - Following all of the data that is required during a testnet can be somewhat complicated, as it often involves managing multiple pieces of information and keeping track of different accounts and logins. 
 - When a beta tester becomes eligible to claim their reward, which can occur a year after their participation, they may find themselves in the following situation:
 
-![Overloaded desktop](assets/images/readme-images/diapo7.png)
+![Overloaded desktop](static/assets/images/readme-images/diapo7.png)
 
-![Claim problem](assets/images/readme-images/diapo1.png)
+![Claim problem](static/assets/images/readme-images/diapo1.png)
 
 During a Testnet, you may need to provide an email address to register for the testnet, and then use that email to confirm your registration and receive updates about the testnet. You may also need to create and manage a Discord account to join the testnet community, and use that account to communicate with other participants and receive instructions on how to claim your tokens. Similarly, you may be required to use a Telegram username or create a Github account to access certain features of the testnet.
 It can be helpful to keep track of all the different pieces of information and account logins in a single place, this place is call Testnet Organizer and this is the app i will present here.
@@ -36,7 +36,7 @@ some ability to :
 
 This application prioritizes bringing all information related to testnets into one central location. Registered users can create a section for a particular testnet, which displays all relevant information needed to participate. If another user decides to participate, they can duplicate the testnet section and make modifications with their own participation information. The aim is to create a dynamic within the app, where successful actions result in the accumulation of experience points, encouraging increased interaction with the app.
 
-![mission board](assets/images/readme-images/diapo2.png)
+![mission board](static/assets/images/readme-images/diapo2.png)
 
 
 # Contents
@@ -62,62 +62,62 @@ Main focus was :
 - "all my Testnet" section
 - Statistics about his participation within the app (followers, Testnet numbers etc)
 
-![mission board](assets/images/readme-images/diapo3.png)
+![mission board](static/assets/images/readme-images/diapo3.png)
 
 this is the final result of the dashboard :
 
-![mission board](assets/images/readme-images/diapo4.png)
+![mission board](static/assets/images/readme-images/diapo4.png)
 
 
 This is the organization of the differents interactions that a user will have with the app :
 
 1 - HOME
 
-![HOME](assets/images/readme-images/home.png)
+![HOME](static/assets/images/readme-images/home.png)
 
 2 - USERS PAGE
 
-![USERS PAGE](assets/images/readme-images/userpage.png)
+![USERS PAGE](static/assets/images/readme-images/userpage.png)
 
 3 - DASHBOARD OF THE SELECTED USER
 
-![DASHBOARD](assets/images/readme-images/dashboard1.png)
+![DASHBOARD](static/assets/images/readme-images/dashboard1.png)
 
 4 - COPYING TESTNET OF THIS USER
 
-![COPY](assets/images/readme-images/copytestnet.png)
+![COPY](static/assets/images/readme-images/copytestnet.png)
 
 5 - YOUR DASHBOARD
 
-![EDIT ON DASHBOARD](assets/images/readme-images/edit1.png)
+![EDIT ON DASHBOARD](static/assets/images/readme-images/edit1.png)
 
 6- EDIT A TESTNET
 
-![EDIT TESTNET](assets/images/readme-images/edit2.png)
+![EDIT TESTNET](static/assets/images/readme-images/edit2.png)
 
 7 - YOUR DASHBOARD
 
-![DASHBOARD SHOW](assets/images/readme-images/show1.png)
+![DASHBOARD SHOW](static/assets/images/readme-images/show1.png)
 
 8 - SHOW YOUR TESTNET
 
-![TESTNET SHOW](assets/images/readme-images/showtestnet.png)
+![TESTNET SHOW](static/assets/images/readme-images/showtestnet.png)
 
 9 - ADD A TESTNET
 
-![TESTNET ADD](assets/images/readme-images/addtestnet.png)
+![TESTNET ADD](static/assets/images/readme-images/addtestnet.png)
 
 10 - NOTIFICATIONS
 
-![NOTIFICATIONS](assets/images/readme-images/notifications2.png)
+![NOTIFICATIONS](static/assets/images/readme-images/notifications2.png)
 
-![NOTIFICATIONS](assets/images/readme-images/notifications.png)
+![NOTIFICATIONS](static/assets/images/readme-images/notifications.png)
 
 11 - FOLLOW A USER
 
-![FOLLOW](assets/images/readme-images/follow1.png)
+![FOLLOW](static/assets/images/readme-images/follow1.png)
 
-![FOLLOWED USER](assets/images/readme-images/follow2.png)
+![FOLLOWED USER](static/assets/images/readme-images/follow2.png)
 
 
 It's important to note that the final design may differ visually from the wireframes, due to design decisions made during the creation process.
@@ -136,7 +136,7 @@ Testnet Organizer is divided in three components:
 
 To accomplish this, I had to develop a database table model to streamline the application's functionality. I used [Visual Studio Code](https://code.visualstudio.com/) to generate the following :
 
-![TABLES](assets/images/readme-images/TABLE_TESTNET_ORGANIZER.png)
+![TABLES](static/assets/images/readme-images/TABLE_TESTNET_ORGANIZER.png)
 
 Throughout this project, I employed the principles of Object-Oriented Programming and utilized Django's Class-Based Views. For user authentication, I utilized Django AllAuth.
 
@@ -195,17 +195,17 @@ Initially, I searched for an appropriate template on [Boostrap Website](https://
 I used this template as a basment : [Template Boostrap](https://startbootstrap.com/previews/sb-admin-angular) :
 
 
-![TABLES](assets/images/readme-images/bootstrap.png)
+![TABLES](static/assets/images/readme-images/bootstrap.png)
 
 And I created my first version of the app in static mode, only HTML and CSS :
 
-![TABLES](assets/images/readme-images/versionstatic.png)
+![TABLES](static/assets/images/readme-images/versionstatic.png)
 
-![TABLES](assets/images/readme-images/versionstatic2.png)
+![TABLES](static/assets/images/readme-images/versionstatic2.png)
 
-![TABLES](assets/images/readme-images/versionstatic3.png)
+![TABLES](static/assets/images/readme-images/versionstatic3.png)
 
-![TABLES](assets/images/readme-images/versionstatic4.png)
+![TABLES](static/assets/images/readme-images/versionstatic4.png)
 
 
  * ### Colour Scheme
@@ -213,7 +213,7 @@ And I created my first version of the app in static mode, only HTML and CSS :
 With boostrap,I already add a pre-defined coloring panel to use :
 
 
-![TABLES](assets/images/readme-images/panel.png)
+![TABLES](static/assets/images/readme-images/panel.png)
 
 
 Success : green
@@ -296,9 +296,9 @@ The completion of each User Story is made clear through the defined acceptance c
 
 I used Github to manage the different user stories tasks :
 
-![Agile](assets/images/readme-images/Agile.png)
+![Agile](static/assets/images/readme-images/Agile.png)
 
-![Agile](assets/images/readme-images/agile2.png)
+![Agile](static/assets/images/readme-images/agile2.png)
 
 
 [Back to top](<#contents>)
