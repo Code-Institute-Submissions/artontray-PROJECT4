@@ -166,8 +166,12 @@ class CopyTestnet(generic.CreateView):
                 slug = base_slug
             else:
                 slug = "%s-%d" % (base_slug, suffix)
+                # When copy, a testnet_name and slug is unique, lets check integrity of this
+                # Otherwise loop will try a new suffix until name is available 
+                # for adding both slug and testnet_name into database
             if not Testnet.objects.filter(slug=slug).exists():
-                break
+                if not Testnet.objects.filter(testnet_name=slug).exists():
+                    break
             suffix += 1
         t.testnet_name = slug
         t.slug = slug

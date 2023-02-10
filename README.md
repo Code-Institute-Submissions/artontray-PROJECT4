@@ -49,13 +49,34 @@ This application prioritizes bringing all information related to testnets into o
       -   [Typography](<#typography>)
       -   [Colour Scheme](<#colour-scheme>)
     * [User stories](<#user-stories>)
-
+* [**Existing Features as a User**](<#existing-features-as-a-user>)
+    * [Navigation](<#navigation>)
+    * [Sign Up](<#sign-up>)
+    * [Sign In](<#sign-in>)
+    * [Sign Out](<#sign-out>)
+    * [First Connection](<#first-connection>)
+    * [Edit Profile](<#edit-profile>)
+    * [Add New Testnet](<#add-new-testnet>)
+    * [Edit a Testnet](<#edit-a-testnet>)
+    * [Copy a Testnet](<#copy-a-testnet>)
+    * [Delete a Testnet](<#copy-a-testnet>)
+    * [Users of the app](<#users-of-the-app>)
+    * [Followers](<#followers>)
+    * [Experience as a user](<#Experience-as-a-user>)
+    * [Notification system](<#notification-system>)
+    * [Report a Testnet](<#report-a-testnet>)
+    * [Searching Users](<#searching-users>)
+    * [Searching a testnet](<#searching-a-testnet>)
+    
+    
+    * [Footer](<#footer>)
+    * [Flash Messages](<#flash-messages-and-confirmation-pages-to-the-user>)
 
 # User Experience (UX)
 
 ## Wireframes
 
-I utilized [Balsamiq](https://balsamiq.com/learn/)to visually represent my ideas. From the outset, my goal was to design an efficient dashboard that presents all crucial information in an aesthetically pleasing manner.
+I utilized [Balsamiq](https://balsamiq.com/learn/) to visually represent my ideas. From the outset, my goal was to design an efficient dashboard that presents all crucial information in an aesthetically pleasing manner.
 
 Main focus was :
 - Information about the user
@@ -129,7 +150,7 @@ It's important to note that the final design may differ visually from the wirefr
 
 Testnet Organizer is divided in three components: 
 - The authentication section, where users can register or log in to their existing account.
-- The user section, where users can interact with Testnet(s) and manage their personal information. 
+- The user section, where users can interact with Testnet(s), manage their personal information, Follow Users and Copy their Testnet. 
 - The admin section, accessible to users with administrative privileges, which allows for the management of both users and Testnets (this section will be discussed in further detail later in the document).
 
 
@@ -147,10 +168,10 @@ Models used in this project are:
 - **Testnet** : Handles Testnet with all the informations needed in both part, from the user who participate and the testnet itself.
 - **UserInfo** : Handles User information, status (Admin, user, blocked user), avatar, bio etc...
 - **Notifications** : Handles Users Notification tools. It allows to keep track on actions within the app, like following a new user, updating a Testnet, deleting a testnet but also more advances notifications like "A Testnet you copied have been updated, please check it out" or "One of the testnet you copied have been reported by a user, check it out"
-- **User** : Handles basic information during the register process, Username, email, password
+- **User** : Handles basic information during the registering process, Username, email and password
 - **Checklist** : Provides a checklist for the user to record specific information for the purpose of creating a testnet later on OR simply record a specific data to focus on.
 
-The Model **Checklist** has been created in perspective on creating a new features later on during a next update of the platform. This Model will not be used on the current version of the app (We talk about this later on in the document in "Future Features" section ).
+The Model **Checklist** has been created in perspective on creating a new features later during a next update of the platform. This Model will not be used on the current version of the app (We talk about this later on in the document in "Future Features" section ).
 
 [Back to top](<#contents>)
 
@@ -208,23 +229,34 @@ And I created my first version of the app in static mode, only HTML and CSS :
 ![TABLES](static/assets/images/readme-images/versionstatic4.png)
 
 
+About the font : 
+
+I have been experiencing some trouble to find the perfect font for my App. 
+After trying Bebas_Neue, Delius, EB_Garamond and Playfair_Display, it's [Ubuntu](https://fonts.google.com/specimen/Ubuntu) that really attract me much. So, to have it locally and always available, I decided to download and call the font
+from my style.css file :
+
+![FONT](static/assets/images/readme-images/font1.png)
+
+![FONT](static/assets/images/readme-images/font2.png)
+
  * ### Colour Scheme
 
-With boostrap,I already add a pre-defined coloring panel to use :
+With boostrap,I already had a pre-defined coloring panel to use :
 
 
 ![TABLES](static/assets/images/readme-images/panel.png)
 
 
-Success : green
-Primary : blue
-Secondary : grey
-danger : red
-warning : Yellow
+- Success : green
+- Primary : blue
+- Secondary : grey
+- danger : red
+- warning : Yellow
 
-So, when i need a yellow button : btn-warning
-a blue text : text-primary
-or a red Text : text-danger
+So, when i need :
+- a yellow button : btn-warning
+- a blue text : text-primary
+- or a red Text : text-danger
 
 So Cool!
 
@@ -237,7 +269,7 @@ So Cool!
 
 
 First Time Visitor Goals :
-|  | | |
+| Story | action required | Checked? |
 |:-------:|:--------|:--------|
 | As a first time visit | I want to understand the main purpose of the app | &check; |
 | As a first time visit | I want to understand how to register and how to connect to the app | &check; |
@@ -246,7 +278,7 @@ First Time Visitor Goals :
 The user stories for the project are listed below to clarify the significance of specific features.
 
 ### Site User
-|  | | |
+| Story | action required | Checked? |
 |:-------:|:--------|:--------|
 | As a Site User | I can access the home page, where I will discover the purpose of the application and the proposed solution to the specific problem. | &check; |
 | As a Site User | I can Register as a new user of the App. If already registered, I can log in and log out | &check; |
@@ -275,7 +307,7 @@ The user stories for the project are listed below to clarify the significance of
 
 ### Site Admin
 
-|  | | |
+| Story | action required | Checked? |
 |:-------:|:--------|:--------|
 | As a Site Admin | I can log in and out | &check; |
 | As a Site Admin | I can create, edit and delete a testnet of mine and from others | &check; |
@@ -297,6 +329,8 @@ The completion of each User Story is made clear through the defined acceptance c
 I used Github to manage the different user stories tasks :
 
 ![Agile](static/assets/images/readme-images/Agile.png)
+
+This is the final status of the Agile Strategy displayed:
 
 ![Agile](static/assets/images/readme-images/agile2.png)
 
