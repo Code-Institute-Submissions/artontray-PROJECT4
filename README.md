@@ -54,7 +54,6 @@ This application prioritizes bringing all information related to testnets into o
     * [Sign Up](<#sign-up>)
     * [Sign In](<#sign-in>)
     * [Sign Out](<#sign-out>)
-    * [First Connection](<#first-connection>)
     * [Edit Profile](<#edit-profile>)
     * [Add New Testnet](<#add-new-testnet>)
     * [Edit a Testnet](<#edit-a-testnet>)
@@ -67,10 +66,8 @@ This application prioritizes bringing all information related to testnets into o
     * [Report a Testnet](<#report-a-testnet>)
     * [Searching Users](<#searching-users>)
     * [Searching a testnet](<#searching-a-testnet>)
-    
-    
     * [Footer](<#footer>)
-    * [Flash Messages](<#flash-messages-and-confirmation-pages-to-the-user>)
+
 
 # User Experience (UX)
 
@@ -336,4 +333,97 @@ This is the final status of the Agile Strategy displayed:
 
 
 [Back to top](<#contents>)
+
+# Existing Features as a User
+
+## Navigation
+
+When discovering the app for very first time, you have access to home page which is a dedicated page for user to understand the purpose of the app. Then, you can access to "login" button or a "Register" button :
+
+![barnav](static/assets/images/readme-images/barnav1.png)
+
+If User click on Register button, User will have access to a registration Form  :
+
+![registration form](static/assets/images/readme-images/register.png)
+
+If User click on Connect button, User will have access to a Connection Form  :
+
+![Connection form](static/assets/images/readme-images/connection.png)
+
+
+When a user is logged in, they have access to the following resources:
+
+- Users: The user can view all users of the app and perform a search for a specific user.
+- Testnets: The user can view all testnets of the app, including their own testnets and those of other users. They also have the ability to search for a specific testnet.
+- Dashboard: The user has access to all information related to their account, including their stats and experience points within the app, notifications, profile information, and a list of their latest published testnets.
+- Logout : This button allow to a connected User to log out from the app.
+
+[Back to top](<#contents>)
+
+
+## Sign Up
+
+When a User decide to Register to the app, it will happen the following :
+- If Registration form is correctly filled then :
+  * Auto-Redirection to Dashboard.
+  * Creation of the user into UserInfo Table with basic pre-registered info, pre-selected avatar and pre-written bio. (User can edit anytime)
+
+
+![Profile created with basic info](static/assets/images/readme-images/pre_registered_profile.png)
+
+Then a fresh Dashboard will appear :
+
+![New Dashboard](static/assets/images/readme-images/new_dashboard.png)
+
+
+[Back to top](<#contents>)
+
+
+## Sign In
+
+When a User enter the App with a existing username and correct password, it will happen the following :
+
+- A message indicate User is successfully connected. The NavBar appear with full possibilities :  Dashboard, Testnet, Users
+
+![Enter to the app](static/assets/images/readme-images/connection_successful.png)
+
+
+[Back to top](<#contents>)
+
+
+## Sign Out
+
+When a User click on Logout button, a prompt message will appear :
+
+![Sign out](static/assets/images/readme-images/sure_sign_out.png)
+
+If User click on Sign Out button again, then User will be logged out from the app and a message will be displayed :
+
+![message Sign out](static/assets/images/readme-images/signout_message.png)
+
+## Edit Profile
+
+User can Edit Profile anytime and as many time as User want.
+
+For that, click on the button "Edit profile" :
+
+![Edit Profile](static/assets/images/readme-images/edit_profile.png)
+
+A form will appears :
+
+![Edit Profile](static/assets/images/readme-images/profile_edit_form.png)
+
+Here User can edit, Bio, Debank adresse, Avatar picture.
+
+Username of the User cannot be modified!
+
+Profile will be updated if User modify something, and a message will be displayed :
+
+![Updated Profile](static/assets/images/readme-images/updated_profile_message.png)
+
+
+![Updated Profile](static/assets/images/readme-images/profile_updated.png)
+
+
+
 

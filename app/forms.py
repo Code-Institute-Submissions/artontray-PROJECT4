@@ -38,7 +38,7 @@ class EditUserForm(forms.ModelForm):
             visible.field.widget.attrs['class'] = 'form-control'
         self.fields['avatar'].widget.attrs['class'] = ''
 
-        self.fields['bio'].widget.attrs['placeholder'] = 'Bio'
+        self.fields['bio'].widget.attrs['placeholder'] = 'Describe yourself to share your experience with other Users of the App'
         self.fields['debank'].widget.attrs['placeholder'] = 'https://debank.com/profile/0x56.....ea'
 
         def clean(self):
