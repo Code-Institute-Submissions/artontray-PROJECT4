@@ -67,7 +67,13 @@ This application prioritizes bringing all information related to testnets into o
     * [Searching Users](<#searching-users>)
     * [Searching a testnet](<#searching-a-testnet>)
     * [Footer](<#footer>)
-
+* [**Existing Features as an admin**](<#existing-features-as-a-admin>)
+    * [Navigation](<#navigation>)
+    * [Same features as a normal user](<#same-features-as-a-normal-user>)
+    * [Reported Testnet](<#reported-testnet>)
+    * [Board Users](<#board-users>)
+    * [Give Admin role to others](<#give-admin-role-to-others>)
+    * [Delete Users](<#Delete-users>)
 
 # User Experience (UX)
 
@@ -228,9 +234,7 @@ And I created my first version of the app in static mode, only HTML and CSS :
 
 About the font : 
 
-I have been experiencing some trouble to find the perfect font for my App. 
-After trying Bebas_Neue, Delius, EB_Garamond and Playfair_Display, it's [Ubuntu](https://fonts.google.com/specimen/Ubuntu) that really attract me much. So, to have it locally and always available, I decided to download and call the font
-from my style.css file :
+I've been having difficulty finding the ideal font for my app. I tried Bebas Neue, Delius, EB Garamond, and Playfair Display, but [Ubuntu](https://fonts.google.com/specimen/Ubuntu) font caught my attention the most. To have it readily accessible, I opted to download it and reference it in my style.css file directly :
 
 ![FONT](static/assets/images/readme-images/font1.png)
 
@@ -238,7 +242,7 @@ from my style.css file :
 
  * ### Colour Scheme
 
-With boostrap,I already had a pre-defined coloring panel to use :
+With boostrap, I already had a pre-defined coloring panel to use :
 
 
 ![TABLES](static/assets/images/readme-images/panel.png)
@@ -288,7 +292,6 @@ The user stories for the project are listed below to clarify the significance of
 | As a Site User | I can search for a specific user | &check; |
 | As a Site User | I can search for a specific Testnet | &check; |
 | As a Site User | I can see notifications when i realize an significant action within the app | &check; |
-
 | As a Site User | I can see my experience within the app with nice basic statistics  | &check; |
 | As a Site User | I can see the most active users of the app | &check; |
 | As a Site User | I can Create, Edit and delete a Testnet of mine | &check; |
@@ -338,7 +341,7 @@ This is the final status of the Agile Strategy displayed:
 
 ## Navigation
 
-When discovering the app for very first time, you have access to home page which is a dedicated page for user to understand the purpose of the app.
+When discovering the app for very first time, a User have access to home page which is a dedicated page for user to understand the purpose of the app.
 
 
 ![barnav](static/assets/images/readme-images/purposeapp.png)
@@ -361,7 +364,7 @@ If User click on Connect button, User will have access to a Connection Form  :
 ![Connection form](static/assets/images/readme-images/connection.png)
 
 
-When a user is logged in, they have access to the following resources:
+When a user is logged in, User have access to the following resources:
 
 - Users: The user can view all users of the app and perform a search for a specific user.
 - Testnets: The user can view all testnets of the app, including their own testnets and those of other users. They also have the ability to search for a specific testnet.
@@ -417,7 +420,7 @@ If User click on Sign Out button again, then User will be logged out from the ap
 
 ## Edit Profile
 
-User can Edit Profile anytime and as many time as User want.
+User can Edit Profile anytime and as many time as User wants.
 
 For that, click on the button "Edit profile" :
 
@@ -429,7 +432,9 @@ A form will appears :
 
 Here User can edit, Bio, Debank adresse, Avatar picture.
 
-Username of the User cannot be modified!
+[Back to top](<#contents>)
+
+**Username of the User cannot be modified!**
 
 Profile will be updated if User modify something, and a message will be displayed :
 
@@ -469,9 +474,11 @@ If the form is correctly filled, a message will appears:
 
 And the Testnet will appears as the last Testnet created on Dashboard :
 
-![Add new testnet](static/assets/images/readme-images/testnet_message.png)
+![Add new testnet](static/assets/images/readme-images/lasttestnet.png)
 
-required inputs during the creation of a New Testnet :
+[Back to top](<#contents>)
+
+Required inputs during the creation of a New Testnet :
 
 * Testnet name
 * Testnet Network
@@ -498,18 +505,19 @@ If the creation of a new Testnet is successfull, the User will receive a Notific
 
 There are several places you can start editing a Testnet that belong to the connected User :
 
-- From the section "ALl New Testnet" :
+- From the section "All New Testnet" :
 
-![Add new testnet](static/assets/images/readme-images/edit from testnet new.png)
+  ![Add new testnet](static/assets/images/readme-images/editfromtestnetnew.png)
 
 - From the section "All My Testnet" :
 
-![Add new testnet](static/assets/images/readme-images/edit from all your testnet.png)
+![Add new testnet](static/assets/images/readme-images/editfromallyourtestnet.png)
 
 - From the displayed Testnet itself :
 
-![Add new testnet](static/assets/images/readme-images/edit from testnet itself.png)
+![Add new testnet](static/assets/images/readme-images/editfromtestnetitself.png)
 
+[Back to top](<#contents>)
 
 When editing a Testnet there are two differents displayed Form :
 
@@ -529,14 +537,13 @@ All the Grey inputs are data from the Original Testnet author and will be update
 - When your Testnet is an Original and User is the author
 
 
-
-![Editing copy Testnet](static/assets/images/readme-images/editing when author.png)
+![Editing copy Testnet](static/assets/images/readme-images/editingwhenauthor.png)
 
 As you can see, all inputs are available to edition. 
 
 Consequences :
 
-* If an User update an Original Testnet and User is the Author, All users that copied this Testnet will receive a Notification about this update and
+* If an User update an Original Testnet and User is the Author, All users who copied this Testnet will receive a Notification about this update and
 also, all updates/modifications will appears on the copied Testnet.
 
 Cool, right!
@@ -657,7 +664,7 @@ And a message will be displayed on the screen :
 
 ![follow user](static/assets/images/readme-images/users3.png)
 
-when user display again users, a followed user must be displayed with a full star icon as following :
+when user display again users section, a followed user must be displayed with a full star icon as following :
 
 ![follow user](static/assets/images/readme-images/users4.png)
 
@@ -674,12 +681,12 @@ makes the User earning Experience on the app.
 
 For a User to get Level up, User need to accomplish all the Tasks.
 
-AS you can see, each level get a certain amount of Followers to have, Created Testnet and Testnet Copied from others.
+As you can see, each level get a certain amount of Followers to have, Created Testnet and Testnet Copied from others.
 
 ![stats user](static/assets/images/readme-images/statsusermission.png)
 
-Of course, If a user get unfollowed by an other user or delete one of the created Testnet it will decrease the total
-amount of EXP. The same situation happen if a User delete a Testnet (not copies)
+Of course, If a user get unfollowed by an other user it will decrease the total
+amount of EXP of the user. The same situation happen if a User delete a Testnet (not copies)
 
 ![manage user experience](static/assets/images/readme-images/manageexp.png)
 
@@ -716,7 +723,7 @@ It's important to ensure the security of our platform by verifying that all link
 
 How to protect the App from it?
 
-It's simple, as long as a Testnet contains suspicious on having malicious links, any users can report it and it will be blocked directly from copying and editing.
+It's simple, as long as a Testnet contains suspicious malicious links, any users can report it and it will be blocked directly from copying and editing.
 A red message will be displayed to inform all users about this Testnet.
 
 ![report testnet](static/assets/images/readme-images/reportedtestnet.png)
@@ -778,14 +785,14 @@ On all testnet from selected user's section :
 
 ![Searching Testnet](static/assets/images/readme-images/searchtestnet3.png)
 
-If result of the research show more than 8 results, a pagination system is deployed :
+If result of the research show more than 8 results, a pagination system is deployed automatically :
 
 ![Searching Testnet](static/assets/images/readme-images/searchtestnet4.png)
 
 The research function will search into:
 * Testnet names
 * Testnet's description
-* Username
+* Testnet User
 
 ![Searching Testnet](static/assets/images/readme-images/searchtestnet5.png)
 
@@ -796,3 +803,75 @@ The research function will search into:
 A footer is always displayed on the bottom of the App :
 
 ![Footer](static/assets/images/readme-images/footer.png)
+
+[Back to top](<#contents>)
+
+# Existing Features as an admin
+
+## Navigation
+
+The navigation as an admin is exactly the same as a normal user. 
+With administration role, a User can access to two new sections :
+- Board Users
+- Board Testnet
+
+![Admin Section](static/assets/images/readme-images/adminsection1.png)
+
+[Back to top](<#contents>)
+
+## Same features as a normal user
+
+With Administration Role an Admin can access to the same functionalities as a normal User for :
+- Creating Testnet
+- Editing Testnet
+- Copy a Testnet from an other User
+- Edit Profile
+- Follow/Unfollow other users
+- Report a Testnet
+
+At the end, an admin is an normal User with some special privileges in order to administrate Testnets and Users of the App.
+
+[Back to top](<#contents>)
+
+## Reported Testnet
+
+In the "Board Testnet" section, an admin can do several things :
+
+- Search any testnet from the App
+- See all Reported Testnet(s) { 1 }
+- See if a Testnet is a copy or an Original { 2 } { 4 }
+- Report a Testnet { 3 } 
+- Cancel report to a Testnet { 5 } 
+- Display the Testnet { 6 } 
+- In case the current admin is the author, report is disabled { 7 } 
+
+![Admin Section](static/assets/images/readme-images/admintestnet1.png)
+
+If admin click on "Cancel Report", the following promtp is displayed :
+
+![Admin Section](static/assets/images/readme-images/admintestnet2.png)
+
+
+In case, Admin click on "Report", the following prompt is displayed :
+
+![Admin Section](static/assets/images/readme-images/admintestnet3.png)
+
+
+In case, Admin click on "View", the Testnet will be displayed as the following :
+
+A message will indicate that this Testnet is Reported. Copy and edition is not available.
+
+![Admin Section](static/assets/images/readme-images/admintestnet4.png)
+
+Admin can cancel the report from here by clicking on "Cancel Report"
+
+
+[Back to top](<#contents>)
+
+## Board Users
+
+![Board Users Section](static/assets/images/readme-images/admintestnet5.png)
+
+
+
+

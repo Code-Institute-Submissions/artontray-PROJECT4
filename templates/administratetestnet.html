@@ -4,7 +4,7 @@
 {% if request.user.is_authenticated and request.user.user_info.status == 1 %}
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="mb-0 text-xl font-weight-bold text-primary">Administrate Users on the App
+    <h1 class="mb-0 text-xl font-weight-bold text-primary">Administrate Testnet(s) on the App
         {% if searching %}Searching... "<code><i>{{ searching }}</i></code>"
         {% endif %}
     </h1>
@@ -59,7 +59,8 @@
             <div class="col-lg-5 col-sm-12 col-md-5 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                  
-                        <p class="h5 text-secondary"><i class="fa-solid fa-user"></i>   <code>{{ testnet.testnet_name }}</code> </p>
+                        <p class="h5 text-secondary"><i class="fa-solid fa-user"></i>   
+                            <code>{{ testnet.testnet_name }}</code> by <strong>{{ testnet.author }}</strong></p>
              
                 </h6>
             </div>
@@ -174,45 +175,52 @@
             
 
 
+            <!--Admin User cannot report his own Testnet, it make no sense-->
+            <!--But an Other Admin can report a Testnet from an other Admin-->
+            {% if testnet.author == request.user  %}
+            <button type="button" class="btn btn-danger btn-user btn-block" disabled>
+            <span><i class="fa-sharp fa-solid fa-bug"></i></span>   Cannot Report
+            </button>
+            {% else %}
+            <button type="button" class="btn btn-danger btn-user btn-block" data-toggle="modal"
+            data-target="#ReportTestnet{{ testnet.id }}">
+            <span><i class="fa-sharp fa-solid fa-bug"></i></span>   Report
+            </button>
+                    <div class="modal" id="ReportTestnet{{ testnet.id }}" tabindex="-1"
+                        aria-labelledby="ReportTestnet{{ testnet.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title h3 text-secondary"
+                                        id="ReportTestnetLabel{{ testnet.id }}">
+                                        <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
 
-
+                                    </h5>
+                                </div>
+                                <form method="get" action="{% url 'report_testnet' slug=testnet.slug_original %}">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
+                                            you want to Report this Testnet : {{ testnet.testnet_name }} ? </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success btn-user">
+                                            YES
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
+                                            aria-label="Close">
+                                            NO
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            {% endif %}
 
 
             
-                <button type="button" class="btn btn-danger btn-user btn-block" data-toggle="modal"
-                data-target="#ReportTestnet{{ testnet.id }}">
-                <span><i class="fa-regular fa-copy"></i></span>   Report
-                </button>
-                        <div class="modal" id="ReportTestnet{{ testnet.id }}" tabindex="-1"
-                            aria-labelledby="ReportTestnet{{ testnet.id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title h3 text-secondary"
-                                            id="ReportTestnetLabel{{ testnet.id }}">
-                                            <i class="fa-sharp fa-solid fa-circle-exclamation text-warning fa-4x"></i>
-
-                                        </h5>
-                                    </div>
-                                    <form method="get" action="{% url 'report_testnet' slug=testnet.slug_original %}">
-                                        {% csrf_token %}
-                                        <div class="modal-body">
-                                            <p class="h4 font-weight-bold text-uppercase text-primary align-center">Do 
-                                                you want to Report this Testnet : {{ testnet.testnet_name }} ? </p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success btn-user">
-                                                YES
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-user" data-dismiss="modal"
-                                                aria-label="Close">
-                                                NO
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                
 
 
 
