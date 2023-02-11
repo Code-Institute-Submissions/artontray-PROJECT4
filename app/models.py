@@ -215,6 +215,13 @@ class UserInfo(models.Model):
         return self._nb_copied_testnet
 
     @property
+    def nb_copied_original_testnet_from_user(self):
+        if not hasattr(self, "_nb_copied_original_testnet_from_user"):
+            self._nb_copied_original_testnet_from_user = Testnet.objects.all().exclude(testnet_user=self.user.id).filter(author=self.user.id).count()
+
+        return self._nb_copied_original_testnet_from_user
+
+    @property
     def nb_testnet_copied_from_this_author(self):
         if not hasattr(self, "_nb_testnet_copied_from_this_author"):
             self._nb_testnet_copied_from_this_author = Testnet.objects.all().exclude(testnet_user=self.user.id).filter(author=self.user.id).count()
@@ -310,7 +317,7 @@ class UserInfo(models.Model):
 
     @property
     def pourc_accomplished_copied_testnet(self):
-        result = int((self.nb_copied_testnet/self.current_copied_testnet_max)*100) 
+        result = int((self.nb_copied_original_testnet_from_user/self.current_copied_testnet_max)*100) 
         if result >= 100:
             return 100
         return result

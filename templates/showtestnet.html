@@ -17,7 +17,7 @@
             <div class="card-header py-3">
                 <h6 class="h3 m-0 font-weight-bold text-primary">Testnet by <code>{{ object.author }}</code> :
                     {{ object.testnet_name }} <br> created <code>{{ object.created_on|date }}</code> with last update made <code>{{ object.updated_on|date }}</code> </h6>
-                    {% if testnet.status_testnet == 2  %}<p class="text-danger">(Reported) - copy and Edition not available</p>{% endif %}
+                    {% if testnet.status_testnet == 2  %}<p class="text-danger">(THIS TESTNET IS REPORTED) - copy and Edition not available. Do not click on any links of this Testnet until an Admin review it</p>{% endif %}
             </div>
             <div class="card-body">
                 <div class="row my-2">

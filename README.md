@@ -338,7 +338,17 @@ This is the final status of the Agile Strategy displayed:
 
 ## Navigation
 
-When discovering the app for very first time, you have access to home page which is a dedicated page for user to understand the purpose of the app. Then, you can access to "login" button or a "Register" button :
+When discovering the app for very first time, you have access to home page which is a dedicated page for user to understand the purpose of the app.
+
+
+![barnav](static/assets/images/readme-images/purposeapp.png)
+
+Also, User can see some stats about the App, Numbers of active users and Numbers of registered Testnet on the App.
+
+![barnav](static/assets/images/readme-images/statsapp.png)
+
+
+ Then, you can access to "login" button or a "Register" button :
 
 ![barnav](static/assets/images/readme-images/barnav1.png)
 
@@ -357,6 +367,10 @@ When a user is logged in, they have access to the following resources:
 - Testnets: The user can view all testnets of the app, including their own testnets and those of other users. They also have the ability to search for a specific testnet.
 - Dashboard: The user has access to all information related to their account, including their stats and experience points within the app, notifications, profile information, and a list of their latest published testnets.
 - Logout : This button allow to a connected User to log out from the app.
+
+![Bar Nav when connected](static/assets/images/readme-images/barnavconnecte.png)
+
+
 
 [Back to top](<#contents>)
 
@@ -424,6 +438,361 @@ Profile will be updated if User modify something, and a message will be displaye
 
 ![Updated Profile](static/assets/images/readme-images/profile_updated.png)
 
+[Back to top](<#contents>)
+
+## Add New Testnet
+
+Once Registered or Logged, a User can Create a new Testnet :
+
+A button is displayed to realize this action :
+- on Dashboard
+
+![Add new testnet](static/assets/images/readme-images/from_dashboard.png)
+
+- on Testnet Page
+
+![Add new testnet](static/assets/images/readme-images/from_testnet_page.png)
+
+A form is displayed :
+
+![Add new testnet](static/assets/images/readme-images/form_new_testnet1.png)
+
+![Add new testnet](static/assets/images/readme-images/form_new_testnet2.png)
+
+![Add new testnet](static/assets/images/readme-images/form_new_testnet3.png)
+
+![Add new testnet](static/assets/images/readme-images/form_new_testnet4.png)
+
+If the form is correctly filled, a message will appears:
+
+![Add new testnet message](static/assets/images/readme-images/testnet_message.png)
+
+And the Testnet will appears as the last Testnet created on Dashboard :
+
+![Add new testnet](static/assets/images/readme-images/testnet_message.png)
+
+required inputs during the creation of a New Testnet :
+
+* Testnet name
+* Testnet Network
+* Testnet Description
+* Testnet Status
+* Testnet Category
+* Testnet Tasks Description
+
+Of course, Testnet name should be unique on the plateform and if User type an existing Testnet, it will display 
+the following message : 
+
+![Add new testnet already exist](static/assets/images/readme-images/already_exist.png)
+
+
+If the creation of a new Testnet is successfull, the User will receive a Notification :
+
+![Add new testnet success](static/assets/images/readme-images/addtestnetnotification.png)
+
+
+[Back to top](<#contents>)
+
+
+## Edit a Testnet
+
+There are several places you can start editing a Testnet that belong to the connected User :
+
+- From the section "ALl New Testnet" :
+
+![Add new testnet](static/assets/images/readme-images/edit from testnet new.png)
+
+- From the section "All My Testnet" :
+
+![Add new testnet](static/assets/images/readme-images/edit from all your testnet.png)
+
+- From the displayed Testnet itself :
+
+![Add new testnet](static/assets/images/readme-images/edit from testnet itself.png)
+
+
+When editing a Testnet there are two differents displayed Form :
+
+- When your Testnet is a copy
+
+![Editing copy Testnet](static/assets/images/readme-images/copytestnet1.png)
+
+![Editing copy Testnet](static/assets/images/readme-images/copytestnet2.png)
+
+![Editing copy Testnet](static/assets/images/readme-images/copytestnet3.png)
+
+As you can see, only inputs related to Users experience with this Testnet is available for editing.
+All the Grey inputs are data from the Original Testnet author and will be updated if the Author realized an edition on it.
 
 
 
+- When your Testnet is an Original and User is the author
+
+
+
+![Editing copy Testnet](static/assets/images/readme-images/editing when author.png)
+
+As you can see, all inputs are available to edition. 
+
+Consequences :
+
+* If an User update an Original Testnet and User is the Author, All users that copied this Testnet will receive a Notification about this update and
+also, all updates/modifications will appears on the copied Testnet.
+
+Cool, right!
+
+After submitting the changes of an Original Testnet and User connected is the Author, User will see the following message :
+
+![Editing copy Testnet message](static/assets/images/readme-images/success_edition_testnet.png)
+
+If updated Testnet is a Copy, User will see the following message :
+
+![Editing copy Testnet message](static/assets/images/readme-images/success_edition_testnet2.png)
+
+
+[Back to top](<#contents>)
+
+
+## Copy a Testnet
+
+When a User find a Testnet to participate, User can choose to **Copy** this Testnet to add it own data as :
+- Testnet Name
+- All info about the account used to participate as Discord account, Telegram account, Twitter account etc..
+- All info about the wallet used to participate as Wallet adress, password, seed phrase etc..
+- All info about the User participation as Transaction links, data , snapshots, email content etc..
+
+All thoses data are only displayed for the User, in any case other Users can see thoses informations.
+
+User can also Copy an already Copied Testnet so it allow User to participate to same Testnet but with 
+different account informations. When participation is double, the rewards are double also :-D
+
+When a User click on the copy button, a prompt message is displayed :
+
+![Copy Testnet](static/assets/images/readme-images/copytestnetinfo.png)
+
+If accepted, User will have access to a Form where User can edit the copy of this Testnet with information in relation to 
+his participation.
+
+If the copied Testnet is a copy from his own Original, User will see the following message on Notifications :
+
+![Copy Testnet](static/assets/images/readme-images/duplicatetestnet.png)
+
+
+If the User copy an Original Testnet but not the Author, User will see the following message on Notifications :
+
+![Copy Testnet](static/assets/images/readme-images/duplicatetestnet2.png)
+
+
+[Back to top](<#contents>)
+
+
+## Delete a Testnet
+
+* If Connected User is the owner of a Copied Testnet, User can delete it at any time :
+
+![Delete Testnet](static/assets/images/readme-images/deletetestnet.png)
+
+
+A prompt message is displayed to confirm the fact of deleting this current Testnet :
+
+![Delete Testnet](static/assets/images/readme-images/deletetestnet1.png)
+
+
+if User decide to proceed to delete this Testnet, it will display the following message :
+
+![Delete Testnet](static/assets/images/readme-images/deletetestnetmessage.png)
+
+
+And User will get a Notification :
+
+![Delete Testnet](static/assets/images/readme-images/notificationdeletedTestnet.png)
+
+
+
+* If the User who is connected is the creator of the Testnet, all users who have replicated this testnet will receive a notification containing the information they provided when they made their copy.
+
+![Delete Testnet](static/assets/images/readme-images/deletedbyauthor.png)
+
+
+and the following message will be displayed :
+
+![Delete Testnet](static/assets/images/readme-images/deletedbyauthor2.png)
+
+[Back to top](<#contents>)
+
+
+## Users of the app
+
+Connected User can access to the "Users" section to get the 12 most active players of this app.
+
+![users](static/assets/images/readme-images/mostactiveusers.png)
+
+
+on this page, User can follow, unfollow a User , search a User or display other User Dashboard with limited information(s)
+
+This is an example of User Dashboard that any user of the app can access :
+
+![Users](static/assets/images/readme-images/displayuserdashboard.png)
+
+[Back to top](<#contents>)
+
+## Followers
+
+This User section can allow any connected user to follow to each other. By clicking on the empty star icon, you can follow a User. 
+
+![follow user](static/assets/images/readme-images/users1.png)
+
+When user click on the empty stars, a prompt message will be displayed :
+
+![follow user](static/assets/images/readme-images/users2.png)
+
+when confirmed, a notification will be send to the user that follow but also the followed user :
+
+![follow user](static/assets/images/readme-images/users5.png)
+
+![follow user](static/assets/images/readme-images/users6.png)
+
+
+And a message will be displayed on the screen :
+
+![follow user](static/assets/images/readme-images/users3.png)
+
+when user display again users, a followed user must be displayed with a full star icon as following :
+
+![follow user](static/assets/images/readme-images/users4.png)
+
+[Back to top](<#contents>)
+
+## Experience as a user
+
+As a User, every significant actions as :
+* Create a Testnet 
+* Get followed by an other
+* Get A created Testnet copied by an other user 
+
+makes the User earning Experience on the app.
+
+For a User to get Level up, User need to accomplish all the Tasks.
+
+AS you can see, each level get a certain amount of Followers to have, Created Testnet and Testnet Copied from others.
+
+![stats user](static/assets/images/readme-images/statsusermission.png)
+
+Of course, If a user get unfollowed by an other user or delete one of the created Testnet it will decrease the total
+amount of EXP. The same situation happen if a User delete a Testnet (not copies)
+
+![manage user experience](static/assets/images/readme-images/manageexp.png)
+
+[Back to top](<#contents>)
+
+## Notification system
+
+Every Users of the App have a Notification board where it's displayed all the actions realized by the user.
+
+![notifications](static/assets/images/readme-images/seenotif.png)
+
+
+If User click on "Show", User can see Unread notification(s) and Read notification(s) :
+
+Read Notification(s) :
+
+![notifications](static/assets/images/readme-images/read.png)
+
+Unread Notification(s) :
+
+![notifications](static/assets/images/readme-images/unread.png)
+
+When User click on the button "OK" on unread notification(s) it will transfer the notification to "Read Notification" section :
+
+![notifications](static/assets/images/readme-images/clicknotif.png)
+
+![notifications](static/assets/images/readme-images/notiftransfered.png)
+
+[Back to top](<#contents>)
+
+## Report a Testnet
+
+It's important to ensure the security of our platform by verifying that all links entered by users are legitimate. This is crucial because allowing a malicious link can result in a phishing attack scam.
+
+How to protect the App from it?
+
+It's simple, as long as a Testnet contains suspicious on having malicious links, any users can report it and it will be blocked directly from copying and editing.
+A red message will be displayed to inform all users about this Testnet.
+
+![report testnet](static/assets/images/readme-images/reportedtestnet.png)
+
+![report testnet](static/assets/images/readme-images/reportedtestnet1.png)
+
+![report testnet](static/assets/images/readme-images/reportedtestnet2.png)
+
+User who made the report will receive a notification :
+
+![report testnet](static/assets/images/readme-images/reportedtestnet3.png)
+
+And all Users with administration role will receive a notification as following :
+
+![report testnet](static/assets/images/readme-images/reportedtestnet4.png)
+
+In case one of the Connected User's Testnet has been reported, User will be informed with notification :
+
+![report testnet](static/assets/images/readme-images/reportedtestnet5.png)
+
+In this documentation, we will cover later how users with administrative roles handle reported Testnet issues.
+
+
+[Back to top](<#contents>)
+
+## Searching Users
+
+As a user, it's possible to search any unblocked User of the App by typing at least 3 characters on the search input :
+
+![search user](static/assets/images/readme-images/searchingusers.png)
+
+If user only provide less than 3 character, it will appears the following messages :
+
+![search user](static/assets/images/readme-images/searchingusers1.png)
+
+
+If the search input is filled correctly :
+
+![search user](static/assets/images/readme-images/searchingusers2.png)
+
+Users can still access the same features, including the ability to view the dashboard of a searched user and follow or unfollow them.
+
+[Back to top](<#contents>)
+
+## Searching a testnet
+
+There are several way to reach the Testnet research's section :
+
+On dashboard :
+
+![Searching Testnet](static/assets/images/readme-images/searchtestnet1.png)
+
+
+On All New Testnet Section :
+
+![Searching Testnet](static/assets/images/readme-images/searchtestnet2.png)
+ 
+On all testnet from selected user's section :
+
+![Searching Testnet](static/assets/images/readme-images/searchtestnet3.png)
+
+If result of the research show more than 8 results, a pagination system is deployed :
+
+![Searching Testnet](static/assets/images/readme-images/searchtestnet4.png)
+
+The research function will search into:
+* Testnet names
+* Testnet's description
+* Username
+
+![Searching Testnet](static/assets/images/readme-images/searchtestnet5.png)
+
+[Back to top](<#contents>)
+
+## Footer
+
+A footer is always displayed on the bottom of the App :
+
+![Footer](static/assets/images/readme-images/footer.png)

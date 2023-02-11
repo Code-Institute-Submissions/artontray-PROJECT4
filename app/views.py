@@ -49,14 +49,15 @@ def manage_exp_user(user, action):
     """
     exp = settings.EXP_PER_ACTION*settings.COEFF_FOR_LEVEL_UP   
     user_info = UserInfo.objects.get(user=user)
+    
     if action == "add":
         user_info.exp += exp
     elif action == "subtract":
         user_info.exp -= exp
     else:
         pass
-    user_info.save()
-
+    
+    return user_info.save()
 
 def check_user_exist(object_user):
     """
@@ -128,16 +129,25 @@ class DeleteTestnet(generic.CreateView):
                 message += "Tasks Results : " + re.sub(html_pattern, '', testnet.tasks_results) + "<br>"
                 add_notification_user(testnet.testnet_user, message , "Testnet -1")
                 testnet.delete()
+                #If testnet_user and author is same we substract exp
+                if testnet_to_delete.author == testnet_to_delete.testnet_user:
+                    manage_exp_user(testnet_to_delete.testnet_user, "subtract")
+                    messages.add_message(self.request, messages.SUCCESS, "You deleted a Testnet successfully and all users who copied this Testnet will receive a Notification about it!")
+                else:
+                    add_notification_user(current_user.user, "The Testnet called  %s have been deleted" % (testnet_to_delete.testnet_name) , "Testnet -1")
+                    messages.add_message(self.request, messages.SUCCESS, "You deleted a Testnet successfully")
+                #If user is admin
+                if current_user.status == 1:
+                    add_notification_user(current_user.user, "The Testnet called  %s have been deleted" % (testnet_to_delete.testnet_name) , "Testnet -1")
+                    messages.add_message(self.request, messages.SUCCESS, "You deleted a Testnet successfully")
+                    return HttpResponseRedirect(reverse('administrate_testnet'))
+            return HttpResponseRedirect(reverse('dashboard'))
+
+        else:
+            add_notification_user(current_user.user, "You cannot delete this Testnet : <code>%s</code> , it's proprety of an other User!" % (testnet_to_delete.testnet_name) , "Testnet -1")
+            messages.add_message(self.request, messages.SUCCESS, "You cannot delete this Testnet! Action Aborted...")
+            return HttpResponseRedirect(reverse('dashboard'))
         
-        #If deleted a testnet and user is the author we substract exp
-        if testnet_to_delete.author == current_user.user:
-            manage_exp_user(current_user.user, "subtract")
-        #If user is admin
-        if current_user.status == 1:
-            add_notification_user(current_user.user, "The Testnet called  %s have been deleted" % (testnet_to_delete.testnet_name) , "Testnet -1")
-            messages.add_message(self.request, messages.SUCCESS, "You deleted a Testnet successfully")
-            return HttpResponseRedirect(reverse('administrate_testnet'))
-        return HttpResponseRedirect(reverse('dashboard'))
 
 
 
@@ -532,7 +542,7 @@ class ReportTestnet(generic.DetailView):
                 testnets.save()
             
             # We inform the Author
-            add_notification_user(testnet_to_report.author, f"{self.request.user.username} reported your testnet : <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + "</a>" , "Testnet -1")
+            add_notification_user(testnet_to_report.author, f"<code>{self.request.user.username}</code> reported your testnet : <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + "</a>" , "Testnet -1")
             add_notification_user(self.request.user, "You reported a testnet called <code>%s</code>" % (testnet_to_report.testnet_name) , "Reported +1")
             all_admin = UserInfo.objects.all().filter(status=1)
             # Send to all admin of the platform about this reported Testnet

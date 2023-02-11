@@ -155,7 +155,7 @@
                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
-                <h4 class="small font-weight-bold">COPY {{ object.user_info.current_copied_testnet_max }} TESTNETS
+                <h4 class="small font-weight-bold"> {{ object.user_info.current_copied_testnet_max }} COPIED TESTNETS
                     <span class="float-right">{{ object.user_info.pourc_accomplished_copied_testnet }} %</span>
                 </h4>
                 <div class="progress">
@@ -326,7 +326,7 @@
             <div class="col-lg-10 col-sm-12 col-md-10 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                     <i class="fa-solid fa-arrow-right"></i>
-                    {{ testnet.testnet_name }}
+                    {{ testnet.testnet_name }} , <code>{{ testnet.category }}</code>, {{ testnet.network_status }}, last update : <code>{{ testnet.updated_on|date }}</code>
                     
                 </h6>
             </div>
