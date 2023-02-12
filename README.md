@@ -863,7 +863,13 @@ A message will indicate that this Testnet is Reported. Copy and edition is not a
 
 ![Admin Section](static/assets/images/readme-images/admintestnet4.png)
 
-Admin can cancel the report from here by clicking on "Cancel Report"
+Admin can cancel the report from here by clicking on "Cancel Report".
+
+Note that, On previous picture, it seems the Testnet With no data to show but it's because only the required
+inputs have been filled (Testnet name, network, status, tasks description, Category).
+Of course, if user register all the information, everything will appears like this :
+
+![Board admin section](static/assets/images/readme-images/showtestnetwhenfilled.png)
 
 
 [Back to top](<#contents>)
