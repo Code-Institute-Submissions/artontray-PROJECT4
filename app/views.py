@@ -882,7 +882,13 @@ class ShowDashboard(generic.DetailView):
                 avatar=avatar
                 )
             Creation_User_Info.save()
-
+            # We make an welcome message to this new user
+            messages.add_message(self.request, messages.SUCCESS, "Welcome to our Dashboard, Please Edit your Profile!")
+            queryset = UserInfo.objects.all()
+            # We identify the new User
+            new_user = get_object_or_404(queryset, user_id=object_user.id)
+            # We send a Notification to this new User
+            add_notification_user(new_user.user, f"Welcome to Testnet Organizer, Your account has been created successfully. Please, any questions, contact us : <code>admin@TestnetOrganizer.com</code>" , "Welcome Message +1")
         if self.slug_url_kwarg in self.kwargs:
             return super().get_object(queryset)
         else:
