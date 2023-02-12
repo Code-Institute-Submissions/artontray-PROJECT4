@@ -1,53 +1,42 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="mb-0 text-xl font-weight-bold text-primary">All Testnet(s) from :
-        {% if searching %}Searching... "<code><i>{{ searching }}</i></code>"
-        
+    <h1 class="mb-0 text-xl font-weight-bold badge-primary border-all-around-radius">All Testnet(s) from :
+        {% if searching %}
+            Searching... "<code><i>{{ searching }}</i></code>"
         {% else %}
-        {{ testnet_username }}
+            {{ testnet_username }}
         {% endif %}
     </h1>
-
 </div>
-<!-- Content Row Number 1-->
-
+<!-- SEARCH FORM-->
 <form id="searchform" action="#" method="get" accept-charset="utf-8">
-
-
     <div class="row my-2">
         <div class="col-lg-3 col-sm-12 col-md-3 py-3">
-    <span>
-        <input class="searchfield" id="searchbox" minlength=1 name="searching" type="text" placeholder="Search"
-            value="{% if searching %}{{ searching }}{% endif %}">
-    </span>
-    <span>
-        <button class="searchbutton" type="submit">
-            <i class="fa fa-search"></i>
-        </button>
-    </span>
-</div>
-
-    <div class="col-lg-3 col-sm-12 col-md-3 py-3">
-    <span>
-
-        <a class=" btn btn-primary " href="{% url 'showtestnetall' request.user.username %}">Show My Testnets</a>
-
-    </span>
-</div>
-</div>
+            <span>
+                <input class="searchfield" id="searchbox" minlength=1 name="searching" type="text" placeholder="Search"
+                    value="{% if searching %}{{ searching }}{% endif %}">
+            </span>
+            <span>
+                <button class="searchbutton" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+        <div class="col-lg-3 col-sm-12 col-md-3 py-3">
+            <span>
+                <a class=" btn btn-primary " href="{% url 'showtestnetall' request.user.username %}">Show My Testnets</a>
+            </span>
+        </div>
+    </div>
 </form>
-
 <span><i class="fa-sharp fa-solid fa-circle text-primary"></i> Created by you  </span>
 <span><i class="fa-sharp fa-solid fa-circle text-warning"></i> Copied by you  </span>
 <span><i class="fa-sharp fa-solid fa-circle text-secondary"></i> Testnet from an other User  </span>
 
-
-<!-- End Content Row Number 2-->
-<!-- Listing of the all testnet created by user-->
+<!-- Listing of the all testnet created by current user searched or current user on URL-->
 
 
 
