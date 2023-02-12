@@ -200,12 +200,11 @@ class UserInfo(models.Model):
 
         return self._nb_testnet
 
-    # If user has more than 5 Testnet Registered we display a Button "Show More" on Dashboard section
+    # If user has more than 1 Testnet Registered we display a Button "Show More" on Dashboard section
     @property
     def show_testnet_user(self):
         if not hasattr(self, "_show_testnet_user"):
-            self._show_testnet_user = Testnet.objects.exclude(testnet_user__user_info__status=2).exclude(status_testnet=1).all().filter(testnet_user=self.user.id)[:5]
-
+            self._show_testnet_user = Testnet.objects.exclude(testnet_user__user_info__status=2).exclude(status_testnet=1).all().filter(testnet_user=self.user.id).all()
         return self._show_testnet_user    
 
     @property

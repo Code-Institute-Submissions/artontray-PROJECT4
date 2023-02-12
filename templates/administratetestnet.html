@@ -28,16 +28,36 @@
     </form>
     <span><i class="fa-sharp fa-solid fa-circle text-success"></i> Active Testnet </span>
     <span><i class="fa-sharp fa-solid fa-circle text-danger"></i> Reported Testnet </span>
+    <br>
+    <span class="badge badge-danger">Time Copied</span>
+    <span class="badge badge-primary">Network</span>
+    <span class="badge badge-secondary">Category</span>
+    <span class="badge badge-success">Testnet, Devnet or Mainnet</span>
+    <span class="badge badge-info" >Wallet I</span>
+    <span class="badge badge-warning">Wallet II</span>
     <!-- Listing of the all Reported Testnet OR Searching result Testnet-->
     {% for testnet in object_list %}
         <div class="container-fluid 
             bg-light border-bottom-{% if testnet.status_testnet == 2  %}danger{% else %}success{% endif %} border-all-around-radius my-2">
             <div class="row my-2">
+                
                 <div class="col-lg-5 col-sm-12 col-md-5 py-3">
                     <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
-                        <p class="h5 text-secondary"><i class="fa-solid fa-user"></i>
-                            <code>{{ testnet.testnet_name }}</code> by <strong>{{ testnet.author }}</strong>
-                        </p>
+                        <a href="{% url 'showtestnet' testnet.slug %}" class="no-decoration">
+                            <p class="h5 text-secondary"><i class="fa-solid fa-circle-arrow-right text-info"></i>
+                                {{ testnet.testnet_name }} by <strong>{{ testnet.author }}</strong>
+                                <span class="badge badge-danger">Copied : X {{ testnet.copied_nb }}</span>
+                                <span class="badge badge-primary">{{ testnet.network_name }}</span>
+                                <span class="badge badge-secondary">{{ testnet.category }}</span>
+                                <span class="badge badge-success">{{ testnet.network_status }}</span>
+                                {% if testnet.wallet1_name %}
+                                    <span class="badge badge-info" >{{ testnet.wallet1_name }}</span>
+                                {% endif %}
+                                {% if testnet.wallet2_name %}
+                                    <span class="badge badge-warning">{{ testnet.wallet2_name }}</span>
+                                {% endif %}
+                            </p>
+                        </a>
                     </h6>
                 </div>
                 <div class="col-lg-1 col-sm-12 col-md-1 py-3">

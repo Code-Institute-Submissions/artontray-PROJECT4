@@ -72,8 +72,6 @@ This application prioritizes bringing all information related to testnets into o
     * [Same features as a normal user](<#same-features-as-a-normal-user>)
     * [Reported Testnet](<#reported-testnet>)
     * [Board Users](<#board-users>)
-    * [Give Admin role to others](<#give-admin-role-to-others>)
-    * [Delete Users](<#Delete-users>)
 
 # User Experience (UX)
 
@@ -274,6 +272,7 @@ First Time Visitor Goals :
 |:-------:|:--------|:--------|
 | As a first time visit | I want to understand the main purpose of the app | &check; |
 | As a first time visit | I want to understand how to register and how to connect to the app | &check; |
+| As a first time visit | I want to see a Welcome message | &check; |
 
 
 The user stories for the project are listed below to clarify the significance of specific features.
@@ -359,6 +358,8 @@ If User click on Register button, User will have access to a registration Form  
 
 ![registration form](static/assets/images/readme-images/register.png)
 
+
+
 If User click on Connect button, User will have access to a Connection Form  :
 
 ![Connection form](static/assets/images/readme-images/connection.png)
@@ -383,10 +384,19 @@ When a user is logged in, User have access to the following resources:
 When a User decide to Register to the app, it will happen the following :
 - If Registration form is correctly filled then :
   * Auto-Redirection to Dashboard.
+  * A Welcome Message is displayed
+  * A notification are sent to the User about this event
   * Creation of the user into UserInfo Table with basic pre-registered info, pre-selected avatar and pre-written bio. (User can edit anytime)
 
 
 ![Profile created with basic info](static/assets/images/readme-images/pre_registered_profile.png)
+
+When registered, User will see a Welcome Message and a Notification :
+
+![Welcome Message](static/assets/images/readme-images/welcome.png)
+
+![Welcome Message](static/assets/images/readme-images/welcome1.png)
+
 
 Then a fresh Dashboard will appear :
 
@@ -659,14 +669,25 @@ when confirmed, a notification will be send to the user that follow but also the
 
 ![follow user](static/assets/images/readme-images/users6.png)
 
+Note : The followed User will receive Exp points for this.
+Of course, if the user decide to Unfollow, the User will loose some EXP points.
+
 
 And a message will be displayed on the screen :
 
 ![follow user](static/assets/images/readme-images/users3.png)
 
-when user display again users section, a followed user must be displayed with a full star icon as following :
+when user display again "users" section, a followed user must be displayed with a full star icon as following :
 
 ![follow user](static/assets/images/readme-images/users4.png)
+
+But, We could naturally ask :
+What is the point to follow Users ?
+That's a good question, actually, following a User will give you an Notifications when one of your followed User
+have created a New Testnet.
+
+![follow user](static/assets/images/readme-images/notifwhenfollowing.png)
+
 
 [Back to top](<#contents>)
 
@@ -839,7 +860,7 @@ In the "Board Testnet" section, an admin can do several things :
 
 - Search any testnet from the App
 - See all Reported Testnet(s) { 1 }
-- See if a Testnet is a copy or an Original { 2 } { 4 }
+- See if a Testnet is a copy { 4 } or an Original  { 2 }
 - Report a Testnet { 3 } 
 - Cancel report to a Testnet { 5 } 
 - Display the Testnet { 6 } 
@@ -877,6 +898,133 @@ Of course, if user register all the information, everything will appears like th
 ## Board Users
 
 ![Board Users Section](static/assets/images/readme-images/admintestnet5.png)
+
+As you can see, this administration board for users give the user with admin role the possibility to :
+
+* See all the blocked User {1} :
+  This button allow the Admin to have all blocked Users of the App. 
+  If the amount of blocked user is more than 8, a pagination will be automatically deployed :
+
+[Back to top](<#contents>)
+
+![Deleted User](static/assets/images/readme-images/paginationblockeduser.png)
+  
+
+* Delete a User from the App {2} :
+  The Admin can permanently remove a user from the app using the "Delete" button. This will result in the deletion of all testnets and copies of the user from the app, and a notification will be sent to all users who have copied testnets from this user. However, before the "Delete" button becomes available, the Admin must first block the user. This added layer of protection helps prevent accidental deletions. Blocking a user temporarily hides their presence on the app, as well as their testnets and dashboard, from other users, giving the Admins time to discuss and make a final decision on the user's status.
+
+Before Deleting User, a prompt will be displayed : 
+
+![Deleted User](static/assets/images/readme-images/deletinguser.png)
+
+
+ A message is displayed :
+
+![Deleted User](static/assets/images/readme-images/deletedusermessage.png)
+ 
+
+ An a notification is sent To admin :
+
+![Deleted User](static/assets/images/readme-images/notifdeleteduser.png)
+ 
+
+ All User who copied one of this deleted User Testnet will receive this following Notification :
+
+![Deleted User](static/assets/images/readme-images/deletedusersodeletedcopitestnet.png)
+
+[Back to top](<#contents>)
+
+* Unblock a User {3} :
+
+An admin can unblock a user who have been blocked previously.
+
+If a blocked User try to log in, it will see the following page : 
+
+![unblock User](static/assets/images/readme-images/unblockuser4.png)
+
+
+This is the only thing a blocked user can see, nothing else, not even the dashboard. User interaction within the App
+is reduce to 0.
+
+If an admin click on "Unblock", a prompt message is displayed :
+
+![unblock User](static/assets/images/readme-images/unblockuser3.png)
+
+
+If accepted, admin will see a message :
+
+![unblock User](static/assets/images/readme-images/unblockuser2.png)
+
+
+And a notification is sent :
+
+![unblock User](static/assets/images/readme-images/unblockuser1.png)
+
+
+An unblocked user will regain immediate access to the platform. Welcome Back! :-D
+
+[Back to top](<#contents>)
+
+* View a User {4} :
+
+This button will directly reach the user dashboard.
+If the user is already blocked, the dashboard will be displayed as following :
+
+![view](static/assets/images/readme-images/blockeddashboard.png)
+
+
+[Back to top](<#contents>)
+
+* Give Admin role to a User {5} :
+
+If a User is not blocked, An Admin can give him the Admin role.
+
+A prompt message is displayed :
+
+![Admin Role](static/assets/images/readme-images/adminrole1.png)
+
+
+If accepted, a message is displayed :
+
+![Admin Role](static/assets/images/readme-images/adminrole5.png)
+
+
+and a notification is sent to both admin and the New Admin user :
+
+![Admin Role](static/assets/images/readme-images/adminrole2.png)
+
+![Admin Role](static/assets/images/readme-images/adminrole3.png)
+
+
+An Admin can be kicked out from the adminitration role at any time by clicking on this following button :
+
+![Admin Role](static/assets/images/readme-images/adminrole6.png)
+
+
+I developped a coloring tools to see directly which user is Active, Blocked, Admin :
+
+![Admin Role](static/assets/images/readme-images/adminrole7.png)
+
+
+[Back to top](<#contents>)
+
+
+* Block a User {6} :
+
+An admin can block a User from the App.
+
+If a blocked User try to log in, it will see the following page : 
+
+![Unblocked user](static/assets/images/readme-images/unblockuser4.png)
+
+
+This is the only thing a blocked user can see, nothing else, not even the dashboard. User interaction within the App
+is reduce to 0.
+
+Note: If an Admin clicks the "Block" button on another Admin user, that user will lose their admin privileges and become a regular, blocked user. To regain their admin status, they will need to be reinstated as an Admin by another Admin
+
+[Back to top](<#contents>)
+
 
 
 

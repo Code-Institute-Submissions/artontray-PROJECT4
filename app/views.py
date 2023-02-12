@@ -320,6 +320,11 @@ class FormTestnetMixin:
         if self.action == 'AddTestnet':
             manage_exp_user(self.request.user, "add")
             add_notification_user(self.request.user, "You add a new testnet, Good Job!" , "Testnet +1")
+            all_users_following_this_user = UserInfo.objects.all().filter(following=self.request.user.id)
+            url = reverse('dashboard', args=[self.request.user])
+            # All users that follow the User who create this testnet will receive a Notification
+            for user in all_users_following_this_user:
+                add_notification_user(user.user, f"{self.request.user.username} just created a new Testnet, <a href='{url}' target='_blank'>Check it out now</a>" , "Following Testnet +1")
         #self.test_if_author()
         if self.action == 'UpdateTestnet':
             add_notification_user(self.request.user, "You edited one of your Testnet" , "Update Testnet +1")
@@ -532,6 +537,7 @@ class ReportTestnet(generic.DetailView):
                 testnets.status_testnet = 0
                 testnets.save()
             add_notification_user(testnet_to_report.author, f"{self.request.user.username} have cancelled the report on your testnet <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + "</a>" , "Testnet +1")
+            add_notification_user(current_user.user, f"You have cancelled the report on your testnet <a href='{url}' target='_blank'>" + testnet_to_report.testnet_name + "</a>" , "Testnet +1")
             messages.add_message(self.request, messages.SUCCESS, "You have cancelled the report on a Testnet successfully")
         else:
             # Testnet original and all copies will be reported status
@@ -831,7 +837,7 @@ class ShowUsers(generic.DetailView):
         if search:
             show_users = UserInfo.objects.all().exclude(status=2).filter(user__username__icontains = search)
         else:
-            show_users = UserInfo.objects.exclude(status=2).all().order_by('-exp')[:12]
+            show_users = UserInfo.objects.exclude(status=2).all().order_by('-exp')[:20]
         context.update ({
                 "show_users": show_users,
                 "searching_user": search, 

@@ -281,6 +281,13 @@
             <p class="h2 text-primary" >
                 Last Testnet(s) deployed by <code>{{ object.user_info.get_object_user.username }}</code>
             </p>
+            <br>
+            <span class="badge badge-danger">Time Copied</span>
+            <span class="badge badge-primary">Network</span>
+            <span class="badge badge-secondary">Category</span>
+            <span class="badge badge-success">Testnet, Devnet or Mainnet</span>
+            <span class="badge badge-info" >Wallet I</span>
+            <span class="badge badge-warning">Wallet II</span>
         </div>
         <div class="col-lg-4 col-sm-12 col-md-4 py-2">
             <a href="{% url 'showtestnetall' object.user_info.user.username %}" class="btn btn-primary  btn-user btn-block">
@@ -298,6 +305,7 @@
                     <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                         <a href="{% url 'showtestnet' testnet.slug %}" class="no-decoration">
                             <p class="h5 text-secondary"><i class="fa-solid fa-house text-primary"></i>    {{ testnet.testnet_name }} 
+                                <span class="badge badge-danger">Copied : X {{ testnet.copied_nb }}</span>
                                 <span class="badge badge-primary" >{{ testnet.network_name }}</span>
                                 <span class="badge badge-secondary" >{{ testnet.category }}</span>
                                 <span class="badge badge-success" >{{ testnet.network_status }}</span>
@@ -330,7 +338,7 @@
             </div>
         </div>
     {% endfor %}
-    <!-- If user has more than 5 Testnet Registered we display a Button "Show More" on Dashboard section -->
+    <!-- If user has at least 1 Testnet registered we display a Button "Show More" on Dashboard section -->
     {% if object.user_info.show_testnet_user %}
     <div class="container-fluid my-2">
         <div class="row my-5">
