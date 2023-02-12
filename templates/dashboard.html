@@ -325,9 +325,19 @@
         <div class="row my-2">
             <div class="col-lg-10 col-sm-12 col-md-10 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    {{ testnet.testnet_name }} , <code>{{ testnet.category }}</code>, {{ testnet.network_status }}, last update : <code>{{ testnet.updated_on|date }}</code>
-                    
+                    <a href="{% url 'showtestnet' testnet.slug %}" class="no-decoration">
+                        <p class="h5 text-secondary"><i class="fa-solid fa-house text-primary"></i>    {{ testnet.testnet_name }} 
+                            <span class="badge badge-primary" >{{ testnet.network_name }}</span>
+                            <span class="badge badge-secondary" >{{ testnet.category }}</span>
+                            <span class="badge badge-success" >{{ testnet.network_status }}</span>
+                            {% if testnet.wallet1_name %}
+                                <span class="badge badge-info" >{{ testnet.wallet1_name }}</span>
+                            {% endif %}
+                            {% if testnet.wallet2_name %}
+                                <span class="badge badge-warning" >{{ testnet.wallet2_name }}</span>
+                            {% endif %}
+                        </p>
+                    </a>
                 </h6>
             </div>
             <div class="col-lg-2 col-sm-12 col-md-2 py-3">
@@ -361,32 +371,6 @@
     </div>
 </div>
 {% endif %}
-{%  comment  %}
-
-{%  if is_paginated  %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="pagination justify-content-center my-4">
-                <span class="step-links">
-                    {% if page_obj.has_previous %}
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page=1">First</a>
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                    {% endif %}
-                    <span class="current text-dark">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                    </span>
-                    {% if page_obj.has_next %}
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.next_page_number }}">Next</a>
-                    <a class="btn btn-outline-dark btn-sm mb4 ml-1" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-                    {% endif %}
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-{%  endif  %}
-{%  endcomment  %}
 <!-- End Listing of the all testnet created by user-->
 <br>
 <br>

@@ -62,10 +62,20 @@
     {% if testnet.author == request.user and testnet.testnet_user == request.user %}
     <div class="container-fluid bg-light border-bottom-primary border-all-around-radius my-2">
         <div class="row my-2">
-            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
+            <div class="col-lg-5 col-sm-12 col-md-5 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                     <a href="{% url 'showtestnet' testnet.slug %}" class="no-decoration">
-                        <p class="h5 text-secondary"><i class="fa-solid fa-house"></i>   {{ testnet.testnet_name }}, {{ testnet.network_name }}, {{ testnet.wallet1_name }}</p>
+                        <p class="h5 text-secondary"><i class="fa-solid fa-house text-primary"></i>   {{ testnet.testnet_name }} 
+                            <span class="badge badge-primary" >{{ testnet.network_name }}</span>
+                            <span class="badge badge-secondary" >{{ testnet.category }}</span>
+                            <span class="badge badge-success" >{{ testnet.network_status }}</span>
+                            {% if testnet.wallet1_name %}
+                                <span class="badge badge-info" >{{ testnet.wallet1_name }}</span>
+                            {% endif %}
+                            {% if testnet.wallet2_name %}
+                                <span class="badge badge-warning" >{{ testnet.wallet2_name }}</span>
+                            {% endif %}
+                        </p>
                     </a>
                 </h6>
             </div>
@@ -151,10 +161,20 @@
     {% elif testnet.testnet_user == request.user and testnet.author != request.user %}
     <div class="container-fluid bg-light border-bottom-warning border-all-around-radius my-2">
         <div class="row my-2">
-            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
+            <div class="col-lg-5 col-sm-12 col-md-5 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                     <a href="{% url 'showtestnet' testnet.slug %}" class="no-decoration">
-                        <p class="h5 text-secondary"><i class="fa-regular fa-copy"></i>   {{ testnet.testnet_name }}, {{ testnet.network_name }}, {{ testnet.wallet1_name }}</p>
+                        <p class="h5 text-secondary"><i class="fa-regular fa-copy"></i>   {{ testnet.testnet_name }} 
+                            <span class="badge badge-primary" >{{ testnet.network_name }}</span>
+                            <span class="badge badge-secondary" >{{ testnet.category }}</span>
+                            <span class="badge badge-success" >{{ testnet.network_status }}</span>
+                            {% if testnet.wallet1_name %}
+                                <span class="badge badge-info" >{{ testnet.wallet1_name }}</span>
+                            {% endif %}
+                            {% if testnet.wallet2_name %}
+                                <span class="badge badge-warning" >{{ testnet.wallet2_name }}</span>
+                            {% endif %}
+                        </p>
                     </a>
                 </h6>
             </div>
@@ -222,10 +242,20 @@
     {% else %}
     <div class="container-fluid bg-light border-bottom-secondary border-all-around-radius my-2">
         <div class="row my-2">
-            <div class="col-lg-6 col-sm-12 col-md-6 py-3">
+            <div class="col-lg-5 col-sm-12 col-md-5 py-3">
                 <h6 class=" font-weight-bold text-primary align-left padding-20px-left">
                     <a href="{% url 'showtestnet' testnet.slug %}" class="no-decoration">
-                        <p class="h5 text-secondary"><i class="fa-solid fa-unlock-keyhole"></i>   {{ testnet.testnet_name }}, {{ testnet.network_name }}, {{ testnet.wallet1_name }}</p>
+                        <p class="h5 text-secondary"><i class="fa-solid fa-unlock-keyhole"></i>    {{ testnet.testnet_name }} 
+                            <span class="badge badge-primary" >{{ testnet.network_name }}</span>
+                            <span class="badge badge-secondary" >{{ testnet.category }}</span>
+                            <span class="badge badge-success" >{{ testnet.network_status }}</span>
+                            {% if testnet.wallet1_name %}
+                                <span class="badge badge-info" >{{ testnet.wallet1_name }}</span>
+                            {% endif %}
+                            {% if testnet.wallet2_name %}
+                                <span class="badge badge-warning" >{{ testnet.wallet2_name }}</span>
+                            {% endif %}
+                        </p>
                     </a>
                 </h6>
             </div>
