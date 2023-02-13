@@ -1070,6 +1070,60 @@ Note: If an Admin clicks the "Block" button on another Admin user, that user wil
 [Back to top](<#contents>)
 
 
+# Technologies
+
+## Languages
+
+* [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) - Provides the functionality for the site.
+* [CSS](https://en.wikipedia.org/wiki/CSS) - Provides the styling for the website.
+* [HTML5](https://en.wikipedia.org/wiki/HTML) - Provides the content and structure for the website.
+
+## Frameworks and Software
 
 
+- [Django](https://www.djangoproject.com/) python framework used in the development of this App
+- [Django-allauth](https://django-allauth.readthedocs.io/en/latest/installation.html): authentication library used to create users accounts
+- [PostgreSQL](https://www.postgresql.org/) Hosting database for this App
+- [Heroku](https://dashboard.heroku.com/login) for deployment of the App.
+- [Balsamiq](https://balsamiq.com/) to generate Wireframe of the App.
+- [Google Chrome DevTools](https://developer.chrome.com/docs/devtools/) to test responsiveness and performance.
+- [Font Awesome](https://fontawesome.com/) for icons of the App.
+- [GitHub](https://github.com/) to manage agile tool and Hosting of the Code of this App.
+- [Google Fonts](https://fonts.google.com/) to select the perfect font for my App.
+- [PEP8 Validation](http://pep8online.com/) to Python code Validation
+- [Favicon](https://favicon.io/) to create favicon.
+- [Cloudinary](https://cloudinary.com/) to host images of the App , especially Avatar images from all users
+- [Bootstrap](https://getbootstrap.com/docs/4.6/getting-started/introduction/) to responsiveness and styling of the App, Thanks Bootstrap Team !
+- [CSS Validation](https://jigsaw.w3.org/css-validator/) to validate CSS code validation
+- [HTML Validation](https://validator.w3.org/) to validate HTML code validation
+- [VSCode](https://code.visualstudio.com/) to create the Models Graph of the app
+- [a11y Color Contrast Accessibility Validator](https://color.a11y.com/Contrast/) to test color contrast on the App
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/)to test performance of the App.
+- [GitBash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) - Terminal in [Gitpod](https://www.gitpod.io) to push commits to GitHub.
+
+
+[Back to top](<#table-of-content>)
+
+
+## Libraries
+
+The following libraries are located in the requirements.txt file from the App:
+
+* [asgiref](https://pypi.org/project/asgiref/) - ASGI is a standard for Python
+* [cloudinary](https://pypi.org/project/cloudinary/) - Manage Cloud images Items
+* [dj3-cloudinary-storage 0.0.6](https://pypi.org/project/dj3-cloudinary-storage/) - Django package for Cloudinary by implementing Django Storage API.
+* [Django](https://pypi.org/project/Django/) - Python web framework.
+* [django-allauth](https://pypi.org/project/django-allauth/) - Allows authentication, registration and account management .
+* [django-crispy-forms](https://pypi.org/project/django-crispy-forms/) - Used to integrate Django forms in the App.
+* [django-extensions](https://pypi.org/project/django-extensions/) - Custom extensions for Django Framework.
+* [gunicorn](https://pypi.org/project/gunicorn/) - Gunicorn is a Python HTTP Server.
+* [oauthlib](https://pypi.org/project/oauthlib/) - Framework which implements OAuth1 or OAuth2.
+* [psycopg2](https://pypi.org/project/psycopg2/) - PostgreSQL database adapter for Python.
+* [PyJWT](https://pypi.org/project/PyJWT/) - A Python implementation.
+* [python3-openid](https://pypi.org/project/python3-openid/) - OpenID support and features.
+* [pytz](https://pypi.org/project/pytz/) - Python packages.
+* [requests-oauhlib](https://pypi.org/project/requests-oauthlib/) - OAuth library support.
+* [sqlparse](https://pypi.org/project/sqlparse/) - non-validating SQL parser for Python.
+
+## Tools
 

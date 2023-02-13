@@ -166,15 +166,7 @@ class TestnetForm(forms.ModelForm):
 
         if self.instance.pk:
             return self.cleaned_data
-        
-        #data = strip_tags(self.instance.testnet_name)
-        # The slug_original is created according the value of testnet_name
-        # testnet_name cannot start with " " (space)
-        # If it's the case, we just add 'Testnet ' + Testnet_name
-        # so slug and slug_original will be still unique and keep integrity on the app
-        # User can change later the testnet_name on the editing section of the app
-        #if data.startswith(" "):
-            #self.cleaned_data["testnet_name"] = 'Testnet ' + self.cleaned_data["testnet_name"]
+
         base_slug = slugify(self.cleaned_data["testnet_name"])
         suffix = 0
         while True:

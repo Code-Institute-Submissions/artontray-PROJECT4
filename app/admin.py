@@ -2,18 +2,9 @@ from django.contrib import admin
 from .models import Testnet, Notifications
 from .models import UserInfo, CheckList
 from django_summernote.admin import SummernoteModelAdmin
-# Register your models here.
-
-class PostAdmin(SummernoteModelAdmin):
-
-	summernote_fields = ('content')
-
-
-
-
-
-
-
+"""
+    This page allow admin to display the content of Tables
+"""
 
 @admin.register(Testnet)
 class TestnetAdmin(SummernoteModelAdmin):
@@ -38,15 +29,8 @@ class NotificationsAdmin(admin.ModelAdmin):
 @admin.register(UserInfo)
 class NotificationsAdmin(admin.ModelAdmin):
     """
-    Allows admin to manage user notifications via the admin panel
+    Allows admin to manage UserInfo via the admin panel
     """
     list_display = ('id', 'user', 'exp', 'created_on')
 
-
-@admin.register(CheckList)
-class NotificationsAdmin(admin.ModelAdmin):
-    """
-    Allows admin to manage user notifications via the admin panel
-    """
-    list_display = ('checklist_owner', 'title', 'created_on')
 
