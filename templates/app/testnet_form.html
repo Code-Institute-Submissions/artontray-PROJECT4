@@ -4,42 +4,24 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="mb-0 text-xl font-weight-bold text-primary">{{ form.instance.pk|yesno:"EDIT,CREATE" }} TESTNET</h1>
-  {% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="h5 text-{{ message.tags }}" {% endif %}>{{ messages }}</li>
-      {% endfor %}
-  </ul>
-  {% endif %}
+  <h1 class="mb-0 text-xl font-weight-bold badge-primary border-all-around-radius">{{ form.instance.pk|yesno:"EDIT,CREATE" }} TESTNET</h1>
 </div>
 
-
-<!-- Begin Page Content -->
 <div class="container-fluid">
+  <!-- Testnet form start here-->
   <form action="" method="post">
-    <!-- Page Heading -->
-
-
-    <!-- Content Row -->
     <div class="row padding-10-pourcent-left-right">
-
       <div class="col-xl-6 col-md-12 py-3">
         <div class="card shadow h-100 mb-4">
-
           <div class="card-header py-3">
             <h6 class="h3 font-weight-bold text-primary">Testnet Info(s)</h6>
           </div>
           <div class="card-body">
-
             {% csrf_token %}
-
-
-
+            <!-- Building the Testnet Model Form with cols, icone and color for the display-->
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.testnet_name cols='form-group col-md-6' icone='fa-solid fa-file-signature' %}
               {% include 'app/inc/formfield.html' with field=form.network_name cols='form-group col-md-6' icone='fa-solid fa-network-wired' %}
-
             </div>
             <div class="form-group">
               {% include 'app/inc/formfield.html' with field=form.description icone='fa-solid fa-clipboard-question' %}
@@ -47,45 +29,32 @@
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.category cols='form-group col-md-6' icone='fa-solid fa-folder-open' %}
               {% include 'app/inc/formfield.html' with field=form.network_status cols='form-group col-md-6' icone='fa-solid fa-cube' %}
-
-
             </div>
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.twitter cols='form-group col-md-6' icone='fa-brands fa-twitter' %}
               {% include 'app/inc/formfield.html' with field=form.facebook cols='form-group col-md-6' icone='fa-brands fa-facebook' %}
-
             </div>
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.website cols='form-group col-md-6' icone='fa-brands fa-sistrix' %}
               {% include 'app/inc/formfield.html' with field=form.github cols='form-group col-md-6' icone='fa-brands fa-github' %}
-
             </div>
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.discord cols='form-group col-md-6' icone='fa-brands fa-discord' %}
               {% include 'app/inc/formfield.html' with field=form.telegram cols='form-group col-md-6' icone='fa-brands fa-telegram' %}
-
             </div>
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.instagram cols='form-group col-md-6' icone='fa-brands fa-instagram' %}
               {% include 'app/inc/formfield.html' with field=form.youtube cols='form-group col-md-6' icone='fa-brands fa-youtube' %}
-
             </div>
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.whitepaper cols='form-group col-md-6' icone='fa-solid fa-file'  %}
               {% include 'app/inc/formfield.html' with field=form.browser cols='form-group col-md-6' icone='fa-brands fa-internet-explorer' %}
-
             </div>
-
           </div>
         </div>
       </div>
-
-
-
-
       <div class="col-xl-6 col-md-12 py-3">
         <div class="card shadow h-100 mb-4">
-
           <div class="card-header py-3">
             <h6 class="h3 font-weight-bold text-success">Your Info(s)</h6>
           </div>
@@ -108,18 +77,14 @@
             <div class="form-group">
               {% include 'app/inc/formfield.html' with field=form.website_user icone='fa-brands fa-sistrix' color='text-success' %}
             </div>
-
             <div class="row">
               <div class="col mb-2 ">
-
-
                 <a href="#" class="btn btn-warning btn-icon-split">
                   <span class="icon text-white-50">
                     <i class="fas fa-exclamation-triangle"></i>
                   </span>
                   <span class="text">Warning !</span>
                 </a>
-
                 <p class="align-justify">Providing <strong>false or fake Testnet links</strong> through our
                   app will result in the immediate deletion of your
                   account and a <strong>permanent ban</strong> from using our service.
@@ -130,53 +95,13 @@
                   our support team before sharing it. Thank you for
                   helping us maintain a safe and trustworthy environment
                   for all of our users.
-
                 </p>
-
               </div>
-
             </div>
           </div>
         </div>
       </div>
-
-
-
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="row padding-10-pourcent-left-right">
       <div class="col-xl-6 col-md-12 py-3">
         <div class="card shadow h-100 mb-4">
@@ -185,12 +110,8 @@
           </div>
           <div class="card-body">
             <div class="form-row">
-
               {% include 'app/inc/formfield.html' with field=form.wallet1_name icone='fa-solid fa-wallet' color='text-info' cols='col-md-6' %}
-
-
               {% include 'app/inc/formfield.html' with field=form.wallet1_type icone='fa-solid fa-desktop' color='text-info' cols='col-md-6' %}
-
             </div>
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.wallet1_adress icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
@@ -211,10 +132,8 @@
               </i>
             </p>
             <br>
-
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.wallet1_password icone='fa-solid fa-wallet' color='text-info' cols='col-md-6'%}
-
               {% include 'app/inc/formfield.html' with field=form.wallet1_session icone='fa-solid fa-display' color='text-info' cols='col-md-6'%}
             </div>
             <p class="mb-0 small">Note: <i>Brave can create different session for you to connect
@@ -222,37 +141,15 @@
                 your wallet extensions.</i>
             </p>
             <br>
-
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.wallet1_link icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           </div>
         </div>
       </div>
-
-
       <!-- Content Row -->
-
-
-
       <div class="col-xl-6 col-md-12 py-3">
         <div class="card shadow h-100 mb-4">
-
           <div class="card-header py-3">
             <h6 class="h3 font-weight-bold text-secondary"> Wallet 2 (Optional) </h6>
           </div>
@@ -261,8 +158,6 @@
               {% include 'app/inc/formfield.html' with field=form.wallet2_name icone='fa-solid fa-wallet' color='text-secondary' cols='col-md-6'%}
               {% include 'app/inc/formfield.html' with field=form.wallet2_type icone='fa-solid fa-desktop' color='text-secondary' cols='col-md-6'%}
             </div>
-
-
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.wallet2_adress icone='fa-regular fa-address-book' color='text-secondary' cols='col-md-12'%}
             </div>
@@ -282,7 +177,6 @@
               </i>
             </p>
             <br>
-
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.wallet2_password icone='fa-solid fa-wallet' color='text-secondary' cols='col-md-6'%}
 
@@ -293,86 +187,44 @@
                 your wallet extensions.</i>
             </p>
             <br>
-
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.wallet2_link icone='fa-regular fa-address-book' color='text-secondary' cols='col-md-12'%}
             </div>
-
-
-
           </div>
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Content Row -->
     <div class="row padding-10-pourcent-left-right">
-
       <div class="col-xl-6 col-md-12 py-3">
         <div class="card shadow h-100 mb-4">
-
           <div class="card-header py-3">
             <h6 class="h3 font-weight-bold text-primary">Tasks description of the Testnet</h6>
           </div>
           <div class="card-body">
-
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.tasks_description icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
-
           </div>
         </div>
       </div>
-
-
       <div class="col-xl-6 col-md-12 py-3">
         <div class="card shadow h-100 mb-4">
-
           <div class="card-header py-3">
             <h6 class="h3 font-weight-bold text-primary">Keep tracks of your data</h6>
           </div>
           <div class="card-body">
-
             <div class="form-row">
               {% include 'app/inc/formfield.html' with field=form.tasks_results icone='fa-regular fa-address-book' color='text-info' cols='col-md-12'%}
             </div>
-
           </div>
         </div>
       </div>
-
-
-
-
     </div>
-
-
-
     <div class="row padding-10-pourcent-left-right">
-
       <div class="col-xl-6 col-md-6">
-
-        
           <a class=" btn btn-secondary btn-user btn-block" href="{% url 'dashboard' %}">CANCEL</a>
-      
       </div>
       <div class="col-xl-6 col-md-6">
-        
           {% if form.instance.status_testnet == 2 %}
             <button type="submit" class="btn btn-danger btn-block " disabled>
               EDITING NOT AVAILABLE
@@ -382,33 +234,9 @@
               {{ form.instance.pk|yesno:"SAVE,CREATE" }} THIS TESTNET
             </button>
           {% endif %}
-          
-
       </div>
-      
     </div>
-
-
-
   </form>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- End Listing of the all testnet created by user-->
-<br>
-<br>
-<hr>
-<br>
-<br>
-
+<br><br><hr><br><br>
 {%endblock%}

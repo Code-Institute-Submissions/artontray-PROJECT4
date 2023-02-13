@@ -22,7 +22,7 @@ class EditUserForm(forms.ModelForm):
         labels = {
             'bio': 'Describe Yourself',
             'debank': 'Your Debank link',
-            'avatar': 'Change your Avatar',
+            'avatar': 'Avatar',
 
         }
 

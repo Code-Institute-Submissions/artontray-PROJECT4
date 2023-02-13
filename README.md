@@ -76,7 +76,6 @@ This application prioritizes bringing all information related to testnets into o
     * [A Forum](<#a-forum>)
     * [Notification tools for admin](<#notification-tools-for-admin>)
     * [Check List](<#check-list>)
-    * [Reward Calculator](<#reward-calculator>)
     * [Trust score recording](<#trust-score-recording>)
     * [Testnet notations](<#testnet-notations>)
 * [**Technologies**](<#technologies>)
@@ -1069,6 +1068,24 @@ Note: If an Admin clicks the "Block" button on another Admin user, that user wil
 
 [Back to top](<#contents>)
 
+# Future Features of the app
+  ## A Forum
+  Having a dedicated space for users to discuss Testnets would be amazing. Users who encounter challenges completing tasks could request assistance by sharing screenshots to highlight the issue. Upon receiving a satisfactory solution, they could be rewarded with bonus experience points.
+
+  ## Notification tools for admin
+  Notifications can be an incredibly useful tool for administrators to send a message to everyone in the app simultaneously. For instance, if a reward claiming event is underway, the administrator can make an announcement directly through the app, and all users will know that the notification came from an administrator and is legitimate. Having a Notification Management section for administrators would be convenient for them to communicate with everyone in the app.
+
+  ## Check List
+  Sometimes, you may come across information about a Testnet that you want to participate in, but it's not the right moment to start. I suggest creating a simple checklist, similar to taking notes, where a user can quickly jot down information about the Testnet without actually creating it within the app. When the user has more time, they can use this checklist to create the Testnet. The checklist would be positioned at the top of the "Create Testnet" form for easy copy-paste functionality.
+
+
+  ## Trust score recording
+  It would be beneficial to maintain a trust score for all users. For example, if a user has a Testnet deleted by an administrator due to a report, their trust score should decrease, indicating to other users that this individual may not be completely trustworthy in terms of copying their Testnets. On the other hand, if a user creates many Testnets and none of them have ever been deleted by an administrator, they can be considered to have a 100% trust score.
+
+  ## Testnet notations
+  To provide a clearer indication of the level of difficulty of a Testnet, users could rate it on a scale of 1 to 5. This way, whether a user is a beginner or an expert, they will be able to determine if a Testnet is too challenging for their skill level. The actual difficulty score would be determined by the average of all users' ratings for each Testnet.
+
+
 
 # Technologies
 
@@ -1436,5 +1453,9 @@ As an Admin, I will receive notification(s) when some specific event happens as 
 
 ![user stories test](static/assets/images/readme-images/userstories27.png)
 
+[Back to top](<#table-of-content>)
+
+
+## Validator HTML CSS PYTHON
 
 
