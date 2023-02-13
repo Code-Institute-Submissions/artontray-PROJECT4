@@ -72,6 +72,41 @@ This application prioritizes bringing all information related to testnets into o
     * [Same features as a normal user](<#same-features-as-a-normal-user>)
     * [Reported Testnet](<#reported-testnet>)
     * [Board Users](<#board-users>)
+* [**Future Features of the app**](<#future-features-of-the-app>)
+    * [A Forum](<#a-forum>)
+    * [Notification tools for admin](<#notification-tools-for-admin>)
+    * [Check List](<#check-list>)
+    * [Reward Calculator](<#reward-calculator>)
+    * [Trust score recording](<#trust-score-recording>)
+    * [Testnet notations](<#testnet-notations>)
+* [**Technologies**](<#technologies>)
+    * [Languages](<#languages>)
+    * [Frameworks and Software](<#frameworks-and-software>)
+    * [Libraries](<#libraries>)
+    * [Tools](<#tools>)
+* [**Testing**](<#testing>)    
+    * [User Story Testing](#user-story-testing)
+    * [Validator HTML CSS PYTHON](#validator-html-css-python)
+      * [HTML](#html)
+      * [CSS](#css)
+      * [Python](#python)
+    * [Lighthouse](#lighthouse)
+    * [Browser Testing](#browser-testing)
+    * [Device Testing](#device-testing)
+    * [Manual Testing](#manual-testing)
+      * [Site Navigation](#site-navigation)
+      * [Browse Page](#browse-page)
+      * [Add Testnet](#add-testnet)
+      * [Update Testnet](#update-testnet)
+      * [Prompt Message before significant action](#prompt-message-before-significant-action)
+      * [Admin Board](#admin-board)
+      * [Avoid actions from URL](#avoid-actions-from-url)
+    * [Form Validation](#form-validation)
+    * [error pages](#error-pages)
+
+
+
+    
 
 # User Experience (UX)
 
@@ -440,7 +475,7 @@ A form will appears :
 
 ![Edit Profile](static/assets/images/readme-images/profile_edit_form.png)
 
-Here User can edit, Bio, Debank adresse, Avatar picture.
+Here User can edit Bio, Debank adresse, Avatar picture.
 
 [Back to top](<#contents>)
 
@@ -513,7 +548,7 @@ If the creation of a new Testnet is successfull, the User will receive a Notific
 
 ## Edit a Testnet
 
-There are several places you can start editing a Testnet that belong to the connected User :
+There are several places a Connected User can start editing a Testnet that belong to him:
 
 - From the section "All New Testnet" :
 
@@ -595,7 +630,7 @@ If the copied Testnet is a copy from his own Original, User will see the followi
 ![Copy Testnet](static/assets/images/readme-images/duplicatetestnet.png)
 
 
-If the User copy an Original Testnet but not the Author, User will see the following message on Notifications :
+If the User copy an Original Testnet but Current logged User is not the Author, User will see the following message on Notifications :
 
 ![Copy Testnet](static/assets/images/readme-images/duplicatetestnet2.png)
 
@@ -640,7 +675,7 @@ and the following message will be displayed :
 
 ## Users of the app
 
-Connected User can access to the "Users" section to get the 12 most active players of this app.
+Connected User can access to the "Users" section to get the 20 most active players of this app.
 
 ![users](static/assets/images/readme-images/mostactiveusers.png)
 
@@ -663,17 +698,20 @@ When user click on the empty stars, a prompt message will be displayed :
 
 ![follow user](static/assets/images/readme-images/users2.png)
 
-when confirmed, a notification will be send to the user that follow but also the followed user :
+when confirmed, a notification will be send to the fuser that follow but also the followed user :
 
 ![follow user](static/assets/images/readme-images/users5.png)
 
 ![follow user](static/assets/images/readme-images/users6.png)
 
 Note : The followed User will receive Exp points for this.
-Of course, if the user decide to Unfollow, the User will loose some EXP points.
+Of course, if the user decide to Unfollow, the followed User will loose some EXP points.
 
 
 And a message will be displayed on the screen :
+
+
+![unfollow user](static/assets/images/readme-images/unfollowuser1.png)
 
 ![follow user](static/assets/images/readme-images/users3.png)
 
@@ -700,7 +738,7 @@ As a User, every significant actions as :
 
 makes the User earning Experience on the app.
 
-For a User to get Level up, User need to accomplish all the Tasks.
+For a User to get Level up, User need to accomplish all the displayed Tasks on dashboard mission section.
 
 As you can see, each level get a certain amount of Followers to have, Created Testnet and Testnet Copied from others.
 
@@ -747,6 +785,11 @@ How to protect the App from it?
 It's simple, as long as a Testnet contains suspicious malicious links, any users can report it and it will be blocked directly from copying and editing.
 A red message will be displayed to inform all users about this Testnet.
 
+
+From a testnet information itself :
+
+![report testnet](static/assets/images/readme-images/reportbuttonfortestnet.png)
+
 ![report testnet](static/assets/images/readme-images/reportedtestnet.png)
 
 ![report testnet](static/assets/images/readme-images/reportedtestnet1.png)
@@ -776,7 +819,7 @@ As a user, it's possible to search any unblocked User of the App by typing at le
 
 ![search user](static/assets/images/readme-images/searchingusers.png)
 
-If user only provide less than 3 character, it will appears the following messages :
+If user only provide less than 3 characters, it will appears the following messages :
 
 ![search user](static/assets/images/readme-images/searchingusers1.png)
 
@@ -821,7 +864,7 @@ The research function will search into:
 
 ## Footer
 
-A footer is always displayed on the bottom of the App :
+A footer is always displayed on the bottom of the App with blank target for each links to ensure User never goes away from the app :
 
 ![Footer](static/assets/images/readme-images/footer.png)
 
@@ -848,6 +891,7 @@ With Administration Role an Admin can access to the same functionalities as a no
 - Copy a Testnet from an other User
 - Edit Profile
 - Follow/Unfollow other users
+- Get experience from interacting with the app
 - Report a Testnet
 
 At the end, an admin is an normal User with some special privileges in order to administrate Testnets and Users of the App.
@@ -886,7 +930,7 @@ A message will indicate that this Testnet is Reported. Copy and edition is not a
 
 Admin can cancel the report from here by clicking on "Cancel Report".
 
-Note that, On previous picture, it seems the Testnet With no data to show but it's because only the required
+Note that, On previous picture, it seems the Testnet has no data to show but it's because only the required
 inputs have been filled (Testnet name, network, status, tasks description, Category).
 Of course, if user register all the information, everything will appears like this :
 
@@ -938,7 +982,7 @@ Before Deleting User, a prompt will be displayed :
 
 An admin can unblock a user who have been blocked previously.
 
-If a blocked User try to log in, it will see the following page : 
+If a blocked User try to log in, User will see the following page : 
 
 ![unblock User](static/assets/images/readme-images/unblockuser4.png)
 
