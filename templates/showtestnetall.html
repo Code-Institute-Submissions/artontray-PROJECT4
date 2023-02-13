@@ -3,11 +3,11 @@
 {% block content %}
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="mb-0 text-xl font-weight-bold badge-primary border-all-around-radius">All Testnet(s) from :
+    <h1 class="mb-0 text-xl font-weight-bold badge-primary border-all-around-radius">
         {% if searching %}
-            Searching... "<code><i>{{ searching }}</i></code>"
+            Searching "<i>{{ searching }}</i>"
         {% else %}
-            {{ testnet_username }}
+        All Testnet(s) from : {{ testnet_username }}
         {% endif %}
     </h1>
 </div>

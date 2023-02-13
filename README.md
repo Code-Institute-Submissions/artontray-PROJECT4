@@ -1125,5 +1125,316 @@ The following libraries are located in the requirements.txt file from the App:
 * [requests-oauhlib](https://pypi.org/project/requests-oauthlib/) - OAuth library support.
 * [sqlparse](https://pypi.org/project/sqlparse/) - non-validating SQL parser for Python.
 
+
+[Back to top](<#table-of-content>)
+
+
 ## Tools
+
+Two fantastic tools for developpers :
+
+* Shell_Plus : 
+
+This tool is powerful, it pre-import all the dependencies you will need to interact with Tables :
+
+![Tools](static/assets/images/readme-images/shell-plus1.png)
+
+Once imported, you can execute request to the table and see the direct result.
+
+![Tools](static/assets/images/readme-images/shell-plus2.png)
+
+It helps me a lot when it's about write more complex request with cross-tables requests.
+
+* Breakpoint() : 
+
+Breakpoint allow you to place a break to your code and execute some code on the shell to see the
+status of variables. It can be helpful to detect some stupid coding mistakes...
+
+![breakpoint](static/assets/images/readme-images/breakpoint1.png)
+
+![breakpoint](static/assets/images/readme-images/breakpoint2.png)
+
+![breakpoint](static/assets/images/readme-images/breakpoint3.png)
+
+[Back to top](<#table-of-content>)
+
+# Testing
+
+  ## User Story Testing
+
+  **First Time visit** :
+
+  * As a first time visit I want to understand the main purpose of the app
+
+  When User visit the App for first time, User will have access to the index.html page :
+
+  ![user stories test](static/assets/images/readme-images/userstories1.png)
+
+  ![user stories test](static/assets/images/readme-images/userstories2.png)
+
+  The purpose of this content is to clarify the function of the app.
+
+
+  * As a first time visit  I want to understand how to register and how to connect to the app 
+
+  When User visit the App for first time, User will have access to the following buttons:
+
+  ![user stories test](static/assets/images/readme-images/userstories3.png)
+
+  ![user stories test](static/assets/images/readme-images/userstories4.png)
+
+  The only way to proceed further is by interacting with those buttons.
+
+  *  As a first time visit  I want to see a Welcome message
+
+  As long as a User have registered to the App, it will displayed the following :
+
+  A message :
+
+  ![user stories test](static/assets/images/readme-images/userstories5.png)
+
+  A notification :
+
+  ![user stories test](static/assets/images/readme-images/userstories6.png)
+
+  [Back to top](<#table-of-content>)
+
+
+  **As a User** :
+
+  * As a Site User  I can Register as a new user of the App. If already registered, I can log in and log out 
+
+  As a user, you can register to the App giving a username (should be unique) and password, email is optional.
+
+  As a user, you can log in to the app with the given username and password you enter when registration process.
+
+  *  As a Site User  I can access to a Dashboard where I can find all my informations 
+
+  As a Connected User, you have access to a Dashboard where a User can find :
+    - Profile
+    - Experience on the App
+    - Mission to accomplish to level up
+    - 8 Last Testnet Registered (Click "Show More" to see all of them and make a search)
+    - The very Last created Testnet
+    - Followers number
+    - Following Number
+    - Testnet Number
+    - Notification Number and a button to display them all
+
+  *  As a Site User  I can change my profile information like avatar, bio etc...   
+
+  As a Connected user, you can edit your profile as many as you want :
+
+  - Description of yourself
+  - Debank adress for others Users to follow you on debank also
+  - Avatar
+
+  The only thing that a User cannot change is the Username. 
+  For now, the user cannot change his password either but this functionality will be available in a further update of the app as it was not a "Must have" features from the Agile Methodology.
+
+  * As a Site User  I can display All the Testnet created by all the users of the app 
+  
+  As a connected User, you can see all your testnet but also all the Testnet from other Users. There is no option for having a private Testnet on the App. As long as you created a Testnet , it's published. Of course, A testnet can be reported and become no longer available for publishing.
+  There is also the possibility for a Connected User to search any keyword on the search form:
+
+  ![user stories test](static/assets/images/readme-images/userstories7.png)
+
+
+  *  As a Site User  I can see other Users of the app
+
+  As a connected user, you have access to the "Users" section where you can see :
+
+  - the 20 Most active Users of the App
+  - A search button is available to seek a specific user
+
+  ![user stories test](static/assets/images/readme-images/userstories8.png)
+
+  *  As a Site User  I can follow and unfollow other users   
+
+  As a connected User, you can follow and Unfollow other user. If You follow an other user, it will allow you to :
+
+  - Receive a notification when this followed user create a new Testnet.
+
+  ![user stories test](static/assets/images/readme-images/userstories9.png)
+
+  * As a Site User  I can display others dashboard with limited access   
+
+  As a connected User, After following a User, you will have access to his dashboard with limited informations displayed :
+
+  ![user stories test](static/assets/images/readme-images/userstories10.png)
+
+  As we can see, only limited information(s) are displayed on Other User's Dashboard.
+
+  As a connected User, you can have access to other User's Dashboard from "Users" section also.
+
+  ![user stories test](static/assets/images/readme-images/userstories11.png)
+
+  *  As a Site User  I can search for a specific Testnet   
+
+  As a connected User, you can use the search button to seek a specific key word for a Testnet.
+
+  ![user stories test](static/assets/images/readme-images/userstories12.png)
+
+  The App will look into :
+  - Testnet Name
+  - Testnet Description
+  - Testnet Username
+
+  * As a Site User  I can see notifications when i realize an significant action within the app  
+
+  As a connected User, we can access to notification section where all significant action's results are displayed:
+
+  ![user stories test](static/assets/images/readme-images/userstories13.png)
+
+  Of course, some notifications are displayed with links to direct access as :
+  
+  - A testnet
+  - A user
+
+  * As a Site User  I can see my experience within the app with nice basic statistics   
+
+  Yes you can! As a Connected user, you have access to your experience Board where is displayed :
+
+  - Your Exp on the App
+  - Your Tasks status
+  - Your Level on the App
+
+ ![user stories test](static/assets/images/readme-images/userstories14.png)
+
+ * As a Site User  I can Create, Edit and delete a Testnet of mine 
+
+ As a connected User, you can :
+ - Create a new Testnet
+ - Edit an existing Testnet of yours
+ - Delete a Testnet of yours
+
+  ![user stories test](static/assets/images/readme-images/userstories15.png)
+
+  ![user stories test](static/assets/images/readme-images/userstories16.png)
+
+* As a Site User  I can Copy an existing Testnet from an other user   
+
+As a connected User, I can Copy an existing Testnet from other Users. You can even copy an existing Testnet of yours. In fact, You can decide to participate to same Testnet but with different email account or Discord account. 
+All published Testnet are available for copy except when a Testnet is Reported.
+
+![user stories test](static/assets/images/readme-images/userstories17.png)
+
+![user stories test](static/assets/images/readme-images/userstories18.png)
+
+* As a Site User  I can report a Testnet if I feel like some malicious links has been incorpored into a Testnet Informations 
+
+As a connected User, you can report any of Published Testnet from the App. Of course, a reported Testnet will be notify to all admin. After Admin's Testnet review, Admin will decide if Testnet need to be deleted or published again.
+Of course, a Testnet 's Author cannot report his own Testnet, it does not make any sense!
+
+![user stories test](static/assets/images/readme-images/userstories19.png)
+
+* As a Site User  I will receive information as Notifications when a Testnet that I copied have been updated by the author so I can check it out what is updated 
+
+As a connected User who has copied Testnet from other User, you will receive a notification each time a Copied Testnet has been updated by the author. It will allow you to keep on track with the newest tasks to do for this Testnet.
+
+![user stories test](static/assets/images/readme-images/userstories20.png)
+
+
+* As a Site User  I can see the most popular Testnet of the App, which means the most copied Testnet by other users  
+
+In my view, the more a Testnet is copied, the more popular it becomes within the app. So, as a connected User, you can display all the most copied Testnet on the App :
+
+![user stories test](static/assets/images/readme-images/userstories21.png)
+
+
+* As a Site User  I can Display the informations about any **none Reported** Testnet of the App   
+
+As a connected User, you can display all the Testnet of the App except the reported one.
+All the created Testnet on the app are available for publishing and are visible for anyone connected to the App (except blocked users)
+
+*  As a Site User  I can have an access to all my testnet(s) and I can see a different coloring design on each to get to know the difference between "Original", "Copied" or "Reported"   
+
+As a connected User, you have access to "Show My Testnet" where you will see all your Testnet :
+- Original (blue color)
+- Copy by you (Yellow color)
+- Testnet from other, not copied yet by you (Grey color)-> This appears only if you search for a testnet
+
+![user stories test](static/assets/images/readme-images/userstories23.png)
+
+![user stories test](static/assets/images/readme-images/userstories22.png)
+
+* As a Site User  I can see an information box with the successful result of any significant actions within the app   
+
+As a connected User, you will have a displayed message each time you execute a significant action within the app as :
+
+- Creation of a Testnet
+- Copy of a Testnet
+- Follow a User
+- Unfollow a user
+- Edit your profile
+- Update a Testnet
+- Delete a Testnet
+- Report a Testnet
+
+This message is displayed always at the same place on the page :
+
+![user stories test](static/assets/images/readme-images/userstories24.png)
+
+[Back to top](<#table-of-content>)
+
+
+**As an Admin** :
+
+* As a Site Admin  I can log in and out  
+
+Same as a normal User.
+
+* As a Site Admin  I can create, edit and delete a testnet of mine and from others   
+
+Same as a normal User but with an extra privilege for other's Testnet management.
+An Admin can delete Testnet from others, but cannot edit the user informations inside the Testnet.
+An admin cannot create a Testnet with an Other User as Author.
+
+![user stories test](static/assets/images/readme-images/userstories25.png)
+
+
+* As a Site Admin  I can have access to a admin board to manage Testnets and users of the app 
+
+As an Admin, you can access to 2 new buttons on dashboard which are :
+- Board users
+- Board Testnet(s)
+
+![user stories test](static/assets/images/readme-images/userstories26.png)
+
+* As a Site Admin  I can display all reported Testnet on the Testnet Board  
+
+As an admin, you can access to a special section called "Board Testnet(s)" where you can see all the reported Testnet.
+
+* As a Site Admin  I can cancel report on reported testnet and report none reported testnet   
+
+As an Admin, you can cancel report on reported Testnet and on the oposite report a Testnet.
+This action is made on "Board Testnet(s)" Section.
+
+*  As a Site Admin  I can give admin role to a normal user    
+
+As an admin, you can give admin role to an other User only if this User is not blocked.
+
+*  As a Site Admin  I can block users and delete users  
+
+As an Admin, you can block a User or Unblock a User. Also, an Admin can delete a User only if the User is already blocked. For more information, please refer to the following section of this documentation : Delete a User from the App
+
+
+*  As a Site Admin  I can kick out a user from admin role 
+
+As an Admin, you can kick out a user from admin role at any time. There is a button called "Kick as Admin" on "Board Users" section.
+
+*  As a Site Admin  I can change my profile informations such as avatar, bio etc..  
+
+Exactly as a normal User.
+
+* As a Site Admin  I can receive specific notifications about a reported testnet   
+
+As an Admin, I will receive notification(s) when some specific event happens as :
+
+- A testnet have been reported
+
+
+![user stories test](static/assets/images/readme-images/userstories27.png)
+
+
 
