@@ -38,7 +38,7 @@ class EditUserForm(forms.ModelForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
         self.fields['avatar'].widget.attrs['class'] = ''
-        describe = 'Describe yourself to share your experience with other Users'
+        describe = ('Describe yourself')
         self.fields['bio'].widget.attrs['placeholder'] = describe
         debank = 'Example https://debank.com/profile/0x56.....ea'
         self.fields['debank'].widget.attrs['placeholder'] = debank
@@ -89,48 +89,89 @@ class TestnetForm(forms.ModelForm):
 
         # Adding class to visible inputs and textarea on the form
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'        
-        self.fields['testnet_name'].widget.attrs['placeholder'] = 'Testnet Name'
-        self.fields['network_name'].widget.attrs['placeholder'] = 'Goerli, Mumbai, Polygon Mainnet etc...'
-        #self.fields['description'].widget.attrs['placeholder'] = ''
-        self.fields['category'].widget.attrs['placeholder'] = 'Defi, Bridge, L2, NFT etc...'
-        self.fields['network_status'].widget.attrs['placeholder'] = 'Testnet, Devnet, Mainnet etc...'
-        self.fields['twitter'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['facebook'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['website'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['github'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['discord'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['telegram'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['instagram'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['youtube'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['whitepaper'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['browser'].widget.attrs['placeholder'] = 'Brave, Firefox, Opera etc...'
-        self.fields['discord_user'].widget.attrs['placeholder'] = 'Example : johndoe#4512'
-        self.fields['github_user'].widget.attrs['placeholder'] = 'Example : john doe'
-        self.fields['email_user'].widget.attrs['placeholder'] = 'Provide Your email'
-        self.fields['twitter_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
-        self.fields['telegram_user'].widget.attrs['placeholder'] = 'example :  @Yourname'
-        self.fields['website_user'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['wallet1_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
-        self.fields['wallet1_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
-        self.fields['wallet1_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
-        self.fields['wallet1_priv_key'].widget.attrs['placeholder'] = 'only if test wallet'
-        self.fields['wallet1_seed'].widget.attrs['placeholder'] = 'only if test wallet'
-        self.fields['wallet1_clue'].widget.attrs['placeholder'] = 'Be smart and give some details that ONLY YOU can understand'
-        self.fields['wallet1_password'].widget.attrs['placeholder'] = 'Wallet password'
-        self.fields['wallet1_session'].widget.attrs['placeholder'] = 'Browser session'
-        self.fields['wallet1_link'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['wallet2_name'].widget.attrs['placeholder'] = 'Metamask, Keplr, Martian....'
-        self.fields['wallet2_type'].widget.attrs['placeholder'] = 'Extension, Desktop, web wallet...'
-        self.fields['wallet2_adress'].widget.attrs['placeholder'] = '0x4125.........61ae'
-        self.fields['wallet2_priv_key'].widget.attrs['placeholder'] = 'only if test wallet'
-        self.fields['wallet2_seed'].widget.attrs['placeholder'] = 'only if test wallet'
-        self.fields['wallet2_clue'].widget.attrs['placeholder'] = 'Be smart and give some details that ONLY YOU can understand'
-        self.fields['wallet2_password'].widget.attrs['placeholder'] = 'Wallet password'
-        self.fields['wallet2_session'].widget.attrs['placeholder'] = 'Browser session'
-        self.fields['wallet2_link'].widget.attrs['placeholder'] = 'Provide a link https://'
-        self.fields['tasks_description'].widget.attrs['placeholder'] = 'Give description of what to do to participate to this testnet'
-        self.fields['tasks_results'].widget.attrs['placeholder'] = 'Save your transaction links, data about your participation, copy email etc...'
+            visible.field.widget.attrs['class'] = 'form-control'
+        self.fields['testnet_name'].widget.attrs['placeholder'] = (
+            'Testnet Name')
+        self.fields['network_name'].widget.attrs['placeholder'] = (
+            'Goerli, Mumbai, Polygon Mainnet etc...')
+        self.fields['category'].widget.attrs['placeholder'] = (
+            'Defi, Bridge, L2, NFT etc...')
+        self.fields['network_status'].widget.attrs['placeholder'] = (
+            'Testnet, Devnet, Mainnet etc...')
+        self.fields['twitter'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['facebook'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['website'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['github'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['discord'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['telegram'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['instagram'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['youtube'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['whitepaper'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['browser'].widget.attrs['placeholder'] = (
+            'Brave, Firefox, Opera etc...')
+        self.fields['discord_user'].widget.attrs['placeholder'] = (
+            'Example : johndoe#4512')
+        self.fields['github_user'].widget.attrs['placeholder'] = (
+            'Example : john doe')
+        self.fields['email_user'].widget.attrs['placeholder'] = (
+            'Provide Your email')
+        self.fields['twitter_user'].widget.attrs['placeholder'] = (
+            'example :  @Yourname')
+        self.fields['telegram_user'].widget.attrs['placeholder'] = (
+            'example :  @Yourname')
+        self.fields['website_user'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['wallet1_name'].widget.attrs['placeholder'] = (
+            'Metamask, Keplr, Martian....')
+        self.fields['wallet1_type'].widget.attrs['placeholder'] = (
+            'Extension, Desktop, web wallet...')
+        self.fields['wallet1_adress'].widget.attrs['placeholder'] = (
+            '0x4125.........61ae')
+        self.fields['wallet1_priv_key'].widget.attrs['placeholder'] = (
+            'only if test wallet')
+        self.fields['wallet1_seed'].widget.attrs['placeholder'] = (
+            'only if test wallet')
+        self.fields['wallet1_clue'].widget.attrs['placeholder'] = (
+            'Be smart and give some details that ONLY YOU can understand')
+        self.fields['wallet1_password'].widget.attrs['placeholder'] = (
+            'Wallet password')
+        self.fields['wallet1_session'].widget.attrs['placeholder'] = (
+            'Browser session')
+        self.fields['wallet1_link'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['wallet2_name'].widget.attrs['placeholder'] = (
+            'Metamask, Keplr, Martian....')
+        self.fields['wallet2_type'].widget.attrs['placeholder'] = (
+            'Extension, Desktop, web wallet...')
+        self.fields['wallet2_adress'].widget.attrs['placeholder'] = (
+            '0x4125.........61ae')
+        self.fields['wallet2_priv_key'].widget.attrs['placeholder'] = (
+            'only if test wallet')
+        self.fields['wallet2_seed'].widget.attrs['placeholder'] = (
+            'only if test wallet')
+        self.fields['wallet2_clue'].widget.attrs['placeholder'] = (
+            'Be smart and give some details that ONLY YOU can understand')
+        self.fields['wallet2_password'].widget.attrs['placeholder'] = (
+            'Wallet password')
+        self.fields['wallet2_session'].widget.attrs['placeholder'] = (
+            'Browser session')
+        self.fields['wallet2_link'].widget.attrs['placeholder'] = (
+            'Provide a link https://')
+        self.fields['tasks_description'].widget.attrs['placeholder'] = (
+            'Give description of what to do to participate to this testnet')
+        self.fields['tasks_results'].widget.attrs['placeholder'] = (
+            'Save transaction links, participation data, email etc..')
+        self.fields['tasks_results'].widget.attrs['placeholder'] = (
+            'Save your transaction links, data about participation, email etc...')
         # In case the current user connected is not the author then its a copy
         # so we disabled all inputs in relation to the testnet
         if not self.instance.author == self.user:
@@ -172,6 +213,9 @@ class TestnetForm(forms.ModelForm):
         # We registered the slug_original which is the same as SLUG
         # so we keep track on what testnet is an
         # Original -> if slug == slug_original on the Testnet Table
-        self.cleaned_data["slug_original"] = slugify(self.cleaned_data["testnet_name"])
-        self.instance.slug_original = slugify(self.cleaned_data["testnet_name"])
+        self.cleaned_data["slug_original"] = slugify(
+            self.cleaned_data["testnet_name"])
+        self.instance.slug_original = slugify(
+            self.cleaned_data["testnet_name"])
+        
         return self.cleaned_data

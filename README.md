@@ -1161,7 +1161,7 @@ Once imported, you can execute request to the table and see the direct result.
 
 ![Tools](static/assets/images/readme-images/shell-plus2.png)
 
-It helps me a lot when it's about write more complex request with cross-tables requests.
+It helps me a lot when it's about writing more complex request with cross-tables requests.
 
 * Breakpoint() : 
 
@@ -1471,11 +1471,23 @@ The CSS validator results on the file style.css is below:
 
 ![Test CSS](static/assets/images/readme-images/testingcss.png)
 
-# CSS
+# Python
 
 I used [Pep8 Validator](https://pep8ci.herokuapp.com/) to check my python code, all results below :
 
 * admin.py :
 
 ![Python Test](static/assets/images/readme-images/admin.py.test.png)
+
+* apps.py :
+
+![Python Test](static/assets/images/readme-images/apps.py.test.png)
+
+* forms.py :
+
+![Python Test](static/assets/images/readme-images/forms.py.test.png)
+
+* models.py :
+
+![Python Test](static/assets/images/readme-images/models.py.test.png)
 
