@@ -65,8 +65,8 @@ class TestnetForm(forms.ModelForm):
             'created_on'
                 ]
         widgets = {
-          'description': forms.Textarea(attrs={'rows': 2, 'cols': 45}),
-          'description': forms.TextInput(
+            'description': forms.Textarea(attrs={'rows': 2, 'cols': 45}),
+            'description': forms.TextInput(
                 attrs={
                     'placeholder': 'Quick description of this Testnet'
                 })
@@ -86,7 +86,10 @@ class TestnetForm(forms.ModelForm):
         if not self.instance.pk:
             self.instance.author = self.user
             self.instance.testnet_user = self.user
-
+        # On Models testnet_name have max_length=60
+        # But we add a suffix at the end for slug in case duplicate
+        # so we need a space for it so we limit the input to 45
+        self.fields['testnet_name'].widget.attrs['maxlength'] = 45
         # Adding class to visible inputs and textarea on the form
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
@@ -171,7 +174,7 @@ class TestnetForm(forms.ModelForm):
         self.fields['tasks_results'].widget.attrs['placeholder'] = (
             'Save transaction links, participation data, email etc..')
         self.fields['tasks_results'].widget.attrs['placeholder'] = (
-            'Save your transaction links, data about participation, email etc...')
+            'Save your transaction links, data of participation, email etc...')
         # In case the current user connected is not the author then its a copy
         # so we disabled all inputs in relation to the testnet
         if not self.instance.author == self.user:
@@ -217,5 +220,5 @@ class TestnetForm(forms.ModelForm):
             self.cleaned_data["testnet_name"])
         self.instance.slug_original = slugify(
             self.cleaned_data["testnet_name"])
-        
+
         return self.cleaned_data

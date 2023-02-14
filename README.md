@@ -1491,3 +1491,11 @@ I used [Pep8 Validator](https://pep8ci.herokuapp.com/) to check my python code, 
 
 ![Python Test](static/assets/images/readme-images/models.py.test.png)
 
+* validators.py :
+
+![Python Test](static/assets/images/readme-images/validators.py.test.png)
+
+* views.py :
+
+![Python Test](static/assets/images/readme-images/views.py.test.png)
+

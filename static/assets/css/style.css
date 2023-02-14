@@ -17,15 +17,12 @@
 
 }
 
-
-
 .logo-user-display-all{
     border-radius: 50%;
     height: 150px;
     width: 150px;
 
 }
-
 /*----------------------------------------Colors-----*/
 :root {
     --color-primary: #E0F1FF;
@@ -41,7 +38,6 @@
     --color-main-6: hsl(240, 50%, 70%);
  
   }
-
 /*----------------------------------------Borders-----*/
 .border-all-around{
     border : 1px solid var(--color-black);
@@ -60,12 +56,6 @@ html {
   font-family:  Ubuntu, Georgia, serif, Helvetica, Arial, sans-serif;
   scroll-behavior: smooth;
 }
-
-
-
-
-
-
 
 /*----------------------------------------Rows/Cols-----*/
 .row {
@@ -110,7 +100,6 @@ html {
     padding-right: 0;
 }
 
-
 .navbar-light .navbar-nav .nav-link {
     color: var(--color-secondary);
 }
@@ -126,12 +115,7 @@ html {
     text-transform: uppercase;
 }
 
-.btn-login{
-    border-radius : 22px;
-    background-color: var(--color-primary);
-    color: #000;
-    font-size: 14px;
-}
+
 
 /*----------------------------------------Buttons-----*/
 .btn-login{
@@ -175,7 +159,6 @@ html {
 }
 .align-justify{
     text-align: justify;
-
 }
 
 .long-string{
@@ -196,7 +179,6 @@ code {
 }
 
 footer{
-
     bottom: 0;
 }
 

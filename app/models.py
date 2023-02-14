@@ -33,7 +33,7 @@ class Testnet(models.Model):
         User, on_delete=models.CASCADE, related_name="testnet_author")
     testnet_user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="testnet_user")
-    slug_original = models.CharField(max_length=65, blank=False, null=False)
+    slug_original = models.CharField(max_length=60, blank=False, null=False)
     network_name = models.CharField(max_length=55, blank=False, null=False)
     network_status = models.CharField(max_length=25, blank=False, null=False)
     description = models.TextField(db_index=True, blank=False, null=False)

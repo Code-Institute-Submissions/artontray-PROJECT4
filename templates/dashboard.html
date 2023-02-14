@@ -151,7 +151,12 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary align-center">
-                    {{ object.username }}
+                    {{ object.username }} 
+                    {% if object.user_info.status == 1 %}
+                        <code>( Connected as Administrator) </code>
+                    {% else %}
+                        <code>( Connected as Normal user) </code>
+                    {% endif %}
                 </h6>
             </div>
             <div class="row">
