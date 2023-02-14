@@ -7,9 +7,18 @@ from django.utils.functional import cached_property
 from django.conf import settings
 
 
-
+# Status User :
+# - 0 : Normal User
+# - 1 : Normal User with Admin role
+# - 2 : Blocked User, cannot do anything on the app
 STATUS = ((0, "User"), (1, "Admin"), (2, "Blocked"))
+# Notification Status
+# - 0 :  Unread Notification : so can be transfered to "Read"
+# - 1 :  Read Notification : cannot be transfered to "Unread" again 
 READ = ((0, "Unread"), (1, "Read"))
+# Testnet Status :
+# 0 : Published on the app
+# 2 : Reported, so not available for copy or edit 
 STATUS_TESTNET = ((0, "published"), (2, "Reported"))
 
 
@@ -76,22 +85,6 @@ class Testnet(models.Model):
         """
         ordering = ['-created_on']
 
-
-    #@property
-   # def is_owner_current_user(self):
-
-       # def sample_view(request):
-       #     current_user = request.user
-
-       # if not hasattr(self, "_is_owner_current_user"):
-          #  self._is_owner_current_user = Testnet.objects.all().filter(slug=self.slug).filter(author=request.user)
-            
-
-       # return self._is_owner_current_user
-
-
-
-
     def __str__(self):
         return f"{self.testnet_name}"
 
@@ -128,7 +121,7 @@ class Notifications(models.Model):
 
 class UserInfo(models.Model):
     """
-    Model for User General Info Table
+    Model for User Info Table
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_info")
     bio = models.TextField()
@@ -146,12 +139,6 @@ class UserInfo(models.Model):
         """
         ordering = ['-user__date_joined']
 
-    @property
-    def is_followed_by_user(self, request):
-        if not hasattr(self, "_is_followed_by_user"):
-            user = UserInfo.objects.get(user=self.user)
-            self._is_followed_by_user = user.following.filter(id=request.user.id).exists()
-
 
     @property
     def user_follows(self):
@@ -160,6 +147,9 @@ class UserInfo(models.Model):
 
     @property
     def is_admin(self):
+        """
+        To display is User is admin or not
+        """
         if self.status == 1:
             return True
         else:

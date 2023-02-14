@@ -9,37 +9,39 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.html import strip_tags
 
+
 class EditUserForm(forms.ModelForm):
+    """
+    Class for User Profile Form :
+    UserInfo Model Form for a User to edit Profile
+    """
     class Meta:
         model = UserInfo
         fields = "__all__"
-        exclude = ['user', 'exp', 'status','following']
-
+        exclude = ['user', 'exp', 'status', 'following']
         widgets = {
-          'bio': forms.Textarea(attrs={'rows':5, 'cols':45}),
-        }
-        
+                'bio': forms.Textarea(attrs={
+                 'rows': 5, 'cols': 45})
+                    }
         labels = {
-            'bio': 'Describe Yourself',
-            'debank': 'Your Debank link',
-            'avatar': 'Avatar',
-
+                'bio': 'Describe Yourself',
+                'debank': 'Your Debank link',
+                'avatar': 'Avatar',
         }
-
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-        
         if not self.instance.pk:
             self.instance.user = self.user
-
+        # Adding class to visible inputs and textarea on the form
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
         self.fields['avatar'].widget.attrs['class'] = ''
-
-        self.fields['bio'].widget.attrs['placeholder'] = 'Describe yourself to share your experience with other Users of the App'
-        self.fields['debank'].widget.attrs['placeholder'] = 'https://debank.com/profile/0x56.....ea'
+        describe = 'Describe yourself to share your experience with other Users'
+        self.fields['bio'].widget.attrs['placeholder'] = describe
+        debank = 'Example https://debank.com/profile/0x56.....ea'
+        self.fields['debank'].widget.attrs['placeholder'] = debank
 
         def clean(self):
             super().clean()
@@ -47,18 +49,28 @@ class EditUserForm(forms.ModelForm):
 
 
 class TestnetForm(forms.ModelForm):
-    #inputTestnetName = forms.CharField(label='Testnet name', max_length=60)
+    """
+    Class for Testnet Model Form :
+    Display of the Form and some attributes
+    """
 
     class Meta:
         model = Testnet
         fields = "__all__"
-        exclude = ['author', 'testnet_user', 'slug_original', 'status_testnet', 'created_on']
-
+        # Exclude thoses inputs from the Form,
+        # it's auto-generated when creating a new Testnet on Testnet Table
+        exclude = [
+            'author', 'testnet_user',
+            'slug_original', 'status_testnet',
+            'created_on'
+                ]
         widgets = {
-          'description': forms.Textarea(attrs={'rows':2, 'cols':45}),
-          'description': forms.TextInput(attrs={'placeholder': 'quick description'})
+          'description': forms.Textarea(attrs={'rows': 2, 'cols': 45}),
+          'description': forms.TextInput(
+                attrs={
+                    'placeholder': 'Quick description of this Testnet'
+                })
         }
-        
         labels = {
             'testnet_name': 'Name *',
             'network_name': 'Network *',
@@ -68,17 +80,14 @@ class TestnetForm(forms.ModelForm):
             'website_user': 'Link with informations about this testnet',
         }
 
-
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-        
         if not self.instance.pk:
             self.instance.author = self.user
             self.instance.testnet_user = self.user
 
-        
-        
+        # Adding class to visible inputs and textarea on the form
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'        
         self.fields['testnet_name'].widget.attrs['placeholder'] = 'Testnet Name'
@@ -122,12 +131,11 @@ class TestnetForm(forms.ModelForm):
         self.fields['wallet2_link'].widget.attrs['placeholder'] = 'Provide a link https://'
         self.fields['tasks_description'].widget.attrs['placeholder'] = 'Give description of what to do to participate to this testnet'
         self.fields['tasks_results'].widget.attrs['placeholder'] = 'Save your transaction links, data about your participation, copy email etc...'
-        
-        #if self.instance.pk:
-            #self.fields['testnet_name'].disabled = True
+        # In case the current user connected is not the author then its a copy
+        # so we disabled all inputs in relation to the testnet
         if not self.instance.author == self.user:
             for input_name in self.fields:
-
+                # array_input will keep all the input available for edition
                 array_input = [
                     'telegram_user',
                     'testnet_name',
@@ -148,9 +156,6 @@ class TestnetForm(forms.ModelForm):
                     'wallet2_clue',
                     'wallet2_password',
                     'wallet2_session'
-
-                    
-
                 ]
 
                 if input_name in array_input:
@@ -158,26 +163,15 @@ class TestnetForm(forms.ModelForm):
                 else:
                     self.fields[input_name].disabled = True
 
-
-
-
     def clean(self):
         super().clean()
 
         if self.instance.pk:
             return self.cleaned_data
 
-        base_slug = slugify(self.cleaned_data["testnet_name"])
-        suffix = 0
-        while True:
-            if not suffix:
-                slug_original = base_slug
-            else:
-                slug_original = "%s-%d" % (base_slug, suffix)
-            if not self._meta.model.objects.filter(slug_original=slug_original).exists():
-                break
-            suffix += 1
-        self.cleaned_data["slug_original"] = slug_original
-        self.instance.slug_original = slug_original
-        
+        # We registered the slug_original which is the same as SLUG
+        # so we keep track on what testnet is an
+        # Original -> if slug == slug_original on the Testnet Table
+        self.cleaned_data["slug_original"] = slugify(self.cleaned_data["testnet_name"])
+        self.instance.slug_original = slugify(self.cleaned_data["testnet_name"])
         return self.cleaned_data

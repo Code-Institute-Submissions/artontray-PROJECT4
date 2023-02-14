@@ -248,7 +248,7 @@ Before starting to code, I wanted to be confident with Django, so I've been star
 Initially, I searched for an appropriate template on [Boostrap Website](https://startbootstrap.com/themes) and created a preliminary static version of the app to determine the placement of elements and to assess the feasibility of the design I created in Balsamiq.
 
 
-I used this template as a basment : [Template Boostrap](https://startbootstrap.com/previews/sb-admin-angular) :
+I used this template as a basment : [Template Boostrap](https://startbootstrap.com/previews/sb-admin-angular) with the following  [License](https://github.com/twbs/bootstrap/blob/main/LICENSE)
 
 
 ![TABLES](static/assets/images/readme-images/bootstrap.png)
@@ -1086,6 +1086,7 @@ Note: If an Admin clicks the "Block" button on another Admin user, that user wil
   To provide a clearer indication of the level of difficulty of a Testnet, users could rate it on a scale of 1 to 5. This way, whether a user is a beginner or an expert, they will be able to determine if a Testnet is too challenging for their skill level. The actual difficulty score would be determined by the average of all users' ratings for each Testnet.
 
 
+[Back to top](<#contents>)
 
 # Technologies
 
@@ -1107,7 +1108,7 @@ Note: If an Admin clicks the "Block" button on another Admin user, that user wil
 - [Font Awesome](https://fontawesome.com/) for icons of the App.
 - [GitHub](https://github.com/) to manage agile tool and Hosting of the Code of this App.
 - [Google Fonts](https://fonts.google.com/) to select the perfect font for my App.
-- [PEP8 Validation](http://pep8online.com/) to Python code Validation
+- [PEP8 Validation](https://pep8ci.herokuapp.com/) to Python code Validation
 - [Favicon](https://favicon.io/) to create favicon.
 - [Cloudinary](https://cloudinary.com/) to host images of the App , especially Avatar images from all users
 - [Bootstrap](https://getbootstrap.com/docs/4.6/getting-started/introduction/) to responsiveness and styling of the App, Thanks Bootstrap Team !
@@ -1458,4 +1459,23 @@ As an Admin, I will receive notification(s) when some specific event happens as 
 
 ## Validator HTML CSS PYTHON
 
+# HTML
+
+The HTML validator results is below:
+
+![Test HTML](static/assets/images/readme-images/testinghtml.png)
+
+# CSS
+
+The CSS validator results on the file style.css is below:
+
+![Test CSS](static/assets/images/readme-images/testingcss.png)
+
+# CSS
+
+I used [Pep8 Validator](https://pep8ci.herokuapp.com/) to check my python code, all results below :
+
+* admin.py :
+
+![Python Test](static/assets/images/readme-images/admin.py.test.png)
 
