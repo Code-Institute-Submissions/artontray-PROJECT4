@@ -103,6 +103,8 @@ This application prioritizes bringing all information related to testnets into o
     * [Form Validation](#form-validation)
     * [Error pages](#error-pages)
     * [Bugs](#bugs)
+* [**Deployment**](#deployment)
+
 
 
 
@@ -1835,6 +1837,8 @@ When a normal user is trying to access to restricted area via URL, the following
 ![Errors](static/assets/images/readme-images/adminneeded.png)
 
 
+[Back to top](<#table-of-content>)
+
 ## Bugs
 
 ### Fixed Bugs
@@ -1853,6 +1857,319 @@ I found the solution :
 
 ![Pagination](static/assets/images/readme-images/paginationerror.png)
 
+
+[Back to top](<#table-of-content>)
+
+
 ### UnFixed Bugs
 
 There is no unfixed bugs
+
+
+# Deployment
+
+## Heroku
+
+The project was deployed to [Heroku](https://www.heroku.com). To deploy, please follow the process below:
+
+The site was deployed to Heroku cloud Platform. To be able to run your python program on the web, you need Heroku Cloud platform to host it and deploy. There are severals steps to proceed, please , follow carefully every steps :
+
+1. Follow this link : [Code Institute template](https://github.com/Code-Institute-Org/gitpod-full-template) and then click 'Use this template'.
+
+
+2. Then click 'Create Repository From Template'.
+
+3. Click Green 'Gitpod' button on right side of the page.
+
+
+4. Install Django and libraries. to do that, type the commands below :
+
+<details><summary>Commands to install Django and Libraries</summary>
+
+  * ```pip3 install 'django<4' gunicorn```
+  * ```pip3 install dj_database_url==0.5.0 psycopg2```
+  * ```pip3 install dj3-cloudinary-storage```
+  * ```pip3 install dj3-cloudinary-storage```
+  * ```pip3 install django_extensions```
+
+</details><br />  
+
+5. Create a requirements file.
+
+* ```pip3 freeze --local > requirements.txt```
+
+
+6. Create the project
+
+* ```django-admin startproject TestnetOrganizer .``` - This will create the project TestnetOrganizer ( don't forget the . at the end :-D )
+
+
+7. Create the application into the project.
+
+* ```python3 manage.py startapp app``` - This will create your application named app
+
+
+
+8. Add the application to the file settings.py
+
+![Deploy](static/assets/images/readme-images/deploy1.png)
+
+
+8. Make migrationes
+
+* ```python3 manage.py migrate```
+
+9. Run the server
+
+* ```python3 manage.py runserver```
+
+[Back to top](<#table-of-content>)
+
+**On Heroku + Database + Configuration settings.py**
+
+1. Go to [Heroku](https://www.heroku.com/) and sign in.
+
+2. Create a New app
+
+![Deploy](static/assets/images/readme-images/deploy2.png)
+
+3. Enter a Name for your application (must be unique) and select your Region (Europe)
+
+4. Database : Use [ElephantSQL](https://customer.elephantsql.com/login)
+
+Connnect with your Gmail account or create a new account
+
+5. Create a New instance 
+
+Create a new instance and copy the URL of the created database :
+Looks like this : postgres://yhk....:GqQCQ0h:::::::::::Szx2WPsjdM@manny.db.elephantsql.com/
+
+6. Create env.py
+
+This process is very important. This file should be created and directly considerated as hidden file before commiting on github for first time.
+
+* ```touch env.py```
+
+7. Edit env.py
+
+
+<details><summary>Edit into env.py</summary>
+
+* ```import os```
+* ```os.environ["DATABASE_URL_FROM HEROKU"]=YOUR LINK FROM ELEPHANTSQL```
+* ```os.environ["SECRET_KEY"]= A secret key of your choice```
+
+</details><br />  
+
+8. Now you have created an env.py file, you need to make your Django project aware of it. Open up your settings.py file and add the following code below :
+
+<details><summary>Code for settings.py</summary>
+
+* ```from pathlib import Path```
+* ```import os```
+* ```import dj_database_url```
+* ```if os.path.isfile('env.py'):```
+* ```     import env```
+
+</details><br /> 
+
+![Deploy](static/assets/images/readme-images/deploy3.png)
+
+The if statement here acts as a little protection for the application in case you try to run it without an env.py file present.
+
+9. Secret key
+
+ Remove the insecure secret key provided by Django. Instead, we will reference the variable in the env.py file, so change your SECRET_KEY variable to the following
+
+* ```SECRET_KEY = os.environ.get('SECRET_KEY')```
+ 
+10. Connect Database to Django : on settings.py
+
+Now that is taken care of, we need to hook up your database. We are going to use the dj_database_url import for this, so scroll down in your settings file to the database section.
+Comment out the original DATABASES variable and add the code below, as shown:
+
+![Deploy](static/assets/images/readme-images/deploy5.png)
+
+![Deploy](static/assets/images/readme-images/deploy4.png)
+
+
+11. Images Cloud
+
+Go to [Cloudinary](https://cloudinary.com/) and log in with gmail account or create an account.
+
+Copy your Cloudinary URL and copy it into env.py
+
+* ```os.environ["CLOUDINARY_URL"] = "cloudinary://YOUR LINK"```
+
+12. Migrate and First commit : On terminal
+
+* ```python3 manage.py migrate```
+* ```git add .```
+* ```git commit -m "Initial commit"```
+* ```git push```
+
+13. Go back to heroku
+
+Connect to your app and go Settings and Reveal config Vars as following :
+
+![Deploy](static/assets/images/readme-images/deploy6.png)
+
+14. Add new CONFIG VARS
+
+* ```CLOUDINARY_URL - YOUR LINK```
+* ```DATABASE_URL - YOUR LINK```
+* ```SECRET_KEY - YOUR SECRET KEY (you remember? if not, go back to env.py file)```
+* ```PORT - 8000```
+* ```DISABLE_COLLECTSTATIC - 1```
+
+15. back to settings.py
+
+Enter this into INSTALLED_APPS :
+INSTALLED_APPS = [ ...,
+'cloudinary_storage',
+'django.contrib.staticfiles',
+'cloudinary',
+..., ]
+
+ORDER IS IMPORTANT !
+
+And then Tell Django to use Cloudinary to store media and static files
+
+
+
+* ```STATIC_URL = '/static/'```
+* ```STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'```
+* ```STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]```
+* ```STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')```
+* ```MEDIA_URL = '/media/' ```
+* ```DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'```
+
+* ```TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')```
+
+* ```TEMPLATES = [ {```
+* ```...,```
+* ```'DIRS': [TEMPLATES_DIR],```
+* ```}, ]```
+
+![Deploy](static/assets/images/readme-images/deploy7.png)
+
+* ```ALLOWED_HOSTS = ["codestar-django-blog-project.herokuapp.com", "localhost"]```
+
+To prevent 500 errors during login and registration, you need to make a one more line to your settings.py file:
+* ```ACCOUNT_EMAIL_VERIFICATION = 'none'```
+
+
+16. Create The following folder on the top level directory with **touch** command
+
+media, static, templates
+
+17. What about a Procfile ?? That's right, we need to create a procfile. Remember that Heroku needs a procfile  so that it knows how to run our project. Remember the capital P on Procfile. 
+
+* ```touch Procfile```
+
+And edit it :
+
+web: gunicorn YOUR_APP_NAME.wsgi
+
+18. Deployment commit 
+
+* ```git add .```
+* ```git commit -m “Deployment Commit” ```
+* ```git push```
+
+19. Last step, on Heroku:
+
+- Select your project
+- Click on DEPLOY button
+- Connect your github and select your REPO
+- Click Deploy branch
+
+BOOMMM it's Deployed!!!! Congratulations
+
+
+[Back to top](<#table-of-content>)
+
+
+## How to fork a repository :
+
+If you need to "FORK" a repository:
+
+1. Login in to [GitHub](https://github.com/) and go to https://github.com/artontray/PROJECT4
+2. In the top right corner, click `Fork`
+3. The next page will be the forked version of https://github.com/artontray/PROJECT4 but in your own repository
+
+
+[Back to top](<#table-of-content>)
+
+### How to create a local clone of this project :
+
+The method from cloning a project from GitHub is below:
+
+1. Under the repository’s name, click on the **code** tab.
+2. In the **Clone with HTTPS** section, click on the clipboard icon to copy the given URL.
+
+![To Clone](assets/images/readme-images/clonerepo.png)
+
+3. In your IDE of choice, open **Git Bash**.
+4. Change the current working directory to the location where you want the cloned directory to be made.
+5. Type **git clone**, and then paste the URL copied from GitHub.
+6. Press **enter** and the local clone will be created.
+
+[Back to top](<#contents>)
+
+
+
+
+
+## How To Fork The Repository On GitHub
+
+It is possible to do a independent copy of a GitHub Repository by forking the GitHub account. The copy can then be viewed and it is also possible to do changes in the copy without affecting the original repository. To fork the repository, take these steps:
+
+1. After logging in to GitHub, locate the repository. On the top right side of the page there is a 'Fork' button. Click on the button to create a copy of the original repository.
+
+<details><summary><b>Github Fork</b></summary>
+
+![Fork](readme/assets/images/github_fork.png)
+</details><br />
+
+[Back to top](<#table-of-content>)
+
+
+# Credits
+### Content and Media
+
+
+* The Text of the App is provided by me
+* The favicon came from [Favicon](https://favicon.io/)
+* The images on the App has been created with [Bitmoji](https://www.bitmoji.com/)
+* 
+
+
+
+
+## Best part of this project
+
+To be honest, best parts of my learning progress in this project are the following :
+- Learning more about Python
+- Learning how to interact with database in python
+- Learning Django
+
+
+[Back to top](<#contents>)
+
+# Personal Development
+
+My first experience with Django was initially overwhelming as I tried to navigate the various components such as views.py, urls.py, forms.py, and models.py, and understand their connections. However, after consulting Django's excellent documentation, I gradually became more at ease with the framework. While I recognize that there is still room for improvement in my code, the exciting prospect of eventually making this project available online as a service motivates me to continue updating, enhancing, and refactoring it, rather than letting it languish like an unread book in a library.
+
+
+[Back to top](<#contents>)
+
+# Acknowledgements
+This App was completed as a Portfolio 4 Project for the Full Stack Software Developer Diploma at the [Code Institute](https://codeinstitute.net/).
+As such I would like to thank the Django Team for writing this fantastic documentation for us, the Slack community for the good vibes and my mentor **Precious_Mentor** for the support.
+
+This material has been prepared for educational purposes only.
+
+Damien B.
+
+[Back to top](<#contents>)
