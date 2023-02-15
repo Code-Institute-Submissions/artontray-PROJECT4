@@ -104,7 +104,10 @@ This application prioritizes bringing all information related to testnets into o
     * [Error pages](#error-pages)
     * [Bugs](#bugs)
 * [**Deployment**](#deployment)
-
+* [**Credits**](<#credits>)
+    * [**Content And Media**](<#content-and-media>)
+    * [**Best part of this project**](<#best-part-of-this-project>)
+*  [**Acknowledgements**](<#acknowledgements>)
 
 
 
