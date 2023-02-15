@@ -1094,7 +1094,8 @@ Note: If an Admin clicks the "Block" button on another Admin user, that user wil
 
 * [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) - Provides the functionality for the site.
 * [CSS](https://en.wikipedia.org/wiki/CSS) - Provides the styling for the website.
-* [HTML5](https://en.wikipedia.org/wiki/HTML) - Provides the content and structure for the website.
+* [HTML5](https://en.wikipedia.org/wiki/HTML) - Content and structure of the App.
+* [Javascript](https://www.w3schools.com/js/) - Provides interactive elements on the App.
 
 ## Frameworks and Software
 
@@ -1499,3 +1500,34 @@ I used [Pep8 Validator](https://pep8ci.herokuapp.com/) to check my python code, 
 
 ![Python Test](static/assets/images/readme-images/views.py.test.png)
 
+# Javascript (Optional)
+
+As I haven't created any codes in javascript for this project, I only import javascript file from external sources as :
+- Jquery
+- Fontawesome 
+- bootstrap
+
+![Javascript Test](static/assets/images/readme-images/javascripttest.png)
+
+
+## Lighthouse
+
+I performed a lighthouse test on section of the app :
+
+An example :
+
+![Light House](static/assets/images/readme-images/lighthouse1.png)
+
+![Light House](static/assets/images/readme-images/lighthouse2.png)
+
+
+| Page | Perf | Access. | Best Practices | SEO |
+|:-------:|:--------|:--------|:--------|:--------|
+| Home Page | 91 | 96 | 100 | 98 |
+| Dashboard | 91 | 96 | 100 | 99 |
+| Testnet | 78 | 93 | 100 | 92 |
+| Users | 84 | 96 | 100 | 98 |
+| Show Testnet | 92 | 96 | 100 | 98 |
+| Edit Profile | 95 | 96 | 100 | 98 |
+| Board Users | 94 | 80 | 100 | 90 |
+| Board Testnet | 95 | 96 | 100 | 99 |
