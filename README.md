@@ -1833,3 +1833,26 @@ All regular error pages as 400, 403, 404, 500 are displayed with the same charac
 When a normal user is trying to access to restricted area via URL, the following message is displayed :
 
 ![Errors](static/assets/images/readme-images/adminneeded.png)
+
+
+## Bugs
+
+### Fixed Bugs
+
+- When testing the app, i could see that some of the class could be executed even user are not connected which was creating errors.
+To fix that, I used LoginRequiredMixin to all class which needed a connected user to be executed
+
+- When first time trying to deploy my app on Heroku, I got a problem in relation to my style.css file which was not executed proprelly.
+After hours looking around on the web, someone gave me the solution on Slack : Take away DISABLE_COLLECTSTATIC 1 from VARS on heroku.
+
+- When I was displaying the content on Textfield inputs on my Testnet page, I could see that all the content was displayed inline. After some research i found this technic : {{ object.tasks_description|linebreaks }}. Problem fixed!
+
+- I ve been struggling with pagination for a while. When We search for a Testnet we need to fill up the search input. If result of the research shows more than 8 results, pagination is deployed automatically but if we click on Next page, we loose our research. I had to keep my research into the URL. 
+
+I found the solution :
+
+![Pagination](static/assets/images/readme-images/paginationerror.png)
+
+### UnFixed Bugs
+
+There is no unfixed bugs
