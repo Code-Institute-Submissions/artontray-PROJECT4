@@ -1,3 +1,7 @@
+# Note
+
+To enhance your reading experience of this documentation, we recommend not using the dark mode of Github, as it may display images with distorted colors that do not accurately reflect reality.
+
 # Purpose of this project
 
 Blockchain technology is fascinating to me and I observe the emergence of numerous new applications that are accessible to users for testing purposes. This is known as a Testnet. It provides an opportunity for users to evaluate and provide feedback on the app's features. Once the project is ready for its mainnet release as a stable version, beta testers are usually rewarded with an airdrop.
@@ -91,17 +95,14 @@ This application prioritizes bringing all information related to testnets into o
       * [Python](#python)
     * [Lighthouse](#lighthouse)
     * [Browser Testing](#browser-testing)
-    * [Device Testing](#device-testing)
+    * [Responsiveness Test](#responsiveness-test)
+    * [Browser Compatibility](#browser-compatibility)
     * [Manual Testing](#manual-testing)
       * [Site Navigation](#site-navigation)
-      * [Browse Page](#browse-page)
-      * [Add Testnet](#add-testnet)
-      * [Update Testnet](#update-testnet)
-      * [Prompt Message before significant action](#prompt-message-before-significant-action)
-      * [Admin Board](#admin-board)
-      * [Avoid actions from URL](#avoid-actions-from-url)
+      * [Manual Testing](#manual-testing)
     * [Form Validation](#form-validation)
-    * [error pages](#error-pages)
+    * [Error pages](#error-pages)
+    * [Bugs](#bugs)
 
 
 
@@ -298,7 +299,6 @@ So Cool!
 
 ### User stories
 
-## User Stories
 
 
 First Time Visitor Goals :
@@ -1085,6 +1085,14 @@ Note: If an Admin clicks the "Block" button on another Admin user, that user wil
   ## Testnet notations
   To provide a clearer indication of the level of difficulty of a Testnet, users could rate it on a scale of 1 to 5. This way, whether a user is a beginner or an expert, they will be able to determine if a Testnet is too challenging for their skill level. The actual difficulty score would be determined by the average of all users' ratings for each Testnet.
 
+  ## Password Recovery
+  Password recovery will give the possibility to Users to recover their account via registered email.
+  Step 1 : Register email
+  Step 2 : confirm Email
+  Step 3 : If need to recovery, a link will be sent to this email to activate recovery account.
+
+
+  
 
 [Back to top](<#contents>)
 
@@ -1230,23 +1238,23 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
   *  As a Site User  I can access to a Dashboard where I can find all my informations 
 
   As a Connected User, you have access to a Dashboard where a User can find :
-    - Profile
-    - Experience on the App
-    - Mission to accomplish to level up
-    - 8 Last Testnet Registered (Click "Show More" to see all of them and make a search)
-    - The very Last created Testnet
-    - Followers number
-    - Following Number
-    - Testnet Number
-    - Notification Number and a button to display them all
+    1. Profile
+    2. Experience on the App
+    3. Mission to accomplish to level up
+    4. 8 Last Testnet Registered (Click "Show More" to see all of them and make a search)
+    5. The very Last created Testnet
+    6. Followers number
+    7. Following Number
+    8. Testnet Number
+    9. Notification Number and a button to display them all
 
   *  As a Site User  I can change my profile information like avatar, bio etc...   
 
   As a Connected user, you can edit your profile as many as you want :
 
-  - Description of yourself
-  - Debank adress for others Users to follow you on debank also
-  - Avatar
+  ** Description of yourself
+  . Debank adress for others Users to follow you on debank also
+  . Avatar
 
   The only thing that a User cannot change is the Username. 
   For now, the user cannot change his password either but this functionality will be available in a further update of the app as it was not a "Must have" features from the Agile Methodology.
@@ -1263,8 +1271,8 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
 
   As a connected user, you have access to the "Users" section where you can see :
 
-  - the 20 Most active Users of the App
-  - A search button is available to seek a specific user
+  1. the 20 Most active Users of the App
+  2. A search button is available to seek a specific user
 
   ![user stories test](static/assets/images/readme-images/userstories8.png)
 
@@ -1272,7 +1280,7 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
 
   As a connected User, you can follow and Unfollow other user. If You follow an other user, it will allow you to :
 
-  - Receive a notification when this followed user create a new Testnet.
+    - Receive a notification when this followed user create a new Testnet.
 
   ![user stories test](static/assets/images/readme-images/userstories9.png)
 
@@ -1295,9 +1303,9 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
   ![user stories test](static/assets/images/readme-images/userstories12.png)
 
   The App will look into :
-  - Testnet Name
-  - Testnet Description
-  - Testnet Username
+  1. Testnet Name
+  2. Testnet Description
+  3. Testnet Username
 
   * As a Site User  I can see notifications when i realize an significant action within the app  
 
@@ -1307,25 +1315,25 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
 
   Of course, some notifications are displayed with links to direct access as :
   
-  - A testnet
-  - A user
+  1. A testnet
+  2. A user
 
   * As a Site User  I can see my experience within the app with nice basic statistics   
 
   Yes you can! As a Connected user, you have access to your experience Board where is displayed :
 
-  - Your Exp on the App
-  - Your Tasks status
-  - Your Level on the App
+  1. Your Exp on the App
+  2. Your Tasks status
+  3. Your Level on the App
 
  ![user stories test](static/assets/images/readme-images/userstories14.png)
 
  * As a Site User  I can Create, Edit and delete a Testnet of mine 
 
  As a connected User, you can :
- - Create a new Testnet
- - Edit an existing Testnet of yours
- - Delete a Testnet of yours
+ 1. Create a new Testnet
+ 2. Edit an existing Testnet of yours
+ 3. Delete a Testnet of yours
 
   ![user stories test](static/assets/images/readme-images/userstories15.png)
 
@@ -1369,9 +1377,9 @@ All the created Testnet on the app are available for publishing and are visible 
 *  As a Site User  I can have an access to all my testnet(s) and I can see a different coloring design on each to get to know the difference between "Original", "Copied" or "Reported"   
 
 As a connected User, you have access to "Show My Testnet" where you will see all your Testnet :
-- Original (blue color)
-- Copy by you (Yellow color)
-- Testnet from other, not copied yet by you (Grey color)-> This appears only if you search for a testnet
+1. Original (blue color)
+2. Copy by you (Yellow color)
+3. Testnet from other, not copied yet by you (Grey color)-> This appears only if you search for a testnet
 
 ![user stories test](static/assets/images/readme-images/userstories23.png)
 
@@ -1381,14 +1389,14 @@ As a connected User, you have access to "Show My Testnet" where you will see all
 
 As a connected User, you will have a displayed message each time you execute a significant action within the app as :
 
-- Creation of a Testnet
-- Copy of a Testnet
-- Follow a User
-- Unfollow a user
-- Edit your profile
-- Update a Testnet
-- Delete a Testnet
-- Report a Testnet
+1. Creation of a Testnet
+2. Copy of a Testnet
+3. Follow a User
+4. Unfollow a user
+5. Edit your profile
+6. Update a Testnet
+7. Delete a Testnet
+8. Report a Testnet
 
 This message is displayed always at the same place on the page :
 
@@ -1415,8 +1423,8 @@ An admin cannot create a Testnet with an Other User as Author.
 * As a Site Admin  I can have access to a admin board to manage Testnets and users of the app 
 
 As an Admin, you can access to 2 new buttons on dashboard which are :
-- Board users
-- Board Testnet(s)
+1/ Board users
+2/ Board Testnet(s)
 
 ![user stories test](static/assets/images/readme-images/userstories26.png)
 
@@ -1432,6 +1440,7 @@ This action is made on "Board Testnet(s)" Section.
 *  As a Site Admin  I can give admin role to a normal user    
 
 As an admin, you can give admin role to an other User only if this User is not blocked.
+For more information, please refer to the following section of this documentation : Give Admin role to a User {5}
 
 *  As a Site Admin  I can block users and delete users  
 
@@ -1450,7 +1459,7 @@ Exactly as a normal User.
 
 As an Admin, I will receive notification(s) when some specific event happens as :
 
-- A testnet have been reported
+ **A testnet have been reported**
 
 
 ![user stories test](static/assets/images/readme-images/userstories27.png)
@@ -1500,6 +1509,9 @@ I used [Pep8 Validator](https://pep8ci.herokuapp.com/) to check my python code, 
 
 ![Python Test](static/assets/images/readme-images/views.py.test.png)
 
+[Back to top](<#table-of-content>)
+
+
 # Javascript (Optional)
 
 As I haven't created any codes in javascript for this project, I only import javascript file from external sources as :
@@ -1509,6 +1521,7 @@ As I haven't created any codes in javascript for this project, I only import jav
 
 ![Javascript Test](static/assets/images/readme-images/javascripttest.png)
 
+[Back to top](<#table-of-content>)
 
 ## Lighthouse
 
@@ -1531,3 +1544,292 @@ An example :
 | Edit Profile | 95 | 96 | 100 | 98 |
 | Board Users | 94 | 80 | 100 | 90 |
 | Board Testnet | 95 | 96 | 100 | 99 |
+
+Strange thing : My Errors page as 400.html could not be evaluated by lighthouse :
+
+![Light House](static/assets/images/readme-images/lighthouse404.png)
+
+[Back to top](<#table-of-content>)
+
+## Browser Testing
+
+To ensure that the website was responsive across various screen sizes in both portrait and landscape mode, it was viewed on a range of devices including desktops, laptops, iPhone 8, iPhone XR, and iPads. The website performed as intended and its responsiveness was confirmed using Chrome developer tools on multiple devices.
+
+### Responsiveness Test
+
+The responsive design tests have been tested manually with [Google Chrome DevTools](https://developer.chrome.com/).
+
+| Desktop| Display <1280px | Display >1280px | landscape mode | portrait |
+|:-------:|:--------|:--------|:--------|:--------|
+| Display | &check; | &check; | &check; | &check; |
+
+
+| Tablet | Surface Pro 7 | Nest Hub | iPAD Mini | iPad Air |
+|:-------:|:--------|:--------|:--------|:--------|
+| Display | &check; | &check; | &check; | &check; |
+
+| Phone | Galaxy Galaxy S8+ | Iphone 12 Pro | Iphone SE | Iphone XR |
+|:-------:|:--------|:--------|:--------|:--------|
+| Display | &check; | &check; | &check; | &check; |
+
+[Back to top](<#table-of-content>)
+
+The NavBar is also responsive to different screen size :
+
+1. On small devices :
+
+![Light House](static/assets/images/readme-images/smalldevices.png)
+
+2. Big screen devices
+
+![Light House](static/assets/images/readme-images/bigscreendevice.png)
+
+[Back to top](<#table-of-content>)
+
+[Back to top](<#table-of-content>)
+
+### Browser Compatibility
+
+* Google Chrome Version
+* Mozilla Firefox 
+* Opera Crypto
+
+[Back to top](<#table-of-content>)
+
+### Manual Testing
+
+
+## Site Navigation
+
+* HOME PAGE 
+
+| Element | Action | Result | Checked? |
+|:-------:|:--------|:--------|:--------|
+| Button Connect | Click | Redirect to Log In page | &check; |
+| Button Register | Click | Redirect to Register page | &check; |
+| Button Register (If user connected) | Click | Not visible | &check; |
+| Button Connect (If user connected) | Click | Not visible | &check; |
+| Button Logout (If user connected) | Click | redirect to log out page which need a confirmation to log out | &check; |
+| Button Home | Click | Redirect to Home | &check; |
+| Button Connect to the app | Click | Redirect to Log In page| &check; |
+| Button social facebook | Click | Redirect to the indicated social media webpage in a new window| &check; |
+| Button social twitter | Click | Redirect to the indicated social media webpage in a new window| &check; |
+| Button social instagram | Click | Redirect to the indicated social media webpage in a new window| &check; |
+| Button social google | Click | Redirect to the indicated social media webpage in a new window| &check; |
+| Button social outlook| Click | Redirect to the indicated social media webpage in a new window| &check; |
+
+[Back to top](<#table-of-content>)
+
+* USERS PAGE 
+
+| Element | Action | Result | Checked? |
+|:-------:|:--------|:--------|:--------|
+| Button Search with empty input | Click | Nothing happen | &check; |
+| Button Search with input less than 3 characters | Click | Error Displayed : More than 3 characters | &check; |
+| Button Search with input more than 3 characters | Click | Make a search : Result displayed | &check; |
+| Empty star  | Click | Prompt is displayed to confirm the action : following this user | &check; |
+| Full star  | Click | Prompt is displayed to confirm the action : unfollowing this user | &check; |
+| show button  | Click | Redirect to selected User Dashboard  | &check; |
+
+[Back to top](<#table-of-content>)
+
+* USERS PAGE 
+
+| Element | Action | Result | Checked? |
+|:-------:|:--------|:--------|:--------|
+| Show most popular button | Click | Redirect to same page but displaying most popular testnet | &check; |
+| Button Search a Testnet | Click | Redirect to Testnet User page where a search input is available | &check; |
+| Button Add | Click | Redirect to Add Testnet page where is possible to create a new testnet | &check; |
+| Button Copy | Click | Prompt is displayed to confirm the action : Copy this Testnet | &check; |
+| Button Edit  | Click | Redirect to Edit a testnet page | &check; |
+| If pagination button  | Click | Redirect to Next page or Previous depending on which button you click  | &check; |
+
+[Back to top](<#table-of-content>)
+
+* DASHBOARD PAGE
+
+| Element | Action | Result | Checked? |
+|:-------:|:--------|:--------|:--------|
+| Show Button for notifications | Click | Redirect to Notification page | &check; |
+| Button Edit my profile | Click | Redirect to Edite my profile page | &check; |
+| Button Add a new testnet | Click | Redirect to Add Testnet page where is possible to create a new testnet | &check; |
+| Button Search a Testnet | Click | Redirect to Testnet User page where a search input is available | &check; |
+| Button Show Testnet | Click | Redirect to Testnet Information page | &check; |
+| Button Show More  | Click | Redirect to user Testnet page where a User can see all their created/copy testnet | &check; |
+| If Admin : Board Users | Click | Redirect to Board Users to manage all Users of the app | &check; |
+| If Admin : Board Testnet | Click | Redirect to Board Testnet to manage all Testnet of the app | &check; |
+
+[Back to top](<#table-of-content>)
+
+* EDIT PROFILE PAGE
+
+| Element | Action | Result | Checked? |
+|:-------:|:--------|:--------|:--------|
+| Button SAVE MY PROFILE | Click | Redirect to Dashboard with no changes on the profile | &check; |
+| Button SAVE MY PROFILE and edit inputs | Click | Redirect to Dashboard and modifications registered | &check; |
+| Button SAVE MY PROFILE and at least one empty input | Click | Error message : Empty field | &check; |
+| Button choose file for avatar | Click | Open a prompt to choose a picture on your desktop | &check; |
+| Button CANCEL | Click | Redirect to Dashboard, no modification realized on profile | &check; |
+
+[Back to top](<#table-of-content>)
+
+* ADD / EDIT TESTNET PAGE
+
+| Element | Action | Result | Checked? |
+|:-------:|:--------|:--------|:--------|
+| Button CREATE THIS TESTNET with empty required inputs | Click | Error message : empty field | &check; |
+| Button CANCEL | Click | Redirect to Dashboard, no new Testnet created | &check; |
+| Button CANCEL | Click | Redirect to Dashboard, no new Testnet created | &check; |
+
+[Back to top](<#table-of-content>)
+
+* SHOW A TESTNET PAGE
+
+| Element | Action | Result | Checked? |
+|:-------:|:--------|:--------|:--------|
+| Button REPORT when logged user is author | Click | Button disabled : no action | &check; |
+| Button REPORT when logged user is not author | Click | prompt is displayed to confirm the action : report this testnet | &check; |
+| Button COPY | Click | Redirect to Add a Testnet page | &check; |
+| Button DELETE when logged user is author | Click | prompt is displayed to confirm the action : delete this testnet | &check; |
+| Button EDIT when logged user is author | Click | Redirect to Add/Edit a Testnet page | &check; |
+| Button DELETE when logged user is not the author | Click | Button not visible : No action | &check; |
+| Button EDIT when logged user is not the author | Click | Button not visible : No action | &check; |
+
+[Back to top](<#table-of-content>)
+
+* BOARD USERS PAGE (ADMIN)
+
+| Element | Action | Result | Checked? |
+|:-------:|:--------|:--------|:--------|
+| Button Search with empty input | Click | Nothing happen | &check; |
+| Button Search with input less than 3 characters | Click | Error Displayed : More than 3 characters | &check; |
+| Button Search with input more than 3 characters | Click | Make a search : Result displayed | &check; |
+| Button Show all blocked Users | Click | Redirect to same page but displaying all blocked Users | &check; |
+| Button Delete User | Click | A prompt is displayed to confirm action : delete the selected user | &check; |
+| Button Unblock User | Click | A prompt is displayed to confirm action : Unblock the selected user | &check; |
+| Button View User | Click | Redirect to Selected User Dashboard | &check; |
+| Button Admin User (If selected user is not blocked) | Click | A prompt is displayed to confirm action : Give the selected user Admin role | &check; |
+| Button Kick as Admin (If selected user is not blocked and already admin) | Click | A prompt is displayed to confirm action : kick out the selected user from Admin role | &check; |
+| Button Block user (If selected user is not blocked) | Click | A prompt is displayed to confirm action : block selected user from Admin role | &check; |
+
+[Back to top](<#table-of-content>)
+
+* BOARD TESTNET PAGE (ADMIN)
+
+| Element | Action | Result | Checked? |
+|:-------:|:--------|:--------|:--------|
+| Button Search with empty input | Click | Nothing happen | &check; |
+| Button Search with input less than 3 characters | Click | Error Displayed : More than 3 characters | &check; |
+| Button Search with input more than 3 characters | Click | Make a search : Result displayed | &check; |
+| Button Show all Reported Testnet | Click | Redirect to same page but displaying all reported Testnet | &check; |
+| Button Delete Testnet | Click | A prompt is displayed to confirm action : delete the selected Testnet | &check; |
+| Button Cancel report | Click | A prompt is displayed to confirm action : cancel report of the selected Testnet | &check; |
+| Button View Testnet | Click | Redirect to Show Testnet Page with selected Testnet informations Displaying | &check; |
+| Button Report (If selected testnet is not reported) | Click | A prompt is displayed to confirm action : Report this testnet| &check; |
+
+[Back to top](<#table-of-content>)
+
+## Manual Testing
+
+In order to maintain the coherence of the application and prevent scenarios where disconnected or regular users are able to carry out unauthorized actions, I conduct a comprehensive manual testing of the entire app.
+
+**As a Not connected User**
+For this test we used : 
+- Id of an existing user : 40
+- Slug of an existing Testnet : bibi
+- id of an existing notification : 1601
+
+| Action | Result  | Checked? |
+|:-------:|:--------|:--------|
+| Type incorrect URL on the browser | Typing an incorrect URL on the browser will result a 404 error | &check; |
+| Type users URL to access User section| Typing the users URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type users URL to access Dashboard as /dashboard/admin| Typing the dashboard URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type URL to access Notifications section| Typing the notification URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type URL to access to a Testnet| Typing the Show Testnet URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type URL to access to All new testnet section of the app| Typing the Show New Testnet URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type URL to follow a User| Typing the follow user URL beeing not connected will result : error 404 | &check; |
+| Type URL to update profile| Typing the following URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type URL to unfollow a User| Typing the following URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type URL to block a User : example -> blockuser/40| Typing the following URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type URL to unblock a User| Typing the following URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type URL to delete a User : example -> deleteuser/40| Typing the following URL beeing not connected will result : error 404 | &check; |
+| Type URL to update a notification : example -> /notification/1601/update| Typing the following URL beeing not connected will result : Redirected to Log in Page | &check; |
+| Type URL to Add testnet : example -> addtestnet/| Typing the following URL beeing not connected will result : Error 500 | &check; |
+| Type URL to Copy testnet : example copytestnet/bibi| Typing the following URL beeing not connected will result : Error 404 | &check; |
+| Type URL to delete testnet : example deletetestnet/bibi | Typing the following URL beeing not connected will result : Error 404 | &check; |
+| Type URL to edit testnet : example edittestnet/bibi | Typing the following URL beeing not connected will result : Error 404 | &check; |
+| Type URL to report testnet : example reporttestnet/bibi | Typing the following URL beeing not connected will result : Error 404 | &check; |
+| Type URL to admin users board : example administrateusers/ | Typing the following URL beeing not connected will result : You need to be an admin to access this content message | &check; |
+| Type URL to admin users board : example administratetestnet/ | Typing the following URL beeing not connected will result : You need to be an admin to access this content message | &check; |
+| Type URL to give admin privilege to a user: example giveadmin/40 | Typing the following URL beeing not connected will result : error 403 | &check; |
+
+[Back to top](<#table-of-content>)
+
+**As a connected Normal User**
+For this test we used : 
+- Id of an existing user : 40
+- Slug of an existing Testnet which belong to an other user : bibi
+- id of an existing notification which belong to an other user : 1601
+
+| Action | Result  | Checked? |
+|:-------:|:--------|:--------|
+| Type incorrect URL on the browser | Typing an incorrect URL on the browser will result a 404 error | &check; |
+| Type users URL to access User section| Typing the users URL beeing connected will result : Redirected to Dashboard of the logged user | &check; |
+| Type users URL to access Dashboard as /dashboard/admin| Typing the dashboard URL beeing connected will result : Redirected to Dashboard of the user on URL with limited data displayed | &check; |
+| Type URL to access Notifications section| Typing the notification URL beeing connected will result : Redirected to logged Notification area | &check; |
+| Type URL to access to a Testnet| Typing the Show Testnet URL beeing connected will result : Redirected to Testnet page | &check; |
+| Type URL to access to All new testnet section of the app| Typing the Show New Testnet URL beeing connected will result : Redirected to the correct page| &check; |
+| Type URL to follow a User| Typing the follow user URL beeing connected will result : follow the user | &check; |
+| Type URL to update profile| Typing the following URL beeing connected will result : Redirected to update profile page | &check; |
+| Type URL to unfollow a User| Typing the following URL beeing connected will result : unfollow the user | &check; |
+| Type URL to block a User : example -> blockuser/40| Typing the following URL beeing connected will result : error 404 | &check; |
+| Type URL to unblock a User| Typing the following URL beeing connected will result : error 404 | &check; |
+| Type URL to delete a User : example -> deleteuser/40| Typing the following URL beeing connected will result : error 404 | &check; |
+| Type URL to update a notification : example -> /notification/1601/update| Typing the following URL beeing connected will result : error 404 | &check; |
+| Type URL to Add testnet : example -> addtestnet/| Typing the following URL beeing connected will result : redirect to correct page | &check; |
+| Type URL to Copy testnet : example copytestnet/bibi if testnet is not reported| Typing the following URL beeing connected will result : redirect to correct page for editing the copy | &check; |
+| Type URL to Copy testnet : example copytestnet/bibi if testnet is reported| Typing the following URL beeing connected will result : error 404| &check; |
+| Type URL to delete testnet : example deletetestnet/bibi | Typing the following URL beeing connected will result : You cannot delete this Testnet! Action Aborted... message displayed | &check; |
+| Type URL to edit testnet : example edittestnet/bibi | Typing the following URL beeing connected will result : Error 403 | &check; |
+| Type URL to report testnet : example reporttestnet/bibi | Typing the following URL beeing connected will result : redirect to correct page, testnet reported | &check; |
+| Type URL to admin users board : example administrateusers/ | Typing the following URL beeing connected will result : You need to be an admin to access this content message | &check; |
+| Type URL to admin users board : example administratetestnet/ | Typing the following URL beeing connected will result : You need to be an admin to access this content message | &check; |
+| Type URL to give admin privilege to a user: example giveadmin/40 | Typing the following URL beeing connected will result : error 404 | &check; |
+
+[Back to top](<#table-of-content>)
+
+## Form Validation
+
+**About the New Testnet Form**
+
+To be able to create a new record on Testnet Table, we only need 5 required inputs to be valid :
+* Testnet name
+* Testnet Network
+* Testnet Description
+* Testnet Status
+* Testnet Category
+* Testnet Tasks Description
+
+All scenarios where one of thoses inputs are not valid have been tested :
+- only blank space introduced : empty field message
+- empty input : empty field message
+- Javascript tag introduced into input like <script>alert('bomb')</script> : script will not be executed on the app when displayed
+
+Note: The same test have been executed to Edit profile Form.
+
+[Back to top](<#table-of-content>)
+
+## Error pages
+
+All regular error pages as 400, 403, 404, 500 are displayed with the same character design as the rest of the app :
+
+
+![Errors](static/assets/images/readme-images/error403.png)
+
+![Errors](static/assets/images/readme-images/error404.png)
+
+![Errors](static/assets/images/readme-images/error500.png)
+
+When a normal user is trying to access to restricted area via URL, the following message is displayed :
+
+![Errors](static/assets/images/readme-images/adminneeded.png)

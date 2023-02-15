@@ -5,6 +5,8 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="mb-0 text-xl font-weight-bold badge-primary border-all-around-radius">Dashboard</h1>
 </div>
+
+
 <!-- If User is blocked by Admin we display it -->
 {% if object.user_info.user_status == 2 %}
     {% include "app/inc/user_blocked.html" %}

@@ -805,7 +805,7 @@ class UpdateNotifications(LoginRequiredMixin, View):
         )
 
 
-class ShowTestnet(generic.DetailView):
+class ShowTestnet(LoginRequiredMixin,generic.DetailView):
     """
     This view is used to display User Testnet
     """
@@ -823,7 +823,7 @@ class ShowTestnet(generic.DetailView):
             return self.request.user
 
 
-class ShowNotifications(generic.DetailView):
+class ShowNotifications(LoginRequiredMixin,generic.DetailView):
     """
     This view is used to display All User Notifications
     """
@@ -935,7 +935,7 @@ class AdminitrateUsers(generic.ListView):
         return context
 
 
-class ShowNewTestnetAll(generic.ListView):
+class ShowNewTestnetAll(LoginRequiredMixin,generic.ListView):
     """
     This view is used to display All new Testnet or freshly updated
     """
@@ -975,7 +975,7 @@ class ShowNewTestnetAll(generic.ListView):
         return context
 
 
-class ShowTestnetall(generic.ListView):
+class ShowTestnetall(LoginRequiredMixin,generic.ListView):
     """
     This view is used to display All Testnet from username on URL
     """
@@ -1039,7 +1039,7 @@ class ShowTestnetall(generic.ListView):
         return context
 
 
-class ShowUsers(generic.DetailView):
+class ShowUsers(LoginRequiredMixin,generic.DetailView):
     """
     This view is used to display User from the app (most active order_by 'exp')
     """
@@ -1081,7 +1081,7 @@ class ShowUsers(generic.DetailView):
         return context
 
 
-class ShowDashboard(generic.DetailView):
+class ShowDashboard(LoginRequiredMixin,generic.DetailView):
     """
     This view is used to display User Dashboard informations
     """
