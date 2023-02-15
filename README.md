@@ -994,6 +994,9 @@ If a blocked User try to log in, User will see the following page :
 This is the only thing a blocked user can see, nothing else, not even the dashboard. User interaction within the App
 is reduce to 0.
 
+![blocked User](static/assets/images/readme-images/userblocked.png)
+
+
 If an admin click on "Unblock", a prompt message is displayed :
 
 ![unblock User](static/assets/images/readme-images/unblockuser3.png)
@@ -1530,7 +1533,7 @@ As I haven't created any codes in javascript for this project, I only import jav
 
 ## Lighthouse
 
-I performed a lighthouse test on section of the app :
+I performed a lighthouse test on every section of the app :
 
 An example :
 
@@ -1605,6 +1608,8 @@ The NavBar is also responsive to different screen size :
 
 
 ## Site Navigation
+
+Let's explore how to navigate the App and gain a comprehensive understanding of the available buttons, potential actions, and additional features.
 
 * HOME PAGE 
 
@@ -1826,7 +1831,11 @@ Note: The same test have been executed to Edit profile Form.
 
 ## Error pages
 
-All regular error pages as 400, 403, 404, 500 are displayed with the same character design as the rest of the app :
+Custom Error Pages were designed to enhance the user's experience by providing them with additional details about the error encountered and offering helpful buttons to navigate them back to the website.
+
+For instance, when a 400 Bad Request error occurs, it means that The App is incapable of processing the user's request. In the event of a 403 Page Forbidden error, the user is attempting to access restricted content and must log out and sign in using the appropriate account. A 404 Page Not Found error indicates that the page does not exist, and when a 500 Server Error occurs, The App is presently unable to handle the user's request.
+
+All regular error pages above as 400, 403, 404, 500 are displayed with the same character design as the rest of the app :
 
 
 ![Errors](static/assets/images/readme-images/error403.png)
@@ -1851,6 +1860,8 @@ To fix that, I used LoginRequiredMixin to all class which needed a connected use
 
 - When first time trying to deploy my app on Heroku, I got a problem in relation to my style.css file which was not executed proprelly.
 After hours looking around on the web, someone gave me the solution on Slack : Take away DISABLE_COLLECTSTATIC 1 from VARS on heroku.
+
+- When i was trying to display the selected avatar from cloudinary, the image was not displaying. Been looking around on Slack and found the solution : use enctype="multipart/form-data" on form when uploading the file. Problem fixed!
 
 - When I was displaying the content on Textfield inputs on my Testnet page, I could see that all the content was displayed inline. After some research i found this technic : {{ object.tasks_description|linebreaks }}. Problem fixed!
 
@@ -2028,11 +2039,11 @@ Connect to your app and go Settings and Reveal config Vars as following :
 15. back to settings.py
 
 Enter this into INSTALLED_APPS :
-INSTALLED_APPS = [ ...,
-'cloudinary_storage',
-'django.contrib.staticfiles',
-'cloudinary',
-..., ]
+* ```INSTALLED_APPS = [ ...,```
+* ```'cloudinary_storage',```
+* ```'django.contrib.staticfiles',```
+* ```'cloudinary',```
+* ```..., ]```
 
 ORDER IS IMPORTANT !
 
@@ -2080,9 +2091,14 @@ web: gunicorn YOUR_APP_NAME.wsgi
 * ```git commit -m “Deployment Commit” ```
 * ```git push```
 
-19. Last step, on Heroku:
+19. Just before deploying
+
+Make sure that in Django settings file, DEBUG is False before deploying
+
+20. Last step, on Heroku:
 
 - Select your project
+- Take out the DISABLE_COLLECTSTATIC - 1 FROM CONFIG VARS on HEROKU
 - Click on DEPLOY button
 - Connect your github and select your REPO
 - Click Deploy branch
@@ -2111,7 +2127,7 @@ The method from cloning a project from GitHub is below:
 1. Under the repository’s name, click on the **code** tab.
 2. In the **Clone with HTTPS** section, click on the clipboard icon to copy the given URL.
 
-![To Clone](assets/images/readme-images/clonerepo.png)
+![To Clone](static/assets/images/readme-images/clonerepo.png)
 
 3. In your IDE of choice, open **Git Bash**.
 4. Change the current working directory to the location where you want the cloned directory to be made.
@@ -2121,23 +2137,6 @@ The method from cloning a project from GitHub is below:
 [Back to top](<#contents>)
 
 
-
-
-
-## How To Fork The Repository On GitHub
-
-It is possible to do a independent copy of a GitHub Repository by forking the GitHub account. The copy can then be viewed and it is also possible to do changes in the copy without affecting the original repository. To fork the repository, take these steps:
-
-1. After logging in to GitHub, locate the repository. On the top right side of the page there is a 'Fork' button. Click on the button to create a copy of the original repository.
-
-<details><summary><b>Github Fork</b></summary>
-
-![Fork](readme/assets/images/github_fork.png)
-</details><br />
-
-[Back to top](<#table-of-content>)
-
-
 # Credits
 ### Content and Media
 
@@ -2145,9 +2144,6 @@ It is possible to do a independent copy of a GitHub Repository by forking the Gi
 * The Text of the App is provided by me
 * The favicon came from [Favicon](https://favicon.io/)
 * The images on the App has been created with [Bitmoji](https://www.bitmoji.com/)
-* 
-
-
 
 
 ## Best part of this project

@@ -325,9 +325,9 @@ class CopyTestnet(generic.CreateView):
             add_notification_user(
                 request.user, (
                     f"As <code>{t.copied_nb+1} Users</code> " +
-                    "on the app, You have copied" +
+                    "on the app, You have copied " +
                     f"a Testnet from <code> {testnet_to_copy.author}" +
-                    "</code>called " +
+                    " </code>called " +
                     f"{testnet_to_copy.testnet_name}"), "Testnet copied +1"
                     )
         return HttpResponseRedirect(reverse('update_testnet', args=[slug]))
@@ -507,14 +507,14 @@ class FormTestnetMixin:
                 url = reverse('showtestnet', args=[each_testnet.slug])
                 add_notification_user(
                     each_testnet.testnet_user,
-                    "Update has been deployed" +
+                    "Update has been deployed " +
                     "to one of the Testnet you use : " +
                     f"{each_testnet.testnet_name}, <a href='{url}' " +
                     "target='_blank'><code>Check it out here</code></a>",
                     "Updated testnet +1")
             messages.add_message(self.request, messages.SUCCESS, (
-                "Updated Testnet : All copies of this Testnet have" +
-                "been updated and all User using this testnet got a" +
+                "Updated Testnet : All copies of this Testnet have " +
+                "been updated and all User using this testnet got a " +
                 "Notification about it!")
                 )
 
@@ -566,7 +566,7 @@ class AddFavoriteUser(generic.DetailView):
             "Follower +1")
         url = reverse('dashboard', args=[user_to_follow])
         add_notification_user(
-            self.request.user, "You are now following" +
+            self.request.user, "You are now following " +
             f"<a href='{url}'" + "target='_blank'>" +
             user_to_follow.username + "</a>", "Following +1"
             )
@@ -805,7 +805,7 @@ class UpdateNotifications(LoginRequiredMixin, View):
         )
 
 
-class ShowTestnet(LoginRequiredMixin,generic.DetailView):
+class ShowTestnet(LoginRequiredMixin, generic.DetailView):
     """
     This view is used to display User Testnet
     """
@@ -823,7 +823,7 @@ class ShowTestnet(LoginRequiredMixin,generic.DetailView):
             return self.request.user
 
 
-class ShowNotifications(LoginRequiredMixin,generic.DetailView):
+class ShowNotifications(LoginRequiredMixin, generic.DetailView):
     """
     This view is used to display All User Notifications
     """
@@ -935,7 +935,7 @@ class AdminitrateUsers(generic.ListView):
         return context
 
 
-class ShowNewTestnetAll(LoginRequiredMixin,generic.ListView):
+class ShowNewTestnetAll(LoginRequiredMixin, generic.ListView):
     """
     This view is used to display All new Testnet or freshly updated
     """
@@ -975,7 +975,7 @@ class ShowNewTestnetAll(LoginRequiredMixin,generic.ListView):
         return context
 
 
-class ShowTestnetall(LoginRequiredMixin,generic.ListView):
+class ShowTestnetall(LoginRequiredMixin, generic.ListView):
     """
     This view is used to display All Testnet from username on URL
     """
@@ -1039,7 +1039,7 @@ class ShowTestnetall(LoginRequiredMixin,generic.ListView):
         return context
 
 
-class ShowUsers(LoginRequiredMixin,generic.DetailView):
+class ShowUsers(LoginRequiredMixin, generic.DetailView):
     """
     This view is used to display User from the app (most active order_by 'exp')
     """
@@ -1081,7 +1081,7 @@ class ShowUsers(LoginRequiredMixin,generic.DetailView):
         return context
 
 
-class ShowDashboard(LoginRequiredMixin,generic.DetailView):
+class ShowDashboard(LoginRequiredMixin, generic.DetailView):
     """
     This view is used to display User Dashboard informations
     """
