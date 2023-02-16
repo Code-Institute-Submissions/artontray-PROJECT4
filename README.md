@@ -348,7 +348,7 @@ The user stories for the project are listed below to clarify the significance of
 | Story | action required | Checked? |
 |:-------:|:--------|:--------|
 | As a Site Admin | I can log in and out | &check; |
-| As a Site Admin | I can create, edit and delete a testnet of mine and from others | &check; |
+| As a Site Admin | I can create, edit and delete a testnet of mine and delete testnet(s) from others | &check; |
 | As a Site Admin | I can display all reported Testnet on the Testnet Board | &check; |
 | As a Site Admin | I can cancel report on reported testnet and report none reported testnet | &check; |
 | As a Site Admin | I can give admin role to a normal user  | &check; |
@@ -406,7 +406,7 @@ If User click on Connect button, User will have access to a Connection Form  :
 
 When a user is logged in, User have access to the following resources:
 
-- Users: The user can view all users of the app and perform a search for a specific user.
+- Users: The user can view all most active users of the app and perform a search for a specific user.
 - Testnets: The user can view all testnets of the app, including their own testnets and those of other users. They also have the ability to search for a specific testnet.
 - Dashboard: The user has access to all information related to their account, including their stats and experience points within the app, notifications, profile information, and a list of their latest published testnets.
 - Logout : This button allow to a connected User to log out from the app.
@@ -617,7 +617,7 @@ When a User find a Testnet to participate, User can choose to **Copy** this Test
 - All info about the wallet used to participate as Wallet adress, password, seed phrase etc..
 - All info about the User participation as Transaction links, data , snapshots, email content etc..
 
-All thoses data are only displayed for the User, in any case other Users can see thoses informations.
+All thoses data are only displayed for the User, in any case other Users can see thoses informations (even admin).
 
 User can also Copy an already Copied Testnet so it allow User to participate to same Testnet but with 
 different account informations. When participation is double, the rewards are double also :-D
@@ -702,7 +702,7 @@ When user click on the empty stars, a prompt message will be displayed :
 
 ![follow user](static/assets/images/readme-images/users2.png)
 
-when confirmed, a notification will be send to the fuser that follow but also the followed user :
+when confirmed, a notification will be send to the user that follow but also the followed user :
 
 ![follow user](static/assets/images/readme-images/users5.png)
 
@@ -878,8 +878,7 @@ A footer is always displayed on the bottom of the App with blank target for each
 
 ## Navigation
 
-The navigation as an admin is exactly the same as a normal user. 
-With administration role, a User can access to two new sections :
+The navigation as an admin is exactly the same as a normal user except that with administration role, a User can access to two new sections :
 - Board Users
 - Board Testnet
 
@@ -959,7 +958,7 @@ As you can see, this administration board for users give the user with admin rol
   
 
 * Delete a User from the App {2} :
-  The Admin can permanently remove a user from the app using the "Delete" button. This will result in the deletion of all testnets and copies of the user from the app, and a notification will be sent to all users who have copied testnets from this user. However, before the "Delete" button becomes available, the Admin must first block the user. This added layer of protection helps prevent accidental deletions. Blocking a user temporarily hides their presence on the app, as well as their testnets and dashboard, from other users, giving the Admins time to discuss and make a final decision on the user's status.
+  The Admin can permanently remove a user from the app using the "Delete" button. This will result in the deletion of all testnets and copies of the user from the app, and a notification will be sent to all users who have copied testnets from this user. However, before the "Delete" button becomes available, the Admin must first block the user. This added layer of protection helps prevent accidental deletions. Blocking a user temporarily hides their presence on the app, as well as their testnets and dashboard from other users, giving the Admins time to discuss and make a final decision on the user's status.
 
 Before Deleting User, a prompt will be displayed : 
 
@@ -992,7 +991,7 @@ If a blocked User try to log in, User will see the following page :
 
 
 This is the only thing a blocked user can see, nothing else, not even the dashboard. User interaction within the App
-is reduce to 0.
+is reduce to 0 ( I think I already said this :-D ).
 
 ![blocked User](static/assets/images/readme-images/userblocked.png)
 
@@ -1072,7 +1071,7 @@ If a blocked User try to log in, it will see the following page :
 This is the only thing a blocked user can see, nothing else, not even the dashboard. User interaction within the App
 is reduce to 0.
 
-Note: If an Admin clicks the "Block" button on another Admin user, that user will lose their admin privileges and become a regular, blocked user. To regain their admin status, they will need to be reinstated as an Admin by another Admin
+Note: If an Admin clicks the "Block" button on another Admin user, that user will lose their admin privileges and become a regular, blocked user. To regain their admin status, they will need to be reinstated as an Admin by a User with admin role again.
 
 [Back to top](<#contents>)
 
@@ -1095,9 +1094,9 @@ Note: If an Admin clicks the "Block" button on another Admin user, that user wil
 
   ## Password Recovery
   Password recovery will give the possibility to Users to recover their account via registered email.
-  Step 1 : Register email
-  Step 2 : confirm Email
-  Step 3 : If need to recovery, a link will be sent to this email to activate recovery account.
+  - Step 1 : Register email
+  - Step 2 : confirm Email
+  - Step 3 : If need to recovery, a link will be sent to this email to activate recovery account.
 
 
   
@@ -1133,7 +1132,7 @@ Note: If an Admin clicks the "Block" button on another Admin user, that user wil
 - [HTML Validation](https://validator.w3.org/) to validate HTML code validation
 - [VSCode](https://code.visualstudio.com/) to create the Models Graph of the app
 - [a11y Color Contrast Accessibility Validator](https://color.a11y.com/Contrast/) to test color contrast on the App
-- [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/)to test performance of the App.
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) to test performance of the App.
 - [GitBash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) - Terminal in [Gitpod](https://www.gitpod.io) to push commits to GitHub.
 
 
@@ -1239,30 +1238,30 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
 
   * As a Site User  I can Register as a new user of the App. If already registered, I can log in and log out 
 
-  As a user, you can register to the App giving a username (should be unique) and password, email is optional.
+  * As a user, you can register to the App giving a username (should be unique) and password, email is optional.
 
-  As a user, you can log in to the app with the given username and password you enter when registration process.
+  * As a user, you can log in to the app with the given username and password you enter when registration process.
 
-  *  As a Site User  I can access to a Dashboard where I can find all my informations 
+  * As a Site User  I can access to a Dashboard where I can find all my informations 
 
   As a Connected User, you have access to a Dashboard where a User can find :
-    1. Profile
-    2. Experience on the App
-    3. Mission to accomplish to level up
-    4. 8 Last Testnet Registered (Click "Show More" to see all of them and make a search)
-    5. The very Last created Testnet
-    6. Followers number
-    7. Following Number
-    8. Testnet Number
-    9. Notification Number and a button to display them all
+  1. Profile
+  2. Experience on the App
+  3. Mission to accomplish to level up
+  4. 8 Last Testnet Registered (Click "Show More" to see all of them and make a search)
+  5. The very Last created Testnet
+  6. Followers number
+  7. Following Number
+  8. Testnet Number
+  9. Notification Number and a button to display them all
 
   *  As a Site User  I can change my profile information like avatar, bio etc...   
 
   As a Connected user, you can edit your profile as many as you want :
 
-  ** Description of yourself
-  . Debank adress for others Users to follow you on debank also
-  . Avatar
+  **Description of yourself**
+  1. Debank adress for others Users to follow you on debank also
+  2. Avatar
 
   The only thing that a User cannot change is the Username. 
   For now, the user cannot change his password either but this functionality will be available in a further update of the app as it was not a "Must have" features from the Agile Methodology.
@@ -1300,7 +1299,7 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
 
   As we can see, only limited information(s) are displayed on Other User's Dashboard.
 
-  As a connected User, you can have access to other User's Dashboard from "Users" section also.
+  * As a connected User, you can have access to other User's Dashboard from "Users" section also.
 
   ![user stories test](static/assets/images/readme-images/userstories11.png)
 
@@ -1338,7 +1337,8 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
 
  * As a Site User  I can Create, Edit and delete a Testnet of mine 
 
- As a connected User, you can :
+ * As a connected User, you can :
+
  1. Create a new Testnet
  2. Edit an existing Testnet of yours
  3. Delete a Testnet of yours
@@ -1419,7 +1419,7 @@ This message is displayed always at the same place on the page :
 
 Same as a normal User.
 
-* As a Site Admin  I can create, edit and delete a testnet of mine and from others   
+* As a Site Admin  I can create, edit and delete a testnet of mine and delete testnet from others 
 
 Same as a normal User but with an extra privilege for other's Testnet management.
 An Admin can delete Testnet from others, but cannot edit the user informations inside the Testnet.
@@ -1431,8 +1431,8 @@ An admin cannot create a Testnet with an Other User as Author.
 * As a Site Admin  I can have access to a admin board to manage Testnets and users of the app 
 
 As an Admin, you can access to 2 new buttons on dashboard which are :
-1/ Board users
-2/ Board Testnet(s)
+1. Board users
+2. Board Testnet(s)
 
 ![user stories test](static/assets/images/readme-images/userstories26.png)
 
@@ -1561,7 +1561,7 @@ Strange thing : My Errors page as 400.html could not be evaluated by lighthouse 
 
 ## Browser Testing
 
-To ensure that the website was responsive across various screen sizes in both portrait and landscape mode, it was viewed on a range of devices including desktops, laptops, iPhone 8, iPhone XR, and iPads. The website performed as intended and its responsiveness was confirmed using Chrome developer tools on multiple devices.
+To ensure that the website was responsive across various screen sizes in both portrait and landscape mode, it was viewed on a range of devices including desktops, laptops, iPhone 12 pro, iPhone XR, and iPads. The website performed as intended and its responsiveness was confirmed using Chrome developer tools on multiple devices.
 
 ### Responsiveness Test
 
@@ -1572,9 +1572,9 @@ The responsive design tests have been tested manually with [Google Chrome DevToo
 | Display | &check; | &check; | &check; | &check; |
 
 
-| Tablet | Surface Pro 7 | Nest Hub | iPAD Mini | iPad Air |
-|:-------:|:--------|:--------|:--------|:--------|
-| Display | &check; | &check; | &check; | &check; |
+| Tablet | Surface Pro 7 | Nest Hub | iPAD Mini | iPad Air | landscape mode | portrait |
+|:-------:|:--------|:--------|:--------|:--------|:--------|:--------|
+| Display | &check; | &check; | &check; | &check; |&check; | &check; |
 
 | Phone | Galaxy Galaxy S8+ | Iphone 12 Pro | Iphone SE | Iphone XR |
 |:-------:|:--------|:--------|:--------|:--------|
@@ -1594,7 +1594,9 @@ The NavBar is also responsive to different screen size :
 
 [Back to top](<#table-of-content>)
 
-[Back to top](<#table-of-content>)
+### Contrast Tests
+
+![contrast test](static/assets/images/readme-images/contrasttest.png)
 
 ### Browser Compatibility
 
@@ -1688,7 +1690,9 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | Element | Action | Result | Checked? |
 |:-------:|:--------|:--------|:--------|
 | Button CREATE THIS TESTNET with empty required inputs | Click | Error message : empty field | &check; |
-| Button CANCEL | Click | Redirect to Dashboard, no new Testnet created | &check; |
+| Button CREATE THIS TESTNET with required inputs filled| Click | Redirect to Dashboard, message prompt, testnet created | &check; |
+| Button EDIT THIS TESTNET with empty required inputs | Click | Error message : empty field | &check; |
+| Button EDIT THIS TESTNET with required inputs filled | Click | Redirect to Dashboard, message prompt, testnet updated | &check; |
 | Button CANCEL | Click | Redirect to Dashboard, no new Testnet created | &check; |
 
 [Back to top](<#table-of-content>)
@@ -1744,6 +1748,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 In order to maintain the coherence of the application and prevent scenarios where disconnected or regular users are able to carry out unauthorized actions, I conduct a comprehensive manual testing of the entire app.
 
 **As a Not connected User**
+
 For this test we used : 
 - Id of an existing user : 40
 - Slug of an existing Testnet : bibi
@@ -1776,6 +1781,7 @@ For this test we used :
 [Back to top](<#table-of-content>)
 
 **As a connected Normal User**
+
 For this test we used : 
 - Id of an existing user : 40
 - Slug of an existing Testnet which belong to an other user : bibi
@@ -1801,7 +1807,8 @@ For this test we used :
 | Type URL to Copy testnet : example copytestnet/bibi if testnet is reported| Typing the following URL beeing connected will result : error 404| &check; |
 | Type URL to delete testnet : example deletetestnet/bibi | Typing the following URL beeing connected will result : You cannot delete this Testnet! Action Aborted... message displayed | &check; |
 | Type URL to edit testnet : example edittestnet/bibi | Typing the following URL beeing connected will result : Error 403 | &check; |
-| Type URL to report testnet : example reporttestnet/bibi | Typing the following URL beeing connected will result : redirect to correct page, testnet reported | &check; |
+| Type URL to report testnet : example reporttestnet/bibi (if not the author of this testnet) | Typing the following URL beeing connected will result : redirect to correct page, testnet reported | &check; |
+| Type URL to report testnet : example reporttestnet/bibi (if author of this testnet) | Typing the following URL beeing connected will result : error 404 | &check; |
 | Type URL to admin users board : example administrateusers/ | Typing the following URL beeing connected will result : You need to be an admin to access this content message | &check; |
 | Type URL to admin users board : example administratetestnet/ | Typing the following URL beeing connected will result : You need to be an admin to access this content message | &check; |
 | Type URL to give admin privilege to a user: example giveadmin/40 | Typing the following URL beeing connected will result : error 404 | &check; |
@@ -1822,6 +1829,7 @@ To be able to create a new record on Testnet Table, we only need 5 required inpu
 
 All scenarios where one of thoses inputs are not valid have been tested :
 - only blank space introduced : empty field message
+- one blank spance introduce + legit character : blank space will be deleted automatically
 - empty input : empty field message
 - Javascript tag introduced into input like <script>alert('bomb')</script> : script will not be executed on the app when displayed
 
@@ -1859,7 +1867,11 @@ When a normal user is trying to access to restricted area via URL, the following
 To fix that, I used LoginRequiredMixin to all class which needed a connected user to be executed
 
 - When first time trying to deploy my app on Heroku, I got a problem in relation to my style.css file which was not executed proprelly.
-After hours looking around on the web, someone gave me the solution on Slack : Take away DISABLE_COLLECTSTATIC 1 from VARS on heroku.
+After hours looking around on the web, someone gave me the solution on Slack : Take away DISABLE_COLLECTSTATIC 1 from VARS on heroku. thanks to Joanna Gorska from Slack.
+
+![Errors](static/assets/images/readme-images/bugfixed1.png)
+
+![Errors](static/assets/images/readme-images/bugfixed2.png)
 
 - When i was trying to display the selected avatar from cloudinary, the image was not displaying. Been looking around on Slack and found the solution : use enctype="multipart/form-data" on form when uploading the file. Problem fixed!
 
@@ -1877,7 +1889,19 @@ I found the solution :
 
 ### UnFixed Bugs
 
-There is no unfixed bugs
+I don't known if this is an unfixed bug but i didn't known where to put the following :
+
+some days before I submit my project, i got an email :
+
+![GitGuardian](static/assets/images/readme-images/email1.png)
+
+![GitGuardian](static/assets/images/readme-images/email2.png)
+
+![GitGuardian](static/assets/images/readme-images/email3.png)
+
+I don't understand because i didn't touch or update or remove or edit this file since very first initial deployment as I known how important the first commit with this sensitive file. So, been asking on Slack and Gitguardian showing no secrets incident on the main dashboard of my profile make me feel safe, but still, i would like to understand...
+
+Execpt that, there is no unfixed bugs
 
 
 # Deployment
