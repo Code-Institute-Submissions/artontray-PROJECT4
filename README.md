@@ -1136,7 +1136,7 @@ Note: If an Admin clicks the "Block" button on another Admin user, that user wil
 - [GitBash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) - Terminal in [Gitpod](https://www.gitpod.io) to push commits to GitHub.
 
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 
 ## Libraries
@@ -1160,7 +1160,7 @@ The following libraries are located in the requirements.txt file from the App:
 * [sqlparse](https://pypi.org/project/sqlparse/) - non-validating SQL parser for Python.
 
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 
 ## Tools
@@ -1190,7 +1190,7 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
 
 ![breakpoint](static/assets/images/readme-images/breakpoint3.png)
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 # Testing
 
@@ -1231,7 +1231,7 @@ status of variables. It can be helpful to detect some stupid coding mistakes...
 
   ![user stories test](static/assets/images/readme-images/userstories6.png)
 
-  [Back to top](<#table-of-content>)
+  [Back to top](<#contents>)
 
 
   **As a User** :
@@ -1410,7 +1410,7 @@ This message is displayed always at the same place on the page :
 
 ![user stories test](static/assets/images/readme-images/userstories24.png)
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 
 **As an Admin** :
@@ -1472,7 +1472,7 @@ As an Admin, I will receive notification(s) when some specific event happens as 
 
 ![user stories test](static/assets/images/readme-images/userstories27.png)
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 
 ## Validator HTML CSS PYTHON
@@ -1517,7 +1517,7 @@ I used [Pep8 Validator](https://pep8ci.herokuapp.com/) to check my python code, 
 
 ![Python Test](static/assets/images/readme-images/views.py.test.png)
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 
 # Javascript (Optional)
@@ -1529,7 +1529,7 @@ As I haven't created any codes in javascript for this project, I only import jav
 
 ![Javascript Test](static/assets/images/readme-images/javascripttest.png)
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 ## Lighthouse
 
@@ -1557,7 +1557,7 @@ Strange thing : My Errors page as 400.html could not be evaluated by lighthouse 
 
 ![Light House](static/assets/images/readme-images/lighthouse404.png)
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 ## Browser Testing
 
@@ -1580,7 +1580,7 @@ The responsive design tests have been tested manually with [Google Chrome DevToo
 |:-------:|:--------|:--------|:--------|:--------|
 | Display | &check; | &check; | &check; | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 The NavBar is also responsive to different screen size :
 
@@ -1592,7 +1592,7 @@ The NavBar is also responsive to different screen size :
 
 ![Light House](static/assets/images/readme-images/bigscreendevice.png)
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 ### Contrast Tests
 
@@ -1604,7 +1604,7 @@ The NavBar is also responsive to different screen size :
 * Mozilla Firefox 
 * Opera Crypto
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 ### Manual Testing
 
@@ -1630,7 +1630,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | Button social google | Click | Redirect to the indicated social media webpage in a new window| &check; |
 | Button social outlook| Click | Redirect to the indicated social media webpage in a new window| &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 * USERS PAGE 
 
@@ -1643,7 +1643,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | Full star  | Click | Prompt is displayed to confirm the action : unfollowing this user | &check; |
 | show button  | Click | Redirect to selected User Dashboard  | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 * USERS PAGE 
 
@@ -1656,7 +1656,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | Button Edit  | Click | Redirect to Edit a testnet page | &check; |
 | If pagination button  | Click | Redirect to Next page or Previous depending on which button you click  | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 * DASHBOARD PAGE
 
@@ -1671,7 +1671,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | If Admin : Board Users | Click | Redirect to Board Users to manage all Users of the app | &check; |
 | If Admin : Board Testnet | Click | Redirect to Board Testnet to manage all Testnet of the app | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 * EDIT PROFILE PAGE
 
@@ -1683,7 +1683,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | Button choose file for avatar | Click | Open a prompt to choose a picture on your desktop | &check; |
 | Button CANCEL | Click | Redirect to Dashboard, no modification realized on profile | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 * ADD / EDIT TESTNET PAGE
 
@@ -1695,7 +1695,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | Button EDIT THIS TESTNET with required inputs filled | Click | Redirect to Dashboard, message prompt, testnet updated | &check; |
 | Button CANCEL | Click | Redirect to Dashboard, no new Testnet created | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 * SHOW A TESTNET PAGE
 
@@ -1709,7 +1709,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | Button DELETE when logged user is not the author | Click | Button not visible : No action | &check; |
 | Button EDIT when logged user is not the author | Click | Button not visible : No action | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 * BOARD USERS PAGE (ADMIN)
 
@@ -1726,7 +1726,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | Button Kick as Admin (If selected user is not blocked and already admin) | Click | A prompt is displayed to confirm action : kick out the selected user from Admin role | &check; |
 | Button Block user (If selected user is not blocked) | Click | A prompt is displayed to confirm action : block selected user from Admin role | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 * BOARD TESTNET PAGE (ADMIN)
 
@@ -1741,7 +1741,7 @@ Let's explore how to navigate the App and gain a comprehensive understanding of 
 | Button View Testnet | Click | Redirect to Show Testnet Page with selected Testnet informations Displaying | &check; |
 | Button Report (If selected testnet is not reported) | Click | A prompt is displayed to confirm action : Report this testnet| &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 ## Manual Testing
 
@@ -1778,7 +1778,7 @@ For this test we used :
 | Type URL to admin users board : example administratetestnet/ | Typing the following URL beeing not connected will result : You need to be an admin to access this content message | &check; |
 | Type URL to give admin privilege to a user: example giveadmin/40 | Typing the following URL beeing not connected will result : error 403 | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 **As a connected Normal User**
 
@@ -1813,7 +1813,7 @@ For this test we used :
 | Type URL to admin users board : example administratetestnet/ | Typing the following URL beeing connected will result : You need to be an admin to access this content message | &check; |
 | Type URL to give admin privilege to a user: example giveadmin/40 | Typing the following URL beeing connected will result : error 404 | &check; |
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 ## Form Validation
 
@@ -1835,7 +1835,7 @@ All scenarios where one of thoses inputs are not valid have been tested :
 
 Note: The same test have been executed to Edit profile Form.
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 ## Error pages
 
@@ -1857,7 +1857,7 @@ When a normal user is trying to access to restricted area via URL, the following
 ![Errors](static/assets/images/readme-images/adminneeded.png)
 
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 ## Bugs
 
@@ -1884,7 +1884,7 @@ I found the solution :
 ![Pagination](static/assets/images/readme-images/paginationerror.png)
 
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 
 ### UnFixed Bugs
@@ -1961,7 +1961,7 @@ The site was deployed to Heroku cloud Platform. To be able to run your python pr
 
 * ```python3 manage.py runserver```
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 **On Heroku + Database + Configuration settings.py**
 
@@ -2130,7 +2130,7 @@ Make sure that in Django settings file, DEBUG is False before deploying
 BOOMMM it's Deployed!!!! Congratulations
 
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 
 ## How to fork a repository :
@@ -2142,7 +2142,7 @@ If you need to "FORK" a repository:
 3. The next page will be the forked version of https://github.com/artontray/PROJECT4 but in your own repository
 
 
-[Back to top](<#table-of-content>)
+[Back to top](<#contents>)
 
 ### How to create a local clone of this project :
 
